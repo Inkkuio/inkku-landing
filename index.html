@@ -29,7 +29,7 @@
 }
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--fb);background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.65;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");opacity:.4}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.0}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px}
 
 /* LAYOUT */
@@ -39,9 +39,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 
 /* GLOWS */
 .glows{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.g1{position:absolute;top:-20%;right:-10%;width:70vw;height:70vh;background:radial-gradient(ellipse,rgba(230,57,70,.08),transparent 60%);animation:gp 10s ease-in-out infinite}
-.g2{position:absolute;bottom:-15%;left:-10%;width:55vw;height:55vh;background:radial-gradient(ellipse,rgba(76,201,240,.05),transparent 60%);animation:gp 14s ease-in-out infinite 4s}
-@keyframes gp{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.g1{position:absolute;top:-20%;right:-10%;width:70vw;height:70vh;background:radial-gradient(ellipse,rgba(230,57,70,.08),transparent 60%)}
+.g2{position:absolute;bottom:-15%;left:-10%;width:55vw;height:55vh;background:radial-gradient(ellipse,rgba(76,201,240,.05),transparent 60%)}
+
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;background:rgba(7,7,15,.88);backdrop-filter:blur(22px);border-bottom:1px solid var(--b1);transition:box-shadow .3s}
@@ -53,7 +53,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .logo-tag{font-size:8px;color:var(--t2);letter-spacing:.06em;font-weight:300;margin-top:1px}
 .nav-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red3);border:1px solid rgba(230,57,70,.28);border-radius:20px;padding:3px 11px;font-size:10px;font-weight:600;color:var(--red);letter-spacing:.06em;text-transform:uppercase}
 .nav-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
 
 /* Lang dropdown */
 .lang-wrap{position:relative;flex-shrink:0}
@@ -76,7 +76,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .hero-lockup{display:flex;align-items:center;gap:14px;margin-bottom:24px;animation:up .5s ease both}
 .hero-eye{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--t2);letter-spacing:.06em;animation:up .6s ease .05s both}
 .hero-eye svg{width:8px;height:8px}
-.hero-h{font-family:var(--fd);font-size:clamp(60px,8.5vw,112px);line-height:.88;letter-spacing:.04em;margin-bottom:20px;animation:up .65s ease .08s both}
+.hero-h{font-family:var(--fd);font-size:clamp(60px,8.5vw,112px);line-height:.88;letter-spacing:.04em;margin-bottom:20px;animation:up .5s ease .08s both}
 .hero-h .l2{color:var(--red);display:block}
 .hero-h .jp{display:block;font-family:var(--fs);font-size:.17em;font-weight:300;color:var(--t3);letter-spacing:.25em;margin-top:12px}
 .hero-body{font-size:17px;font-weight:300;color:var(--t2);line-height:1.78;max-width:510px;margin-bottom:32px;animation:up .65s ease .14s both}
@@ -171,7 +171,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:var(--max);margin:0 auto}
 @media(max-width:800px){.feat-grid{grid-template-columns:1fr}}
 .feat{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px 28px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
-.feat:hover{transform:translateY(-4px)}
+.feat:hover{transform:translateY(-2px)}
 .feat.f1:hover{border-color:rgba(230,57,70,.3)}
 .feat.f2:hover{border-color:rgba(76,201,240,.3)}
 .feat.f3:hover{border-color:rgba(45,198,83,.3)}
@@ -196,7 +196,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .shelf-row{display:flex;gap:7px;align-items:flex-end;margin-bottom:10px;padding:12px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;position:relative}
 .shelf-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(135deg,var(--s3),var(--s2));border-radius:0 0 12px 12px}
 .manga-spine{border-radius:3px;position:relative;flex-shrink:0;cursor:pointer;transition:transform .2s}
-.manga-spine:hover{transform:translateY(-8px)}
+.manga-spine:hover{transform:translateY(-4px)}
 .ms-info{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--s1);border:1px solid var(--b2);border-radius:7px;padding:5px 9px;font-size:9px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
 .manga-spine:hover .ms-info{opacity:1}
 /* status dots on spines */
@@ -356,12 +356,18 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 .fbadge{font-family:var(--fm);font-size:8px;color:var(--t3);padding:3px 8px;border-radius:4px;border:1px solid var(--b1)}
 
 /* UTILS */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease}
 .rv.vis{opacity:1;transform:translateY(0)}
 .rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
 
 /* LOGO SVG helper */
 .logo-svg-drop path,.logo-svg-drop line{transition:opacity .2s}
+
+/* Performance optimizations */
+.glows{will-change:auto}
+.hero-inner{contain:layout}
+.features,.collection-sec,.reco-sec,.price-sec{contain:layout style}
+img{loading:lazy;decoding:async}
 </style>
 </head>
 <body>
@@ -1020,7 +1026,37 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 <script>
 const SUPABASE_URL = 'https://gmztkezhpqklcrukufzp.supabase.co'
 const SUPABASE_ANON_KEY = 'sb_publishable_rCbxth1rZDyqiEQNzzFrSQ_8KlgvJxF'
-let count = 2847
+const BASE_COUNT = 2800
+let count = BASE_COUNT
+
+async function fetchRealCount(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'count=exact',
+        'Range': '0-0'
+      }
+    })
+    const rangeHeader = res.headers.get('content-range')
+    if(rangeHeader){
+      const total = parseInt(rangeHeader.split('/')[1]) || 0
+      count = BASE_COUNT + total
+    } else {
+      const data = await res.json()
+      count = BASE_COUNT + (Array.isArray(data) ? data.length : 0)
+    }
+    document.getElementById('proof-count').textContent = count.toLocaleString('fr-FR')
+    const sn = document.getElementById('success-num')
+    if(sn) sn.textContent = count.toLocaleString('fr-FR')
+  } catch(e) {
+    count = BASE_COUNT
+  }
+}
+
+/* INIT */
+fetchRealCount()
 
 /* NAV */
 window.addEventListener('scroll', () => {
@@ -1133,6 +1169,7 @@ async function submitForm(){
   const res = await insertToSupabase({ prenom, nom, pseudo: pseudo.toLowerCase(), email, phone: phone ? `${prefix}${phone.replace(/^0/,'')}` : null, notif_email: notif.email, notif_push: notif.push, notif_sms: notif.sms, is_founder: true })
   if(res.conflict){ btn.disabled=false; btn.textContent='Pseudo ou email déjà utilisé'; return }
   if(res.ok){
+    await fetchRealCount()
     count++
     document.getElementById('success-num').textContent = count.toLocaleString('fr-FR')
     document.getElementById('proof-count').textContent = count.toLocaleString('fr-FR')
