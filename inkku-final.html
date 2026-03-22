@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inkku — Ta mangathèque réinventée</title>
+<meta name="description" content="Inkku gère ta collection de manga, te recommande quoi lire ensuite grâce à l'IA et te trouve le meilleur prix pour compléter ta bibliothèque.">
+<meta property="og:title" content="Inkku — Ta mangathèque réinventée">
+<meta property="og:description" content="Gestion de collection, recommandations IA personnalisées et comparateur de prix manga sur 18 plateformes. 100% gratuit.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07070f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+JP:wght@300;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07070f;--bg2:#0b0b16;--s1:#0f0f1e;--s2:#151526;--s3:#1c1c30;
+  --b1:rgba(255,255,255,.055);--b2:rgba(255,255,255,.10);--b3:rgba(255,255,255,.16);
+  --red:#e63946;--red2:#ff4d5a;--red3:rgba(230,57,70,.14);
+  --gold:#f4a261;--grn:#2dc653;--blu:#4cc9f0;
+  --t1:#eeeef8;--t2:#8484a4;--t3:#3a3a54;
+  --fd:'Bebas Neue',sans-serif;
+  --fs:'Noto Serif JP',serif;
+  --fb:'DM Sans',sans-serif;
+  --fm:'DM Mono',monospace;
+  --max:1120px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--fb);background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.65;min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");opacity:.4}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px}
+
+/* LAYOUT */
+.wrap{position:relative;z-index:1}
+.inner{max-width:var(--max);margin:0 auto;padding:0 32px}
+@media(max-width:600px){.inner{padding:0 18px}}
+
+/* GLOWS */
+.glows{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.g1{position:absolute;top:-20%;right:-10%;width:70vw;height:70vh;background:radial-gradient(ellipse,rgba(230,57,70,.08),transparent 60%);animation:gp 10s ease-in-out infinite}
+.g2{position:absolute;bottom:-15%;left:-10%;width:55vw;height:55vh;background:radial-gradient(ellipse,rgba(76,201,240,.05),transparent 60%);animation:gp 14s ease-in-out infinite 4s}
+@keyframes gp{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;background:rgba(7,7,15,.88);backdrop-filter:blur(22px);border-bottom:1px solid var(--b1);transition:box-shadow .3s}
+.nav-inner{display:flex;align-items:center;width:100%;max-width:var(--max);margin:0 auto;padding:0 32px;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-icon{width:30px;height:30px}
+.logo-word{font-family:var(--fd);font-size:20px;letter-spacing:.1em;line-height:1}
+.logo-word .w{color:var(--t1)}.logo-word .r{color:var(--red)}
+.logo-tag{font-size:8px;color:var(--t2);letter-spacing:.06em;font-weight:300;margin-top:1px}
+.nav-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red3);border:1px solid rgba(230,57,70,.28);border-radius:20px;padding:3px 11px;font-size:10px;font-weight:600;color:var(--red);letter-spacing:.06em;text-transform:uppercase}
+.nav-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Lang dropdown */
+.lang-wrap{position:relative;flex-shrink:0}
+.lang-btn{display:flex;align-items:center;gap:7px;padding:5px 11px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--fb)}
+.lang-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--s1);border:1px solid var(--b2);border-radius:10px;overflow:hidden;z-index:999;min-width:150px;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.lang-opt{padding:8px 14px;font-size:11px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s}
+.lang-opt:hover{background:var(--s3);color:var(--t1)}
+.lang-opt.active{background:rgba(230,57,70,.08);color:var(--t1)}
+.nav-cta{margin-left:auto;padding:8px 20px;border-radius:10px;background:var(--red);color:#fff;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--red2);transform:translateY(-1px)}
+@media(max-width:640px){.nav-badge,.lang-wrap{display:none}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:90px 32px 60px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:52px 52px;mask-image:radial-gradient(ellipse 80% 70% at 50% 0%,black,transparent)}
+.hero-inner{max-width:var(--max);margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 420px;gap:72px;align-items:center}
+@media(max-width:920px){.hero-inner{grid-template-columns:1fr;gap:52px}}
+
+/* Hero left */
+.hero-lockup{display:flex;align-items:center;gap:14px;margin-bottom:24px;animation:up .5s ease both}
+.hero-eye{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--t2);letter-spacing:.06em;animation:up .6s ease .05s both}
+.hero-eye svg{width:8px;height:8px}
+.hero-h{font-family:var(--fd);font-size:clamp(60px,8.5vw,112px);line-height:.88;letter-spacing:.04em;margin-bottom:20px;animation:up .65s ease .08s both}
+.hero-h .l2{color:var(--red);display:block}
+.hero-h .jp{display:block;font-family:var(--fs);font-size:.17em;font-weight:300;color:var(--t3);letter-spacing:.25em;margin-top:12px}
+.hero-body{font-size:17px;font-weight:300;color:var(--t2);line-height:1.78;max-width:510px;margin-bottom:32px;animation:up .65s ease .14s both}
+.hero-body strong{color:var(--t1);font-weight:500}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;animation:up .65s ease .18s both}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--b2);background:var(--s1)}
+.pill svg{width:11px;height:11px;flex-shrink:0}
+.pill.p-red{border-color:rgba(230,57,70,.3);color:var(--red);background:var(--red3)}
+.pill.p-blu{border-color:rgba(76,201,240,.25);color:var(--blu);background:rgba(76,201,240,.06)}
+.pill.p-grn{border-color:rgba(45,198,83,.25);color:var(--grn);background:rgba(45,198,83,.06)}
+.hero-free{font-size:12px;color:var(--grn);display:flex;align-items:center;gap:7px;animation:up .65s ease .24s both}
+
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* WAITLIST CARD */
+.wl-card{background:var(--s1);border:1px solid var(--b2);border-radius:20px;padding:32px;box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);position:relative;overflow:hidden;animation:up .7s ease .1s both}
+.wl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--blu));border-radius:20px 20px 0 0}
+.wl-tag{display:inline-flex;align-items:center;gap:6px;background:var(--red3);border:1px solid rgba(230,57,70,.25);border-radius:16px;padding:3px 11px;font-size:10px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.wl-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);animation:blink 2s ease-in-out infinite}
+.wl-title{font-family:var(--fd);font-size:26px;letter-spacing:.05em;line-height:1.05;margin-bottom:6px}
+.wl-sub{font-size:12px;color:var(--t2);margin-bottom:22px;font-weight:300;line-height:1.6}
+
+/* Form */
+.wl-form{display:flex;flex-direction:column;gap:10px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fl{font-family:var(--fm);font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em}
+.fi-wrap{position:relative}
+.fi-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;opacity:.4;display:flex;align-items:center;justify-content:center}
+.fi-ico svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5}
+.fi{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 12px 11px 34px;font-size:13px;color:var(--t1);font-family:var(--fb);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.fi::placeholder{color:var(--t3)}
+.fi:focus{border-color:rgba(230,57,70,.45);background:var(--s3)}
+.phone-row{display:flex;gap:8px}
+.phone-pre{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:11px 12px;font-size:13px;color:var(--t1);font-family:var(--fm);outline:none;cursor:pointer;flex-shrink:0;-webkit-appearance:none;transition:border-color .2s}
+.phone-pre:focus{border-color:rgba(230,57,70,.35);background:var(--s3)}
+
+/* Notif opts */
+.notif-sec{margin-top:4px}
+.notif-lbl{font-family:var(--fm);font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.notif-opts{display:flex;flex-direction:column;gap:7px}
+.notif-opt{display:flex;align-items:center;gap:11px;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:9px 12px;cursor:pointer;transition:all .2s;user-select:none}
+.notif-opt:hover{border-color:var(--b2);background:var(--s3)}
+.notif-opt.on{border-color:rgba(230,57,70,.3);background:var(--red3)}
+.notif-opt.sms-on{border-color:rgba(76,201,240,.3);background:rgba(76,201,240,.06)}
+.notif-chk{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--b2);background:var(--s3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.notif-opt.on .notif-chk{background:var(--red);border-color:var(--red)}
+.notif-opt.sms-on .notif-chk{background:var(--blu);border-color:var(--blu)}
+.notif-chk svg{width:10px;height:10px;stroke:white;fill:none;stroke-width:2.5;opacity:0;transition:opacity .15s}
+.notif-opt.on .notif-chk svg,.notif-opt.sms-on .notif-chk svg{opacity:1}
+.notif-info{flex:1}
+.notif-title{font-size:11px;font-weight:500}
+.notif-desc{font-size:10px;color:var(--t2);margin-top:1px;font-weight:300}
+.notif-bdg{font-size:8px;font-weight:700;padding:2px 6px;border-radius:4px;flex-shrink:0}
+.nb-email{background:rgba(45,198,83,.12);color:var(--grn);border:1px solid rgba(45,198,83,.2)}
+.nb-push{background:rgba(76,201,240,.12);color:var(--blu);border:1px solid rgba(76,201,240,.2)}
+.nb-sms{background:rgba(230,57,70,.12);color:var(--red);border:1px solid rgba(230,57,70,.2)}
+.sms-note{display:none;background:rgba(76,201,240,.06);border:1px solid rgba(76,201,240,.18);border-radius:8px;padding:8px 11px;font-size:10px;color:var(--t2);line-height:1.55;margin-top:4px}
+.sms-note.show{display:block}
+
+/* Pseudo */
+.pseudo-status{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:600;display:none}
+.pseudo-hint{font-size:9px;color:var(--t3);margin-top:3px;display:none;line-height:1.5}
+
+/* Submit */
+.wl-submit{margin-top:6px;width:100%;padding:13px;border-radius:11px;background:var(--red);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:all .25s;font-family:var(--fb);box-shadow:0 6px 24px rgba(230,57,70,.3)}
+.wl-submit:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 10px 32px rgba(230,57,70,.42)}
+.wl-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.wl-submit svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.wl-terms{font-size:10px;color:var(--t3);text-align:center;margin-top:12px;line-height:1.55}
+.wl-terms a{color:var(--t2);text-decoration:none}
+
+/* Success */
+.wl-success{display:none;text-align:center;padding:20px 12px}
+.wl-success.show{display:flex;flex-direction:column;align-items:center;gap:12px}
+.wl-success-icon{width:60px;height:60px;border-radius:50%;background:rgba(45,198,83,.12);border:1px solid rgba(45,198,83,.25);display:flex;align-items:center;justify-content:center;font-size:26px}
+.wl-success h3{font-family:var(--fd);font-size:24px;letter-spacing:.04em;line-height:1}
+.wl-success p{font-size:12px;color:var(--t2);font-weight:300;line-height:1.65;max-width:280px}
+.success-num{font-family:var(--fd);font-size:40px;letter-spacing:.04em;color:var(--red);line-height:1}
+.founder-badge{background:linear-gradient(135deg,rgba(244,162,97,.08),rgba(230,57,70,.05));border:1px solid rgba(244,162,97,.2);border-radius:10px;padding:12px 16px;text-align:center;width:100%}
+.share-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.share-btn{padding:8px 16px;border-radius:9px;font-size:11px;font-weight:600;border:1px solid var(--b2);background:var(--s2);color:var(--t1);cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .2s}
+.share-btn:hover{background:var(--s3)}
+
+/* ========== FEATURES — 3 piliers ========== */
+.features{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1)}
+.sec-head{text-align:center;max-width:580px;margin:0 auto 64px}
+.eyebrow{font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+.eyebrow.red{color:var(--red)}.eyebrow.blu{color:var(--blu)}.eyebrow.grn{color:var(--grn)}
+.sec-title{font-family:var(--fd);font-size:clamp(42px,5vw,64px);line-height:.95;letter-spacing:.04em;margin-bottom:14px}
+.sec-sub{font-size:16px;color:var(--t2);font-weight:300;line-height:1.75}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:var(--max);margin:0 auto}
+@media(max-width:800px){.feat-grid{grid-template-columns:1fr}}
+.feat{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px 28px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.feat:hover{transform:translateY(-4px)}
+.feat.f1:hover{border-color:rgba(230,57,70,.3)}
+.feat.f2:hover{border-color:rgba(76,201,240,.3)}
+.feat.f3:hover{border-color:rgba(45,198,83,.3)}
+.feat-num{font-family:var(--fd);font-size:80px;letter-spacing:.04em;line-height:1;opacity:.04;position:absolute;top:-10px;right:16px}
+.feat-icon{width:48px;height:48px;border-radius:14px;margin-bottom:18px;display:flex;align-items:center;justify-content:center}
+.feat-icon svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.5}
+.fi1{background:rgba(230,57,70,.1);color:var(--red)}
+.fi2{background:rgba(76,201,240,.1);color:var(--blu)}
+.fi3{background:rgba(45,198,83,.1);color:var(--grn)}
+.feat-h{font-family:var(--fd);font-size:26px;letter-spacing:.04em;margin-bottom:10px}
+.feat-p{font-size:14px;color:var(--t2);font-weight:300;line-height:1.75}
+.feat-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.ftag{font-size:10px;font-weight:500;padding:3px 9px;border-radius:10px;background:var(--s2);border:1px solid var(--b1);color:var(--t2)}
+
+/* ========== COLLECTION SECTION ========== */
+.collection-sec{padding:100px 0;background:var(--bg)}
+.col-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:var(--max);margin:0 auto}
+@media(max-width:900px){.col-layout{grid-template-columns:1fr}}
+
+/* Manga shelf mockup */
+.shelf-mockup{position:relative}
+.shelf-row{display:flex;gap:7px;align-items:flex-end;margin-bottom:10px;padding:12px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;position:relative}
+.shelf-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(135deg,var(--s3),var(--s2));border-radius:0 0 12px 12px}
+.manga-spine{border-radius:3px;position:relative;flex-shrink:0;cursor:pointer;transition:transform .2s}
+.manga-spine:hover{transform:translateY(-8px)}
+.ms-info{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--s1);border:1px solid var(--b2);border-radius:7px;padding:5px 9px;font-size:9px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
+.manga-spine:hover .ms-info{opacity:1}
+/* status dots on spines */
+.ms-dot{position:absolute;top:-4px;right:-4px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--bg2);z-index:5}
+.ms-own{background:var(--grn)}.ms-read{background:var(--blu)}.ms-wish{background:var(--gold)}
+.shelf-legend{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.sl-item{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--t2)}
+.sl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.shelf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.ss{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:12px;text-align:center}
+.ss-v{font-family:var(--fd);font-size:22px;letter-spacing:.04em;line-height:1}
+.ss-l{font-size:9px;color:var(--t2);margin-top:3px;font-family:var(--fm);text-transform:uppercase;letter-spacing:.06em}
+
+/* Collection text */
+.col-text .big{font-family:var(--fd);font-size:clamp(40px,4.5vw,58px);line-height:.95;letter-spacing:.04em;margin-bottom:16px}
+.col-text .big .acc{color:var(--red)}
+.col-text p{font-size:15px;color:var(--t2);font-weight:300;line-height:1.78;margin-bottom:22px}
+.feat-list{display:flex;flex-direction:column;gap:12px}
+.fl-item{display:flex;gap:12px;align-items:flex-start}
+.fl-dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:9px}
+.fl-txt{font-size:14px;color:var(--t2);font-weight:300;line-height:1.65}
+.fl-txt strong{color:var(--t1);font-weight:500}
+
+/* ========== AI RECO SECTION ========== */
+.reco-sec{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1)}
+.reco-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;max-width:var(--max);margin:0 auto}
+@media(max-width:900px){.reco-layout{grid-template-columns:1fr}}
+
+/* Reco cards */
+.reco-card{background:var(--s1);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;margin-bottom:10px;transition:transform .2s}
+.reco-card:hover{transform:translateX(4px)}
+.reco-card.c1{border:1px solid rgba(76,201,240,.22)}
+.reco-card.c2{border:1px solid rgba(230,57,70,.22)}
+.reco-card.c3{border:1px solid rgba(244,162,97,.22)}
+.reco-glow{position:absolute;top:0;right:0;width:60px;height:60px;pointer-events:none}
+.reco-cover{width:52px;height:78px;border-radius:7px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,.08)}
+.reco-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.reco-info{flex:1}
+.reco-label{font-family:var(--fm);font-size:8px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.rl1{color:var(--blu)}.rl2{color:var(--red)}.rl3{color:var(--gold)}
+.reco-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.reco-meta{font-size:10px;color:var(--t2);margin-bottom:6px}
+.reco-reason{font-size:10px;color:var(--t2);line-height:1.5}
+.reco-reason strong{color:var(--t1)}
+.reco-score{text-align:center;flex-shrink:0}
+.rs-val{font-family:var(--fd);font-size:26px;letter-spacing:.04em;line-height:1}
+.rs-lbl{font-size:8px;color:var(--t3);font-family:var(--fm)}
+
+/* Chat bubble example */
+.chat-ex{background:var(--s1);border:1px solid var(--b2);border-radius:14px;overflow:hidden;margin-top:6px}
+.chat-header{padding:10px 14px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:8px}
+.chat-dot{width:7px;height:7px;border-radius:50%;background:var(--grn);animation:blink 2s ease-in-out infinite}
+.chat-title{font-size:10px;font-weight:600}
+.chat-sub{font-size:9px;color:var(--t3);margin-left:auto}
+.chat-msgs{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.cm-user{align-self:flex-end;max-width:82%;background:var(--blu);color:#000;border-radius:12px 12px 2px 12px;padding:9px 12px;font-size:11px;line-height:1.55;font-weight:400}
+.cm-bot{align-self:flex-start;max-width:88%;background:var(--s2);border:1px solid var(--b1);border-radius:12px 12px 12px 2px;padding:9px 12px;font-size:11px;line-height:1.6;color:var(--t1)}
+.chat-footer{padding:7px 14px;border-top:1px solid var(--b1);font-size:9px;color:var(--t3);text-align:center}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;margin-top:10px;background:rgba(76,201,240,.06);border:1px solid rgba(76,201,240,.15);border-radius:14px;padding:4px 11px;font-size:9px;color:var(--blu)}
+
+/* Reco text */
+.reco-text .big{font-family:var(--fd);font-size:clamp(40px,4.5vw,56px);line-height:.95;letter-spacing:.04em;margin-bottom:16px}
+.reco-text .big .acc{color:var(--blu)}
+.reco-text p{font-size:15px;color:var(--t2);font-weight:300;line-height:1.78;margin-bottom:22px}
+
+/* ========== PRICE SECTION ========== */
+.price-sec{padding:100px 0;background:var(--bg);border-top:1px solid var(--b1)}
+.price-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:var(--max);margin:0 auto}
+@media(max-width:900px){.price-layout{grid-template-columns:1fr}}
+.price-demo{background:var(--s1);border:1px solid var(--b1);border-radius:16px;overflow:hidden}
+.pd-header{padding:14px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:12px}
+.pd-cover{width:40px;height:60px;border-radius:6px;overflow:hidden;flex-shrink:0}
+.pd-cover img{width:100%;height:100%;object-fit:cover}
+.pd-name{font-size:13px;font-weight:600}
+.pd-meta{font-size:10px;color:var(--t2);margin-top:2px}
+.pd-best{margin-left:auto;font-family:var(--fd);font-size:20px;letter-spacing:.04em;color:var(--grn)}
+.pd-best-sub{font-size:9px;color:var(--t2);text-align:right}
+.price-rows{padding:10px 12px;display:flex;flex-direction:column;gap:5px}
+.pr{display:flex;align-items:center;gap:10px;padding:9px 11px;background:var(--s2);border:1px solid var(--b1);border-radius:9px}
+.pr.best{background:rgba(45,198,83,.05);border-color:rgba(45,198,83,.25)}
+.pr-shop{flex:1;font-size:11px;font-weight:500}
+.pr-sub{font-size:9px;color:var(--t3);font-weight:300}
+.pr-price{font-family:var(--fd);font-size:16px;letter-spacing:.04em}
+.pr-price.g{color:var(--grn)}
+.pr-bdg{padding:2px 6px;border-radius:4px;font-size:8px;font-weight:700}
+.pb-best{background:rgba(45,198,83,.15);color:var(--grn)}
+.pb-promo{background:rgba(230,57,70,.12);color:var(--red)}
+.pb-std{background:var(--s3);color:var(--t3)}
+.pr-btn{padding:5px 12px;border-radius:7px;background:var(--red);color:#fff;font-size:9px;font-weight:700;border:none;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.pr-btn.ghost{background:var(--s3);color:var(--t3)}
+.pd-alert{padding:10px 16px;border-top:1px solid var(--b1);display:flex;align-items:center;gap:10px;font-size:11px;color:var(--t2);background:rgba(230,57,70,.04)}
+.pd-alert svg{width:14px;height:14px;flex-shrink:0;color:var(--red)}
+.sites-strip{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+.site-tag{padding:4px 11px;border-radius:7px;font-size:10px;font-weight:500;background:var(--s1);border:1px solid var(--b1);color:var(--t2);display:flex;align-items:center;gap:5px}
+.site-dot{width:5px;height:5px;border-radius:50%;background:var(--grn)}
+.price-text .big{font-family:var(--fd);font-size:clamp(40px,4.5vw,56px);line-height:.95;letter-spacing:.04em;margin-bottom:16px}
+.price-text .big .acc{color:var(--grn)}
+.price-text p{font-size:15px;color:var(--t2);font-weight:300;line-height:1.78;margin-bottom:22px}
+
+/* ========== RANG SECTION ========== */
+.rang-sec{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1)}
+.rang-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:var(--max);margin:0 auto}
+@media(max-width:700px){.rang-grid{grid-template-columns:repeat(2,1fr)}}
+.rang-card{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:18px;text-align:center;transition:transform .2s}
+.rang-card:hover{transform:translateY(-3px)}
+.rang-letter{font-family:var(--fd);font-size:40px;letter-spacing:.04em;line-height:1;margin-bottom:5px}
+.rang-name{font-size:11px;font-weight:600;margin-bottom:4px}
+.rang-xp{font-family:var(--fm);font-size:9px;color:var(--t3);line-height:1.5}
+.rang-perk{font-size:10px;color:var(--t2);margin-top:4px;line-height:1.45}
+.rang-monarque{background:linear-gradient(135deg,rgba(244,162,97,.08),rgba(76,201,240,.05),rgba(230,57,70,.06));border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:28px 32px;display:flex;align-items:center;gap:28px;margin-top:12px;position:relative;overflow:hidden}
+.rm-glow{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(244,162,97,.05),transparent 70%);pointer-events:none}
+.rm-title{font-family:var(--fd);font-size:clamp(40px,5vw,56px);letter-spacing:.06em;background:linear-gradient(135deg,#fff,#f4e4b0,var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;flex-shrink:0}
+.rm-body{flex:1;border-left:1px solid rgba(255,255,255,.08);padding-left:28px}
+.rm-xp{font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.rm-limited{padding:2px 10px;border-radius:20px;background:rgba(244,162,97,.12);border:1px solid rgba(244,162,97,.28);font-size:10px;color:var(--gold);font-weight:600}
+.rm-desc{font-size:13px;color:var(--t2);font-weight:300;line-height:1.65}
+
+/* ========== SOCIAL PROOF ========== */
+.proof-sec{padding:60px 0;border-top:1px solid var(--b1);text-align:center}
+.proof-count{font-family:var(--fd);font-size:clamp(54px,7vw,88px);letter-spacing:.04em;color:var(--red);line-height:1}
+.proof-label{font-size:15px;color:var(--t2);font-weight:300;margin-top:6px}
+.proof-avatars{display:flex;justify-content:center;margin-top:18px}
+.pa{width:36px;height:36px;border-radius:50%;border:2px solid var(--bg);overflow:hidden;margin-left:-8px}
+.pa:first-child{margin-left:0}
+.pa img{width:100%;height:100%;object-fit:cover}
+
+/* ========== FINAL CTA ========== */
+.cta-sec{padding:110px 32px;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--b1)}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(230,57,70,.08),transparent 65%);pointer-events:none}
+.cta-kanji{position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);font-family:var(--fs);font-size:220px;opacity:.024;color:#fff;font-weight:900;pointer-events:none;line-height:1;user-select:none}
+.cta-inner{position:relative;z-index:2;max-width:580px;margin:0 auto}
+.cta-h{font-family:var(--fd);font-size:clamp(52px,7vw,86px);line-height:.9;letter-spacing:.04em;margin-bottom:18px}
+.cta-h span{color:var(--red)}
+.cta-p{font-size:16px;color:var(--t2);font-weight:300;line-height:1.75;margin-bottom:36px}
+.cta-form{display:flex;gap:8px;max-width:440px;margin:0 auto 14px}
+.cta-input{flex:1;background:var(--s2);border:1px solid var(--b2);border-radius:11px;padding:13px 16px;font-size:13px;color:var(--t1);font-family:var(--fb);outline:none;transition:border-color .2s;-webkit-appearance:none}
+.cta-input::placeholder{color:var(--t3)}
+.cta-input:focus{border-color:rgba(230,57,70,.45)}
+.cta-btn{padding:13px 22px;border-radius:11px;background:var(--red);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:var(--fb);box-shadow:0 6px 24px rgba(230,57,70,.28)}
+.cta-btn:hover{background:var(--red2);transform:translateY(-1px)}
+@media(max-width:520px){.cta-form{flex-direction:column}}
+.cta-note{font-size:11px;color:var(--t3)}
+
+/* FOOTER */
+footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28px}
+.footer-inner{max-width:var(--max);margin:0 auto}
+.footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:36px}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.footer-tagline{font-size:11px;color:var(--t2);font-weight:300;max-width:220px;line-height:1.6}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{font-size:11px;color:var(--t3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--t2)}
+.footer-bottom{border-top:1px solid var(--b1);padding-top:22px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:10px;color:var(--t3)}
+.footer-affil{font-size:9px;color:var(--t3);max-width:520px;margin-top:5px;line-height:1.55}
+.footer-badges{display:flex;gap:6px}
+.fbadge{font-family:var(--fm);font-size:8px;color:var(--t3);padding:3px 8px;border-radius:4px;border:1px solid var(--b1)}
+
+/* UTILS */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* LOGO SVG helper */
+.logo-svg-drop path,.logo-svg-drop line{transition:opacity .2s}
+</style>
+</head>
+<body>
+<div class="glows"><div class="g1"></div><div class="g2"></div></div>
+
+<div class="wrap">
+
+<!-- NAV -->
+<nav class="nav" id="topnav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <svg class="logo-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z" fill="#0f0f1e"/>
+        <path d="M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2"/>
+        <path d="M20 33C20 31.3 21.2 30 22.7 30C26.5 30 32 31 40 34V56C32 52.8 26.5 51.8 22.7 51.8C21.2 51.8 20 50.5 20 48.8V33Z" fill="#e63946"/>
+        <path d="M60 33C60 31.3 58.8 30 57.3 30C53.5 30 48 31 40 34V56C48 52.8 53.5 51.8 57.3 51.8C58.8 51.8 60 50.5 60 48.8V33Z" fill="#e63946" opacity="0.38"/>
+        <line x1="40" y1="34" x2="40" y2="56" stroke="white" stroke-width="1.5" opacity="0.18"/>
+        <path d="M28 14C23 20 19 28 18 34" stroke="rgba(255,255,255,.12)" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="logo-word"><span class="w">INK</span><span class="r">KU</span></div>
+        <div class="logo-tag">Ta collection. Ton Univers.</div>
+      </div>
+    </a>
+    <div class="nav-badge">En préparation</div>
+    <div class="lang-wrap" id="lang-wrap">
+      <button class="lang-btn" onclick="toggleLang()">
+        <span id="lang-flag">🇫🇷</span> <span id="lang-code">FR</span>
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg>
+      </button>
+      <div class="lang-menu" id="lang-menu">
+        <div class="lang-opt active" onclick="setLang('fr','🇫🇷','FR',this)">🇫🇷 Français</div>
+        <div class="lang-opt" onclick="setLang('en','🇬🇧','EN',this)">🇬🇧 English</div>
+        <div class="lang-opt" onclick="setLang('es','🇪🇸','ES',this)">🇪🇸 Español</div>
+        <div class="lang-opt" onclick="setLang('pt','🇧🇷','PT',this)">🇧🇷 Português</div>
+        <div class="lang-opt" onclick="setLang('de','🇩🇪','DE',this)">🇩🇪 Deutsch</div>
+        <div class="lang-opt" onclick="setLang('it','🇮🇹','IT',this)">🇮🇹 Italiano</div>
+        <div class="lang-opt" onclick="setLang('ja','🇯🇵','JA',this)">🇯🇵 日本語</div>
+        <div class="lang-opt" onclick="setLang('ko','🇰🇷','KO',this)">🇰🇷 한국어</div>
+        <div class="lang-opt" onclick="setLang('zh','🇨🇳','ZH',this)">🇨🇳 中文</div>
+      </div>
+    </div>
+    <a href="#waitlist" class="nav-cta">Rejoindre Inkku</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="inner" style="width:100%;max-width:var(--max);margin:0 auto">
+    <div class="hero-inner">
+      <!-- LEFT -->
+      <div>
+        <!-- Logo lockup -->
+        <div class="hero-lockup">
+          <svg width="52" height="52" viewBox="0 0 80 80" fill="none">
+            <path d="M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z" fill="#0f0f1e"/>
+            <path d="M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="2"/>
+            <path d="M20 33C20 31.3 21.2 30 22.7 30C26.5 30 32 31 40 34V56C32 52.8 26.5 51.8 22.7 51.8C21.2 51.8 20 50.5 20 48.8V33Z" fill="#e63946"/>
+            <path d="M60 33C60 31.3 58.8 30 57.3 30C53.5 30 48 31 40 34V56C48 52.8 53.5 51.8 57.3 51.8C58.8 51.8 60 50.5 60 48.8V33Z" fill="#e63946" opacity="0.38"/>
+            <line x1="40" y1="34" x2="40" y2="56" stroke="white" stroke-width="1.5" opacity="0.18"/>
+            <path d="M28 14C23 20 19 28 18 34" stroke="rgba(255,255,255,.12)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div style="font-family:var(--fd);font-size:clamp(26px,3.2vw,36px);letter-spacing:.12em;line-height:1"><span style="color:var(--t1)">INK</span><span style="color:var(--red)">KU</span></div>
+            <div style="font-size:11px;color:var(--t2);letter-spacing:.06em;font-weight:300;margin-top:3px">インク · Ta collection. Ton Univers.</div>
+          </div>
+        </div>
+
+        <div class="hero-eye">
+          <svg viewBox="0 0 8 8" fill="var(--grn)"><circle cx="4" cy="4" r="3"/></svg>
+          En préparation · Rejoignez les fondateurs Inkku
+        </div>
+
+        <h1 class="hero-h">
+          TA MANGA
+          <span class="l2">RÉINVENTÉE.</span>
+          <span class="jp">インク · 集める · 探す</span>
+        </h1>
+
+        <p class="hero-body">
+          Inkku gère ta bibliothèque manga et webtoon tome par tome, <strong>te recommande exactement quoi lire ensuite</strong> grâce à l'IA, et <strong>compare les prix sur 18 sites</strong> pour que tu complètes ta collection au meilleur tarif.
+        </p>
+
+        <div class="hero-pills">
+          <span class="pill p-red">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19A2 2 0 015.5 17H20"/><path d="M5.5 2H20v20H5.5A2 2 0 013.5 20V4a2 2 0 012-2z"/></svg>
+            Mangathèque intelligente
+          </span>
+          <span class="pill p-blu">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M5 7a2 2 0 004 0"/><circle cx="5.5" cy="5.5" r=".7" fill="currentColor"/><circle cx="8.5" cy="5.5" r=".7" fill="currentColor"/></svg>
+            Recommandations IA
+          </span>
+          <span class="pill p-grn">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 2v10M10 5H4.5a2.5 2.5 0 000 5h5a2.5 2.5 0 010 5H3"/></svg>
+            Meilleur prix garanti
+          </span>
+        </div>
+
+        <div class="hero-free">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="var(--grn)" stroke-width="1.8"><path d="M2 8l4 4 8-8"/></svg>
+          100% gratuit. Manga, manhwa, webtoon.
+        </div>
+      </div>
+
+      <!-- RIGHT — WAITLIST -->
+      <div id="waitlist">
+        <div class="wl-card">
+          <div class="wl-tag">Inkku · Liste d'attente</div>
+          <div class="wl-title">RÉSERVEZ<br>VOTRE PLACE</div>
+          <div class="wl-sub">Accès prioritaire, badge Fondateur et 500 XP offerts à l'ouverture. Votre pseudo réservé dès maintenant.</div>
+
+          <div id="wl-form-wrap">
+            <div class="wl-form" id="wl-form">
+              <div class="form-row">
+                <div class="fg">
+                  <label class="fl">Prénom</label>
+                  <div class="fi-wrap">
+                    <div class="fi-ico"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="3"/><path d="M2 13c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
+                    <input class="fi" type="text" id="inp-prenom" placeholder="Yuki" autocomplete="given-name" required>
+                  </div>
+                </div>
+                <div class="fg">
+                  <label class="fl">Nom</label>
+                  <div class="fi-wrap">
+                    <div class="fi-ico"><svg viewBox="0 0 14 14"><circle cx="7" cy="5" r="3"/><path d="M2 13c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg></div>
+                    <input class="fi" type="text" id="inp-nom" placeholder="Tanaka" autocomplete="family-name" required>
+                  </div>
+                </div>
+              </div>
+              <div class="fg">
+                <label class="fl">Pseudo <span style="color:var(--t3);font-size:8px;text-transform:none;letter-spacing:0">(réservé pour vous au lancement · aucun doublon possible)</span></label>
+                <div class="fi-wrap">
+                  <div class="fi-ico"><svg viewBox="0 0 14 14"><path d="M7 1l1.5 3.5L12 5l-2.5 2.5.5 3.5L7 9.5 4 11l.5-3.5L2 5l3.5-.5z"/></svg></div>
+                  <input class="fi" type="text" id="inp-pseudo" placeholder="yuki_manga" autocomplete="username" required oninput="checkPseudo(this)">
+                  <div class="pseudo-status" id="pseudo-status"></div>
+                </div>
+                <div class="pseudo-hint" id="pseudo-hint"></div>
+              </div>
+              <div class="fg">
+                <label class="fl">Email</label>
+                <div class="fi-wrap">
+                  <div class="fi-ico"><svg viewBox="0 0 14 14"><rect x="1" y="3" width="12" height="9" rx="1"/><path d="M1 4l6 4.5L13 4"/></svg></div>
+                  <input class="fi" type="email" id="inp-email" placeholder="yuki@exemple.fr" autocomplete="email" required>
+                </div>
+              </div>
+              <div class="fg">
+                <label class="fl">Téléphone <span style="color:var(--t3);font-size:8px;text-transform:none;letter-spacing:0">(optionnel · alertes SMS)</span></label>
+                <div class="phone-row">
+                  <select class="phone-pre" id="inp-prefix">
+                    <option value="+33">🇫🇷 +33</option>
+                    <option value="+32">🇧🇪 +32</option>
+                    <option value="+41">🇨🇭 +41</option>
+                    <option value="+352">🇱🇺 +352</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+49">🇩🇪 +49</option>
+                    <option value="+34">🇪🇸 +34</option>
+                    <option value="+39">🇮🇹 +39</option>
+                    <option value="+81">🇯🇵 +81</option>
+                    <option value="+82">🇰🇷 +82</option>
+                  </select>
+                  <div class="fi-wrap" style="flex:1">
+                    <div class="fi-ico"><svg viewBox="0 0 14 14"><rect x="3" y="1" width="8" height="12" rx="2"/><circle cx="7" cy="11" r=".8" fill="currentColor"/></svg></div>
+                    <input class="fi" type="tel" id="inp-phone" placeholder="6 12 34 56 78" autocomplete="tel">
+                  </div>
+                </div>
+              </div>
+
+              <div class="notif-sec">
+                <div class="notif-lbl">Notifications souhaitées</div>
+                <div class="notif-opts">
+                  <div class="notif-opt on" id="opt-email" onclick="toggleNotif(this,'email')">
+                    <div class="notif-chk"><svg viewBox="0 0 10 10"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></div>
+                    <div class="notif-info"><div class="notif-title">Email</div><div class="notif-desc">Sorties manga, alertes prix, recommandations</div></div>
+                    <span class="notif-bdg nb-email">Gratuit</span>
+                  </div>
+                  <div class="notif-opt" id="opt-push" onclick="toggleNotif(this,'push')">
+                    <div class="notif-chk"><svg viewBox="0 0 10 10"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></div>
+                    <div class="notif-info"><div class="notif-title">Push mobile</div><div class="notif-desc">Alertes instantanées sur votre téléphone</div></div>
+                    <span class="notif-bdg nb-push">App mobile</span>
+                  </div>
+                  <div class="notif-opt" id="opt-sms" onclick="toggleNotif(this,'sms')">
+                    <div class="notif-chk"><svg viewBox="0 0 10 10"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></div>
+                    <div class="notif-info"><div class="notif-title">SMS</div><div class="notif-desc">Alertes prioritaires : prix plancher atteint</div></div>
+                    <span class="notif-bdg nb-sms">Optionnel</span>
+                  </div>
+                </div>
+                <div class="sms-note" id="sms-note">SMS activé · Uniquement pour les alertes urgentes. Maximum 4 par mois. Désactivable à tout moment.</div>
+              </div>
+
+              <button class="wl-submit" id="wl-btn" onclick="submitForm()">
+                <svg viewBox="0 0 14 14"><path d="M7 1.5a4 4 0 00-4 4c0 3.5-1.5 4.5-1.5 4.5h11S11 9 11 5.5a4 4 0 00-4-4z"/><path d="M5.5 11.5a1.5 1.5 0 003 0"/></svg>
+                Rejoindre la liste d'attente
+              </button>
+              <div class="wl-terms">En vous inscrivant, vous acceptez notre <a href="#">politique de confidentialité</a>. Aucune carte bancaire. Désabonnement en un clic.</div>
+            </div>
+          </div>
+
+          <div class="wl-success" id="wl-success">
+            <div class="wl-success-icon">🎉</div>
+            <h3>Vous êtes inscrit !</h3>
+            <p>Votre pseudo est réservé et votre badge Fondateur est enregistré. Vous serez notifié en priorité à l'ouverture d'Inkku.</p>
+            <div>
+              <div class="success-num" id="success-num">2 847</div>
+              <div style="font-size:11px;color:var(--t2)">personnes avant vous dans la liste</div>
+            </div>
+            <div class="founder-badge">
+              <div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:3px">🏆 Badge Fondateur enregistré</div>
+              <div style="font-size:10px;color:var(--t2)">500 XP offerts · Accès prioritaire · Pseudo <span id="success-pseudo" style="color:var(--t1);font-weight:600"></span> réservé</div>
+            </div>
+            <div class="share-btns">
+              <button class="share-btn" onclick="shareTweet()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.748-8.87L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Partager sur X
+              </button>
+              <button class="share-btn" onclick="copyUrl()">
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 7a3 3 0 004.24 0l2-2a3 3 0 00-4.24-4.24l-1 1"/><path d="M9 7a3 3 0 00-4.24 0l-2 2a3 3 0 004.24 4.24l1-1"/></svg>
+                Copier le lien
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 PILLIERS -->
+<section class="features">
+  <div class="inner">
+    <div class="sec-head rv">
+      <div class="eyebrow red">La plateforme</div>
+      <h2 class="sec-title">TOUT POUR TA<br>COLLECTION.</h2>
+      <p class="sec-sub">Trois fonctionnalités au cœur d'Inkku. Chacune pensée pour t'aider à collectionner mieux, lire plus, et dépenser moins.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat f1 rv">
+        <div class="feat-num">01</div>
+        <div class="feat-icon fi1">
+          <svg viewBox="0 0 24 24"><path d="M4 19A2 2 0 015.5 17H20"/><path d="M5.5 2H20v20H5.5A2 2 0 013.5 20V4a2 2 0 012-2z"/></svg>
+        </div>
+        <div class="feat-h">Mangathèque</div>
+        <p class="feat-p">Gère ta collection tome par tome. Statuts en temps réel : possédé, lu, en cours, wishlist. Visualise ta progression sur chaque série, la valeur de ta bibliothèque et tes objectifs de lecture.</p>
+        <div class="feat-tags">
+          <span class="ftag">Import MangaCollec</span>
+          <span class="ftag">Scan photo IA</span>
+          <span class="ftag">Calendrier sorties</span>
+          <span class="ftag">Alertes email</span>
+        </div>
+      </div>
+      <div class="feat f2 rv d1">
+        <div class="feat-num">02</div>
+        <div class="feat-icon fi2">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12a4 4 0 008 0"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        </div>
+        <div class="feat-h">IA Recommandations</div>
+        <p class="feat-p">L'IA analyse ta bibliothèque complète et te suggère exactement ce que tu vas adorer lire ensuite. Tu peux aussi discuter avec l'agent pour affiner tes découvertes en temps réel selon tes envies du moment.</p>
+        <div class="feat-tags">
+          <span class="ftag">Analyse bibliothèque</span>
+          <span class="ftag">Agent conversationnel</span>
+          <span class="ftag">Score d'affinité</span>
+          <span class="ftag">Manga · Manhwa · Webtoon</span>
+        </div>
+      </div>
+      <div class="feat f3 rv d2">
+        <div class="feat-num">03</div>
+        <div class="feat-icon fi3">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="feat-h">Meilleur Prix</div>
+        <p class="feat-p">Pour chaque manga que tu veux acheter ou compléter, Inkku compare en temps réel les prix sur 18 plateformes. Tu reçois une alerte dès que le prix baisse sous ton seuil. Tu paies moins, tu collectionnes plus.</p>
+        <div class="feat-tags">
+          <span class="ftag">18 sites comparés</span>
+          <span class="ftag">Alertes prix</span>
+          <span class="ftag">Amazon · Fnac · Cultura</span>
+          <span class="ftag">Rakuten · Manga Sanctuary</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTION SECTION -->
+<section class="collection-sec">
+  <div class="inner">
+    <div class="col-layout">
+      <!-- Visual -->
+      <div class="rv">
+        <!-- Shelf row 1 -->
+        <div class="shelf-row">
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#8b0000,#3d0000)">
+            <div class="ms-info">Berserk T.01</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#660000,#2a0000)">
+            <div class="ms-info">Berserk T.02</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#700000,#300000)">
+            <div class="ms-info">Berserk T.03</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#001f5c,#000a28)">
+            <div class="ms-info">Vinland T.01</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#001a4a,#000820)">
+            <div class="ms-info">Vinland T.02</div>
+            <div class="ms-dot ms-read"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#001533,#00061a)">
+            <div class="ms-info">Vinland T.03</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#cc4400,#661100)">
+            <div class="ms-info">Naruto T.01</div>
+            <div class="ms-dot ms-read"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#aa3300,#550d00)">
+            <div class="ms-info">Naruto T.02</div>
+            <div class="ms-dot ms-read"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#1a0030,#0a0015)">
+            <div class="ms-info">JJK T.01</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#150025,#08000f)">
+            <div class="ms-info">JJK T.02</div>
+            <div class="ms-dot ms-wish"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#001a0d,#000d06)">
+            <div class="ms-info">Dungeon T.01</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+          <div class="manga-spine" style="width:18px;height:110px;background:linear-gradient(180deg,#00150a,#000804)">
+            <div class="ms-info">Dungeon T.02</div>
+            <div class="ms-dot ms-own"></div>
+          </div>
+        </div>
+
+        <div class="shelf-legend">
+          <div class="sl-item"><div class="sl-dot ms-own"></div>Possédé</div>
+          <div class="sl-item"><div class="sl-dot ms-read" style="background:var(--blu)"></div>Lu</div>
+          <div class="sl-item"><div class="sl-dot ms-wish" style="background:var(--gold)"></div>Wishlist</div>
+        </div>
+
+        <div class="shelf-stats">
+          <div class="ss"><div class="ss-v" style="color:var(--red)">342</div><div class="ss-l">Tomes</div></div>
+          <div class="ss"><div class="ss-v" style="color:var(--grn)">28</div><div class="ss-l">Séries</div></div>
+          <div class="ss"><div class="ss-v" style="color:var(--gold)">1 247€</div><div class="ss-l">Valeur</div></div>
+        </div>
+      </div>
+      <!-- Text -->
+      <div class="col-text rv d1">
+        <div class="eyebrow red">Mangathèque</div>
+        <h2 class="big">TA COLLECTION<br>VISUALISÉE <span class="acc">TOME</span><br><span class="acc">PAR TOME.</span></h2>
+        <p>Plus jamais de doublon, plus jamais de tome manquant. Inkku garde la mémoire exacte de ce que tu possèdes, ce que tu as lu, et ce qui te manque pour compléter chaque série.</p>
+        <div class="feat-list">
+          <div class="fl-item"><div class="fl-dot"></div><div class="fl-txt"><strong>Import en un clic</strong> depuis MangaCollec, ou scan photo IA de ta bibliothèque pour démarrer en quelques minutes.</div></div>
+          <div class="fl-item"><div class="fl-dot"></div><div class="fl-txt"><strong>Calendrier des sorties</strong> : toutes les nouvelles parutions françaises, standard, deluxe, collector et intégrale, avec alertes automatiques pour les séries que tu suis.</div></div>
+          <div class="fl-item"><div class="fl-dot"></div><div class="fl-txt"><strong>Valeur estimée</strong> de ta collection en temps réel basée sur les prix du marché.</div></div>
+          <div class="fl-item"><div class="fl-dot"></div><div class="fl-txt"><strong>Pile à lire</strong> et objectifs de lecture mensuels pour rester motivé.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI RECO SECTION -->
+<section class="reco-sec">
+  <div class="inner">
+    <div class="reco-layout">
+      <!-- Left cards + chat -->
+      <div class="rv">
+        <!-- Card 1 - Vinland Saga -->
+        <div class="reco-card c1">
+          <div class="reco-glow" style="background:radial-gradient(circle,rgba(76,201,240,.1),transparent 70%)"></div>
+          <div class="reco-cover" style="background:linear-gradient(160deg,#8b0000,#4a0000)">
+            <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" onerror="this.style.display='none'">
+          </div>
+          <div class="reco-info">
+            <div class="reco-label rl1">Recommandé par Inki · Agent IA</div>
+            <div class="reco-title">Vinland Saga</div>
+            <div class="reco-meta">Makoto Yukimura · Seinen · Aventure historique</div>
+            <div class="reco-reason">Parce que tu as adoré <strong>Berserk</strong> et <strong>Vagabond</strong></div>
+          </div>
+          <div class="reco-score"><div class="rs-val" style="color:var(--blu)">98%</div><div class="rs-lbl">Affinité</div></div>
+        </div>
+
+        <!-- Card 2 - Monster -->
+        <div class="reco-card c2">
+          <div class="reco-glow" style="background:radial-gradient(circle,rgba(230,57,70,.08),transparent 70%)"></div>
+          <div class="reco-cover" style="background:linear-gradient(160deg,#0a0a14,#040408)">
+            <img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg" alt="Monster" onerror="this.style.display='none'">
+          </div>
+          <div class="reco-info">
+            <div class="reco-label rl2">Découverte · Analyse bibliothèque</div>
+            <div class="reco-title">Monster</div>
+            <div class="reco-meta">Naoki Urasawa · Seinen · Thriller psychologique</div>
+            <div class="reco-reason">Même profondeur morale que <strong>Vagabond</strong>, tension sans violence gratuite</div>
+          </div>
+          <div class="reco-score"><div class="rs-val" style="color:var(--red)">96%</div><div class="rs-lbl">Affinité</div></div>
+        </div>
+
+        <!-- Card 3 - Habitant de l'Infini -->
+        <div class="reco-card c3">
+          <div class="reco-glow" style="background:radial-gradient(circle,rgba(244,162,97,.08),transparent 70%)"></div>
+          <div class="reco-cover" style="background:linear-gradient(160deg,#1a0a00,#0d0500)">
+            <img src="https://cdn.myanimelist.net/images/manga/2/38735l.jpg" alt="Habitant de l'Infini" onerror="this.style.display='none'">
+          </div>
+          <div class="reco-info">
+            <div class="reco-label rl3">Connexion forte · Ton profil</div>
+            <div class="reco-title">L'Habitant de l'Infini</div>
+            <div class="reco-meta">Hiroaki Samura · Seinen · Samouraï</div>
+            <div class="reco-reason">Ton amour du dessin au trait de <strong>Vagabond</strong> rend ce titre incontournable</div>
+          </div>
+          <div class="reco-score"><div class="rs-val" style="color:var(--gold)">93%</div><div class="rs-lbl">Affinité</div></div>
+        </div>
+
+        <!-- IA badge -->
+        <div class="ai-badge">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M5.5 8a2.5 2.5 0 005 0"/><circle cx="6" cy="6" r=".8" fill="currentColor"/><circle cx="10" cy="6" r=".8" fill="currentColor"/></svg>
+          Agent Inki · s'affine à chaque tome ajouté
+        </div>
+
+        <!-- Chat example -->
+        <div class="chat-ex" style="margin-top:10px">
+          <div class="chat-header">
+            <div class="chat-dot"></div>
+            <span class="chat-title">Inki — Agent IA en action</span>
+            <span class="chat-sub">Exemple réel</span>
+          </div>
+          <div class="chat-msgs">
+            <div class="cm-user">J'ai adoré Berserk et Vagabond. Je cherche quelque chose de fort mais sans la violence extrême.</div>
+            <div class="cm-bot">Ce que tu aimes dans ces deux œuvres c'est la profondeur des personnages, la quête de sens et un dessin qui raconte autant que le texte. Je te recommande <strong>Vinland Saga</strong> (98%) : Thorfinn ressemble à Guts dans sa descente, mais l'arc final bascule vers la rédemption. Tu préfères un univers historique ou contemporain pour la suite ?</div>
+            <div class="cm-user">Plutôt contemporain, j'aime le côté psychologique de Vagabond.</div>
+            <div class="cm-bot"><strong>Monster de Naoki Urasawa</strong> (96%) : zéro violence gratuite, une tension psychologique aussi intense que Vagabond dans ses moments de doute. L'un des rares mangas qui te force à te demander ce qu'est le bien.</div>
+          </div>
+          <div class="chat-footer">Inki comprend ce que tu aimes vraiment, pas seulement les genres déclarés</div>
+        </div>
+      </div>
+
+      <!-- Right text -->
+      <div class="reco-text rv d1" style="position:sticky;top:88px">
+        <div class="eyebrow blu">Recommandations IA</div>
+        <h2 class="big">L'IA QUI SAIT<br><span class="acc">QUOI LIRE</span><br>ENSUITE.</h2>
+        <p>Inkku ne te donne pas une liste générique. L'agent IA analyse l'intégralité de ta bibliothèque, tes notes, tes genres et tes auteurs favoris pour te proposer exactement ce qui va te captiver.</p>
+        <div class="feat-list">
+          <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Analyse automatique</strong> de ta bibliothèque complète : genres, auteurs, rythme de lecture, notes personnelles.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Agent conversationnel Inki</strong> : discute en direct pour affiner tes envies du moment. Il pose les bonnes questions et mémorise tes préférences.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Tous les formats</strong> : manga, manhwa, manhua, webtoon. Les recommandations traversent les formats et les origines.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Score d'affinité précis</strong> basé sur tes vrais goûts, avec une explication claire de chaque suggestion.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>S'améliore en continu</strong> : chaque tome ajouté, chaque échange avec Inki rend les prochaines suggestions encore plus précises.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE SECTION -->
+<section class="price-sec">
+  <div class="inner">
+    <div class="price-layout">
+      <!-- Text -->
+      <div class="price-text rv">
+        <div class="eyebrow grn">Comparateur de prix</div>
+        <h2 class="big">COMPLÈTE TA<br>COLLECTION AU<br><span class="acc">MEILLEUR PRIX.</span></h2>
+        <p>L'IA te dit quoi acheter. Inkku te trouve où l'acheter le moins cher. Prix comparés en temps réel sur 18 plateformes : grands distributeurs, pure players et spécialistes manga.</p>
+        <div class="feat-list">
+          <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>18 sites en temps réel</strong> : Amazon, Fnac, Cultura, E.Leclerc, Carrefour, Auchan, Rakuten, Manga Sanctuary, CDSon, Izneo et plus.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>Alertes prix personnalisées</strong> : définis ton prix cible pour chaque tome et reçois une notification dès qu'il est atteint.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>Historique des prix</strong> pour savoir si tu achètes au bon moment ou si tu dois attendre.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>14€ économisés par mois</strong> en moyenne par collectionneur actif. La collection se finance elle-même.</div></div>
+        </div>
+        <!-- Sites strip -->
+        <div class="sites-strip">
+          <span class="site-tag"><span class="site-dot"></span>Amazon</span>
+          <span class="site-tag"><span class="site-dot"></span>Fnac</span>
+          <span class="site-tag"><span class="site-dot"></span>Cultura</span>
+          <span class="site-tag"><span class="site-dot"></span>E.Leclerc</span>
+          <span class="site-tag"><span class="site-dot"></span>Carrefour</span>
+          <span class="site-tag"><span class="site-dot"></span>Auchan</span>
+          <span class="site-tag"><span class="site-dot"></span>Rakuten</span>
+          <span class="site-tag"><span class="site-dot"></span>Manga Sanctuary</span>
+          <span class="site-tag"><span class="site-dot"></span>+ 10 autres</span>
+        </div>
+      </div>
+
+      <!-- Price demo -->
+      <div class="rv d1">
+        <div class="price-demo">
+          <div class="pd-header">
+            <div class="pd-cover" style="background:linear-gradient(160deg,#8b0000,#4a0000)">
+              <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" onerror="this.style.display='none'">
+            </div>
+            <div>
+              <div class="pd-name">Vinland Saga T.13</div>
+              <div class="pd-meta">Makoto Yukimura · Kana · Seinen</div>
+            </div>
+            <div>
+              <div class="pd-best" style="color:var(--grn)">7,20€</div>
+              <div class="pd-best-sub" style="font-size:9px;color:var(--t2)">meilleur prix</div>
+            </div>
+          </div>
+          <div class="price-rows">
+            <div class="pr best">
+              <div><div class="pr-shop">Cultura</div><div class="pr-sub">livraison 0€ · en stock</div></div>
+              <span class="pr-bdg pb-best">Meilleur</span>
+              <div class="pr-price g">7,20€</div>
+              <a href="#" class="pr-btn">Voir</a>
+            </div>
+            <div class="pr">
+              <div><div class="pr-shop">E.Leclerc</div><div class="pr-sub">livraison 0€ · en stock</div></div>
+              <span class="pr-bdg pb-std">Retrait</span>
+              <div class="pr-price">7,49€</div>
+              <a href="#" class="pr-btn ghost">Voir</a>
+            </div>
+            <div class="pr">
+              <div><div class="pr-shop">Amazon.fr</div><div class="pr-sub">livraison 0€ Prime</div></div>
+              <span class="pr-bdg pb-promo">Promo</span>
+              <div class="pr-price">7,51€</div>
+              <a href="#" class="pr-btn ghost">Voir</a>
+            </div>
+            <div class="pr">
+              <div><div class="pr-shop">Fnac</div><div class="pr-sub">livraison 2,99€</div></div>
+              <span class="pr-bdg pb-std">Standard</span>
+              <div class="pr-price">7,90€</div>
+              <a href="#" class="pr-btn ghost">Voir</a>
+            </div>
+            <div class="pr">
+              <div><div class="pr-shop">Manga Sanctuary</div><div class="pr-sub">livraison 3,50€</div></div>
+              <span class="pr-bdg pb-std">Standard</span>
+              <div class="pr-price">7,90€</div>
+              <a href="#" class="pr-btn ghost">Voir</a>
+            </div>
+          </div>
+          <div class="pd-alert">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 1.5a4 4 0 00-4 4c0 3.5-1.5 4.5-1.5 4.5h11S11 9 11 5.5a4 4 0 00-4-4z"/><path d="M5.5 11.5a1.5 1.5 0 003 0"/></svg>
+            Alerte prix activée · vous serez notifié si le prix passe sous 7,00€
+          </div>
+        </div>
+        <div style="margin-top:10px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+          <div style="font-family:var(--fd);font-size:28px;letter-spacing:.04em;color:var(--grn);flex-shrink:0">14€</div>
+          <div style="font-size:12px;color:var(--t2);font-weight:300;line-height:1.6">économisés en moyenne par collectionneur actif et par mois grâce au comparateur Inkku</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RANG & PRESTIGE -->
+<section class="rang-sec">
+  <div class="inner">
+    <div class="sec-head rv">
+      <div class="eyebrow" style="color:var(--gold)">Rang & Prestige</div>
+      <h2 class="sec-title">DE RANG E<br><span style="color:var(--gold)">À MONARQUE.</span></h2>
+      <p class="sec-sub">Chaque tome ajouté, chaque avis donné, chaque défi remporté te rapporte des XP. Grimpe les rangs et débloque des avantages exclusifs.</p>
+    </div>
+    <div class="rang-grid rv">
+      <div class="rang-card"><div class="rang-letter" style="color:var(--t3)">E</div><div class="rang-name" style="color:var(--t2)">Rang E</div><div class="rang-xp">0 XP</div><div class="rang-perk">Accès complet gratuit</div></div>
+      <div class="rang-card"><div class="rang-letter" style="color:var(--t2)">D</div><div class="rang-name" style="color:var(--t2)">Rang D</div><div class="rang-xp">200 XP</div><div class="rang-perk">Badge de profil</div></div>
+      <div class="rang-card" style="border-color:rgba(76,201,240,.15)"><div class="rang-letter" style="color:var(--blu)">C</div><div class="rang-name" style="color:var(--blu)">Rang C</div><div class="rang-xp">600 XP</div><div class="rang-perk">Cadre de profil animé</div></div>
+      <div class="rang-card" style="border-color:rgba(76,201,240,.2)"><div class="rang-letter" style="color:var(--blu)">B</div><div class="rang-name" style="color:var(--blu)">Rang B</div><div class="rang-xp">1 500 XP</div><div class="rang-perk">Classement Elite</div></div>
+      <div class="rang-card" style="background:linear-gradient(135deg,rgba(230,57,70,.05),var(--s1));border-color:rgba(230,57,70,.18)"><div class="rang-letter" style="color:var(--red)">A</div><div class="rang-name" style="color:var(--red)">Rang A</div><div class="rang-xp">4 000 XP</div><div class="rang-perk">Alertes prioritaires</div></div>
+      <div class="rang-card" style="background:linear-gradient(135deg,rgba(244,162,97,.07),var(--s1));border-color:rgba(244,162,97,.2)"><div class="rang-letter" style="color:var(--gold)">S</div><div class="rang-name" style="color:var(--gold)">Rang S</div><div class="rang-xp">10 000 XP</div><div class="rang-perk">Titre doré · Accès bêta</div></div>
+      <div class="rang-card" style="background:linear-gradient(135deg,rgba(244,162,97,.1),rgba(230,57,70,.05));border-color:rgba(244,162,97,.3);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(244,162,97,.08),transparent 70%);pointer-events:none"></div><div class="rang-letter" style="background:linear-gradient(135deg,var(--gold),var(--red2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:32px">SS</div><div class="rang-name" style="color:var(--gold)">Rang SS</div><div class="rang-xp">25 000 XP</div><div class="rang-perk">Newsletter mensuelle</div></div>
+      <div class="rang-card" style="background:linear-gradient(135deg,rgba(244,162,97,.14),rgba(255,107,53,.08));border-color:rgba(244,162,97,.4);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(244,162,97,.12),transparent 65%);pointer-events:none"></div><div class="rang-letter" style="background:linear-gradient(135deg,#fff8e1,var(--gold),#ff8c5a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:26px">SSS</div><div class="rang-name" style="color:var(--gold)">Rang SSS</div><div class="rang-xp">60 000 XP</div><div class="rang-perk">Légende</div></div>
+    </div>
+    <!-- Monarque -->
+    <div class="rang-monarque rv d2">
+      <div class="rm-glow"></div>
+      <div class="rm-title">MONARQUE</div>
+      <div class="rm-body">
+        <div class="rm-xp">150 000 XP <span class="rm-limited">Limité à 500 personnes</span></div>
+        <div class="rm-desc">Cadre de profil légendaire animé, accès à vie à toutes les fonctionnalités futures, consultation sur les nouvelles fonctionnalités et badge permanent. Une fois les 500 places atteintes, le rang Monarque est fermé définitivement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<div class="proof-sec">
+  <div class="inner rv">
+    <div class="proof-count" id="proof-count">2 847</div>
+    <div class="proof-label">lecteurs déjà sur la liste d'attente</div>
+    <div class="proof-avatars">
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/9/131317.jpg" onerror="this.parentNode.style.background='#cc4400'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/5/261379.jpg" onerror="this.parentNode.style.background='#1a0030'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/2/284121.jpg" onerror="this.parentNode.style.background='#8b0000'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/16/11739.jpg" onerror="this.parentNode.style.background='#1a0000'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/3/72472.jpg" onerror="this.parentNode.style.background='#001f5c'"></div>
+      <div class="pa" style="background:var(--s3)"><div style="font-size:9px;color:var(--t2);display:flex;align-items:center;justify-content:center;height:100%">+2k</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="cta-sec">
+  <div class="cta-glow"></div>
+  <div class="cta-kanji">本</div>
+  <div class="cta-inner rv">
+    <div class="eyebrow red" style="text-align:center">Rejoignez Inkku</div>
+    <h2 class="cta-h">COMMENCEZ<br><span>MAINTENANT.</span></h2>
+    <p class="cta-p">Votre bibliothèque mérite mieux qu'un tableau Excel. Inscrivez votre email, réservez votre pseudo, et soyez parmi les premiers à accéder à Inkku à l'ouverture.</p>
+    <div class="cta-form">
+      <input type="email" id="cta-email" class="cta-input" placeholder="votre@email.fr" autocomplete="email">
+      <button class="cta-btn" onclick="submitCta()">Je rejoins</button>
+    </div>
+    <div class="cta-note">Aucune carte bancaire · 100% gratuit · Désabonnement en un clic</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <svg width="26" height="26" viewBox="0 0 80 80" fill="none">
+            <path d="M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z" fill="#0f0f1e"/>
+            <path d="M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+            <path d="M20 33C20 31.3 21.2 30 22.7 30C26.5 30 32 31 40 34V56C32 52.8 26.5 51.8 22.7 51.8C21.2 51.8 20 50.5 20 48.8V33Z" fill="#e63946"/>
+            <path d="M60 33C60 31.3 58.8 30 57.3 30C53.5 30 48 31 40 34V56C48 52.8 53.5 51.8 57.3 51.8C58.8 51.8 60 50.5 60 48.8V33Z" fill="#e63946" opacity="0.38"/>
+            <line x1="40" y1="34" x2="40" y2="56" stroke="white" stroke-width="1.5" opacity="0.18"/>
+            <path d="M28 14C23 20 19 28 18 34" stroke="rgba(255,255,255,.12)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span style="font-family:var(--fd);font-size:19px;letter-spacing:.1em"><span style="color:var(--t1)">INK</span><span style="color:var(--red)">KU</span></span>
+        </div>
+        <div class="footer-tagline">L'encre qui rassemble tout. La plateforme manga et webtoon disponible partout dans le monde.</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">CGU</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">Cookies</a>
+        <a href="#">Mentions légales</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-copy">© 2026 Inkku. Fait avec soin pour les collectionneurs du monde entier.</div>
+        <div class="footer-affil">* Partenaire Amazon EU · Commission sur achats qualifiés sans surcoût pour vous. Données hébergées en Europe, conformité RGPD.</div>
+      </div>
+      <div class="footer-badges">
+        <span class="fbadge">EU hosted</span>
+        <span class="fbadge">RGPD</span>
+        <span class="fbadge">Gratuit</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</div><!-- .wrap -->
+
+<script>
+const SUPABASE_URL = 'https://gmztkezhpqklcrukufzp.supabase.co'
+const SUPABASE_ANON_KEY = 'sb_publishable_rCbxth1rZDyqiEQNzzFrSQ_8KlgvJxF'
+let count = 2847
+
+/* NAV */
+window.addEventListener('scroll', () => {
+  document.getElementById('topnav').style.boxShadow = window.scrollY > 10 ? '0 4px 28px rgba(0,0,0,.5)' : 'none'
+})
+
+/* REVEAL */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target) }
+}), { threshold: .07 })
+document.querySelectorAll('.rv').forEach(el => io.observe(el))
+
+/* LANG */
+function toggleLang(){
+  const m = document.getElementById('lang-menu')
+  m.style.display = m.style.display === 'block' ? 'none' : 'block'
+}
+function setLang(code, flag, label, el){
+  document.getElementById('lang-flag').textContent = flag
+  document.getElementById('lang-code').textContent = label
+  document.getElementById('lang-menu').style.display = 'none'
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'))
+  el.classList.add('active')
+}
+document.addEventListener('click', e => {
+  if(!document.getElementById('lang-wrap')?.contains(e.target)){
+    const m = document.getElementById('lang-menu')
+    if(m) m.style.display = 'none'
+  }
+})
+
+/* NOTIF TOGGLES */
+const notif = { email: true, push: false, sms: false }
+function toggleNotif(el, type){
+  const on = el.classList.toggle('on')
+  if(type === 'sms') el.classList.toggle('sms-on', on)
+  notif[type] = on
+  document.getElementById('sms-note').classList.toggle('show', notif.sms)
+  if(type === 'sms' && on) document.getElementById('inp-phone').focus()
+}
+
+/* PSEUDO CHECK */
+let pt = null
+function checkPseudo(input){
+  const val = input.value.trim().toLowerCase()
+  const st = document.getElementById('pseudo-status')
+  const ht = document.getElementById('pseudo-hint')
+  if(val.length < 3){
+    st.style.display = 'none'
+    ht.style.display = val.length > 0 ? 'block' : 'none'
+    ht.style.color = 'var(--t3)'
+    ht.textContent = '3 caractères minimum.'
+    return
+  }
+  if(!/^[a-zA-Z0-9_]+$/.test(val)){
+    st.style.display = 'block'; st.style.color = 'var(--red)'; st.textContent = '✗ Invalide'
+    ht.style.display = 'block'; ht.style.color = 'var(--t3)'; ht.textContent = 'Lettres, chiffres et _ uniquement.'
+    return
+  }
+  clearTimeout(pt)
+  st.style.display = 'block'; st.style.color = 'var(--t3)'; st.textContent = '…'; ht.style.display = 'none'
+  pt = setTimeout(async () => {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?pseudo=eq.${encodeURIComponent(val)}&select=pseudo`,
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } })
+      const d = await r.json()
+      if(d && d.length > 0){
+        st.style.color = 'var(--red)'; st.textContent = '✗ Déjà réservé'
+        ht.style.display = 'block'; ht.style.color = 'var(--red)'; ht.textContent = 'Ce pseudo est déjà pris. Choisissez-en un autre.'
+      } else {
+        st.style.color = 'var(--grn)'; st.textContent = '✓ Disponible — réservé pour vous'
+        ht.style.display = 'block'; ht.style.color = 'var(--t3)'
+        ht.textContent = 'Ce pseudo vous sera réservé dès votre inscription.'
+      }
+    } catch {
+      st.style.color = 'var(--grn)'; st.textContent = '✓ Disponible — réservé pour vous'
+      ht.style.display = 'block'; ht.style.color = 'var(--t3)'
+      ht.textContent = 'Ce pseudo vous sera réservé dès votre inscription.'
+    }
+  }, 500)
+}
+
+/* SUPABASE */
+async function insertToSupabase(data){
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'return=minimal' },
+      body: JSON.stringify(data)
+    })
+    if(r.status === 409) return { ok: false, conflict: true }
+    return { ok: r.ok }
+  } catch { return { ok: true } }
+}
+
+/* SUBMIT MAIN FORM */
+async function submitForm(){
+  const prenom = document.getElementById('inp-prenom').value.trim()
+  const nom = document.getElementById('inp-nom').value.trim()
+  const pseudo = document.getElementById('inp-pseudo').value.trim()
+  const email = document.getElementById('inp-email').value.trim()
+  const prefix = document.getElementById('inp-prefix').value
+  const phone = document.getElementById('inp-phone').value.trim()
+  const btn = document.getElementById('wl-btn')
+  if(!prenom || !nom){ return }
+  if(!pseudo || pseudo.length < 3 || !/^[a-zA-Z0-9_]+$/.test(pseudo)){ document.getElementById('inp-pseudo').focus(); return }
+  if(!email || !email.includes('@')){ document.getElementById('inp-email').style.borderColor='var(--red)'; document.getElementById('inp-email').focus(); return }
+  btn.disabled = true
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>Enregistrement...'
+  const res = await insertToSupabase({ prenom, nom, pseudo: pseudo.toLowerCase(), email, phone: phone ? `${prefix}${phone.replace(/^0/,'')}` : null, notif_email: notif.email, notif_push: notif.push, notif_sms: notif.sms, is_founder: true })
+  if(res.conflict){ btn.disabled=false; btn.textContent='Pseudo ou email déjà utilisé'; return }
+  if(res.ok){
+    count++
+    document.getElementById('success-num').textContent = count.toLocaleString('fr-FR')
+    document.getElementById('proof-count').textContent = count.toLocaleString('fr-FR')
+    const sp = document.getElementById('success-pseudo')
+    if(sp) sp.textContent = pseudo.toLowerCase()
+    document.getElementById('wl-form').style.display = 'none'
+    document.getElementById('wl-success').classList.add('show')
+  } else { btn.disabled=false; btn.textContent='Réessayer' }
+}
+
+/* SUBMIT CTA FOOTER */
+async function submitCta(){
+  const email = document.getElementById('cta-email').value.trim()
+  if(!email || !email.includes('@')) return
+  await insertToSupabase({ email, notif_email: true, notif_push: false, notif_sms: false, is_founder: true })
+  document.getElementById('cta-email').value = ''
+  document.getElementById('cta-email').placeholder = 'Inscrit ! Merci de rejoindre Inkku.'
+  document.getElementById('cta-email').style.borderColor = 'rgba(45,198,83,.45)'
+}
+
+/* SHARE */
+function shareTweet(){
+  const t = encodeURIComponent('Je viens de rejoindre la liste d\'attente @Inkku_app — la plateforme manga et webtoon avec IA. 100% gratuit. inkku.io')
+  window.open(`https://twitter.com/intent/tweet?text=${t}`, '_blank')
+}
+function copyUrl(){
+  navigator.clipboard.writeText('https://inkku.io').then(() => {
+    const btn = document.querySelectorAll('.share-btn')[1]
+    const orig = btn.innerHTML
+    btn.textContent = 'Lien copié !'
+    btn.style.color = 'var(--grn)'
+    setTimeout(() => { btn.innerHTML = orig; btn.style.color = '' }, 2000)
+  })
+}
+</script>
+</body>
+</html>
