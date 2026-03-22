@@ -27,9 +27,9 @@
   --fm:'DM Mono',monospace;
   --max:1120px;
 }
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-rendering:optimizeSpeed}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:var(--fb);background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.65;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.0}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");opacity:.4}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px}
 
 /* LAYOUT */
@@ -39,9 +39,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 
 /* GLOWS */
 .glows{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.g1{position:absolute;top:-20%;right:-10%;width:70vw;height:70vh;background:radial-gradient(ellipse,rgba(230,57,70,.08),transparent 60%)}
-.g2{position:absolute;bottom:-15%;left:-10%;width:55vw;height:55vh;background:radial-gradient(ellipse,rgba(76,201,240,.05),transparent 60%)}
-
+.g1{position:absolute;top:-20%;right:-10%;width:70vw;height:70vh;background:radial-gradient(ellipse,rgba(230,57,70,.08),transparent 60%);animation:gp 10s ease-in-out infinite}
+.g2{position:absolute;bottom:-15%;left:-10%;width:55vw;height:55vh;background:radial-gradient(ellipse,rgba(76,201,240,.05),transparent 60%);animation:gp 14s ease-in-out infinite 4s}
+@keyframes gp{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;display:flex;align-items:center;background:rgba(7,7,15,.88);backdrop-filter:blur(22px);border-bottom:1px solid var(--b1);transition:box-shadow .3s}
@@ -53,18 +53,11 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .logo-tag{font-size:8px;color:var(--t2);letter-spacing:.06em;font-weight:300;margin-top:1px}
 .nav-badge{display:inline-flex;align-items:center;gap:6px;background:var(--red3);border:1px solid rgba(230,57,70,.28);border-radius:20px;padding:3px 11px;font-size:10px;font-weight:600;color:var(--red);letter-spacing:.06em;text-transform:uppercase}
 .nav-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--red);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* Lang dropdown */
-.lang-wrap{position:relative;flex-shrink:0}
-.lang-btn{display:flex;align-items:center;gap:7px;padding:5px 11px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--fb)}
-.lang-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--s1);border:1px solid var(--b2);border-radius:10px;overflow:hidden;z-index:999;min-width:150px;box-shadow:0 16px 40px rgba(0,0,0,.5)}
-.lang-opt{padding:8px 14px;font-size:11px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s}
-.lang-opt:hover{background:var(--s3);color:var(--t1)}
-.lang-opt.active{background:rgba(230,57,70,.08);color:var(--t1)}
 .nav-cta{margin-left:auto;padding:8px 20px;border-radius:10px;background:var(--red);color:#fff;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap}
 .nav-cta:hover{background:var(--red2);transform:translateY(-1px)}
-@media(max-width:640px){.nav-badge,.lang-wrap{display:none}}
+@media(max-width:640px){.nav-badge{display:none}}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding:90px 32px 60px;position:relative;overflow:hidden}
@@ -76,7 +69,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .hero-lockup{display:flex;align-items:center;gap:14px;margin-bottom:24px;animation:up .5s ease both}
 .hero-eye{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;background:var(--s2);border:1px solid var(--b2);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--t2);letter-spacing:.06em;animation:up .6s ease .05s both}
 .hero-eye svg{width:8px;height:8px}
-.hero-h{font-family:var(--fd);font-size:clamp(60px,8.5vw,112px);line-height:.88;letter-spacing:.04em;margin-bottom:20px;animation:up .5s ease .08s both}
+.hero-h{font-family:var(--fd);font-size:clamp(60px,8.5vw,112px);line-height:.88;letter-spacing:.04em;margin-bottom:20px;animation:up .65s ease .08s both}
 .hero-h .l2{color:var(--red);display:block}
 .hero-h .jp{display:block;font-family:var(--fs);font-size:.17em;font-weight:300;color:var(--t3);letter-spacing:.25em;margin-top:12px}
 .hero-body{font-size:17px;font-weight:300;color:var(--t2);line-height:1.78;max-width:510px;margin-bottom:32px;animation:up .65s ease .14s both}
@@ -162,7 +155,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .share-btn:hover{background:var(--s3)}
 
 /* ========== FEATURES — 3 piliers ========== */
-.features{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1);contain:paint}
+.features{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1)}
 .sec-head{text-align:center;max-width:580px;margin:0 auto 64px}
 .eyebrow{font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
 .eyebrow.red{color:var(--red)}.eyebrow.blu{color:var(--blu)}.eyebrow.grn{color:var(--grn)}
@@ -170,8 +163,8 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .sec-sub{font-size:16px;color:var(--t2);font-weight:300;line-height:1.75}
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:var(--max);margin:0 auto}
 @media(max-width:800px){.feat-grid{grid-template-columns:1fr}}
-.feat{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px 28px;position:relative;overflow:hidden}
-.feat:hover{transform:translateY(-2px)}
+.feat{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px 28px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.feat:hover{transform:translateY(-4px)}
 .feat.f1:hover{border-color:rgba(230,57,70,.3)}
 .feat.f2:hover{border-color:rgba(76,201,240,.3)}
 .feat.f3:hover{border-color:rgba(45,198,83,.3)}
@@ -195,8 +188,8 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .shelf-mockup{position:relative}
 .shelf-row{display:flex;gap:7px;align-items:flex-end;margin-bottom:10px;padding:12px 16px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;position:relative}
 .shelf-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(135deg,var(--s3),var(--s2));border-radius:0 0 12px 12px}
-.manga-spine{border-radius:3px;position:relative;flex-shrink:0;cursor:pointer}
-.manga-spine:hover{transform:translateY(-4px)}
+.manga-spine{border-radius:3px;position:relative;flex-shrink:0;cursor:pointer;transition:transform .2s}
+.manga-spine:hover{transform:translateY(-8px)}
 .ms-info{position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--s1);border:1px solid var(--b2);border-radius:7px;padding:5px 9px;font-size:9px;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
 .manga-spine:hover .ms-info{opacity:1}
 /* status dots on spines */
@@ -221,12 +214,12 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .fl-txt strong{color:var(--t1);font-weight:500}
 
 /* ========== AI RECO SECTION ========== */
-.reco-sec{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1);contain:paint}
+.reco-sec{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b1)}
 .reco-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;max-width:var(--max);margin:0 auto}
 @media(max-width:900px){.reco-layout{grid-template-columns:1fr}}
 
 /* Reco cards */
-.reco-card{background:var(--s1);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;margin-bottom:10px}
+.reco-card{background:var(--s1);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;margin-bottom:10px;transition:transform .2s}
 .reco-card:hover{transform:translateX(4px)}
 .reco-card.c1{border:1px solid rgba(76,201,240,.22)}
 .reco-card.c2{border:1px solid rgba(230,57,70,.22)}
@@ -263,7 +256,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .reco-text p{font-size:15px;color:var(--t2);font-weight:300;line-height:1.78;margin-bottom:22px}
 
 /* ========== PRICE SECTION ========== */
-.price-sec{padding:100px 0;background:var(--bg);border-top:1px solid var(--b1);contain:paint}
+.price-sec{padding:100px 0;background:var(--bg);border-top:1px solid var(--b1)}
 .price-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:var(--max);margin:0 auto}
 @media(max-width:900px){.price-layout{grid-template-columns:1fr}}
 .price-demo{background:var(--s1);border:1px solid var(--b1);border-radius:16px;overflow:hidden}
@@ -356,22 +349,16 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 .fbadge{font-family:var(--fm);font-size:8px;color:var(--t3);padding:3px 8px;border-radius:4px;border:1px solid var(--b1)}
 
 /* UTILS */
-.rv{opacity:0;transform:translateY(16px) translateZ(0);transition:opacity .4s ease,transform .4s ease;will-change:opacity,transform}
-.rv.vis{opacity:1;transform:translateY(0) translateZ(0);will-change:auto}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
 .rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
 
 /* LOGO SVG helper */
 .logo-svg-drop path,.logo-svg-drop line{transition:opacity .2s}
-
-/* Performance optimizations */
-.glows{will-change:auto}
-.hero-inner{contain:layout}
-.features,.collection-sec,.reco-sec,.price-sec{contain:layout style}
-img{loading:lazy;decoding:async}
 </style>
 </head>
 <body>
-
+<div class="glows"><div class="g1"></div><div class="g2"></div></div>
 
 <div class="wrap">
 
@@ -393,21 +380,6 @@ img{loading:lazy;decoding:async}
       </div>
     </a>
     <div class="nav-badge">En préparation</div>
-    <div class="lang-wrap" id="lang-wrap">
-      <button class="lang-btn" onclick="toggleLang()" title="Traduction complète disponible dans l'application">
-        <span id="lang-flag">🇫🇷</span> <span id="lang-code">FR</span>
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg>
-      </button>
-      <div class="lang-menu" id="lang-menu">
-        <div class="lang-opt active" onclick="setLang('fr','🇫🇷','FR',this)">🇫🇷 Français</div>
-        <div class="lang-opt" onclick="setLang('en','🇬🇧','EN',this)">🇬🇧 English</div>
-        <div class="lang-opt" onclick="setLang('es','🇪🇸','ES',this)">🇪🇸 Español</div>
-        <div class="lang-opt" onclick="setLang('pt','🇧🇷','PT',this)">🇧🇷 Português</div>
-        <div class="lang-opt" onclick="setLang('de','🇩🇪','DE',this)">🇩🇪 Deutsch</div>
-        <div class="lang-opt" onclick="setLang('it','🇮🇹','IT',this)">🇮🇹 Italiano</div>
-        <div class="lang-opt" onclick="setLang('ja','🇯🇵','JA',this)">🇯🇵 日本語</div>
-        <div class="lang-opt" onclick="setLang('ko','🇰🇷','KO',this)">🇰🇷 한국어</div>
-        <div class="lang-opt" onclick="setLang('zh','🇨🇳','ZH',this)">🇨🇳 中文</div>
       </div>
     </div>
     <a href="#waitlist" class="nav-cta">Rejoindre Inkku</a>
@@ -747,17 +719,7 @@ img{loading:lazy;decoding:async}
         <div class="reco-card c1">
           <div class="reco-glow" style="background:radial-gradient(circle,rgba(76,201,240,.1),transparent 70%)"></div>
           <div class="reco-cover" style="background:linear-gradient(160deg,#8b0000,#4a0000)">
-            <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" 
-                 alt="Vinland Saga"
-                 style="width:100%;height:100%;object-fit:cover;display:block"
-                 onerror="this.onerror=null;this.src='https://mangadex.org/covers/manga/vinland-saga.jpg';this.onerror=function(){this.style.display='none'}">
-          </div>
-              <div style="width:20px;height:1px;background:rgba(255,255,255,.3);margin:3px auto"></div>
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:9px;color:rgba(255,255,255,.7);letter-spacing:.1em">SAGA</div>
-            </div>
-          </div>
-            <div style="width:28px;height:1px;background:rgba(255,255,255,.2)"></div>
-            <div style="font-size:7px;color:rgba(255,255,255,.4);text-align:center;padding:0 4px">SAGA</div>
+            <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
             <div class="reco-label rl1">Recommandé par Inki · Agent IA</div>
@@ -772,15 +734,7 @@ img{loading:lazy;decoding:async}
         <div class="reco-card c2">
           <div class="reco-glow" style="background:radial-gradient(circle,rgba(230,57,70,.08),transparent 70%)"></div>
           <div class="reco-cover" style="background:linear-gradient(160deg,#0a0a14,#040408)">
-            <img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg"
-                 alt="Monster"
-                 style="width:100%;height:100%;object-fit:cover;display:block"
-                 onerror="this.style.display='none'">
-          </div>
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;color:rgba(76,201,240,.7);letter-spacing:.15em">STER</div>
-            </div>
-          </div>
-            <div style="font-size:11px;color:rgba(255,255,255,.6);text-align:center;padding:0 4px;font-family:var(--fd);letter-spacing:.1em">STER</div>
+            <img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg" alt="Monster" onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
             <div class="reco-label rl2">Découverte · Analyse bibliothèque</div>
@@ -795,16 +749,7 @@ img{loading:lazy;decoding:async}
         <div class="reco-card c3">
           <div class="reco-glow" style="background:radial-gradient(circle,rgba(244,162,97,.08),transparent 70%)"></div>
           <div class="reco-cover" style="background:linear-gradient(160deg,#1a0a00,#0d0500)">
-            <img src="https://cdn.myanimelist.net/images/manga/2/38735l.jpg"
-                 alt="Habitant de l'Infini"
-                 style="width:100%;height:100%;object-fit:cover;display:block"
-                 onerror="this.style.display='none'">
-          </div>
-              <div style="font-size:6px;color:rgba(255,200,100,.45);letter-spacing:.06em">DE L'INFINI</div>
-            </div>
-          </div>
-            <div style="width:24px;height:1px;background:rgba(255,200,100,.2)"></div>
-            <div style="font-size:7px;color:rgba(255,200,100,.4);text-align:center;padding:0 4px;font-family:var(--fs)">DE L'INFINI</div>
+            <img src="https://cdn.myanimelist.net/images/manga/2/38735l.jpg" alt="Habitant de l'Infini" onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
             <div class="reco-label rl3">Connexion forte · Ton profil</div>
@@ -839,7 +784,7 @@ img{loading:lazy;decoding:async}
       </div>
 
       <!-- Right text -->
-      <div class="reco-text rv d1">
+      <div class="reco-text rv d1" style="position:sticky;top:88px">
         <div class="eyebrow blu">Recommandations IA</div>
         <h2 class="big">L'IA QUI SAIT<br><span class="acc">QUOI LIRE</span><br>ENSUITE.</h2>
         <p>Inkku ne te donne pas une liste générique. L'agent IA analyse l'intégralité de ta bibliothèque, tes notes, tes genres et tes auteurs favoris pour te proposer exactement ce qui va te captiver.</p>
@@ -888,8 +833,8 @@ img{loading:lazy;decoding:async}
       <div class="rv d1">
         <div class="price-demo">
           <div class="pd-header">
-            <div class="pd-cover" style="background:linear-gradient(160deg,#8b1a1a,#2a0000);display:flex;align-items:center;justify-content:center">
-              <div style="font-size:6px;color:rgba(255,255,255,.5);text-align:center;font-family:var(--fs);line-height:1.4">VINLAND<br>SAGA</div>
+            <div class="pd-cover" style="background:linear-gradient(160deg,#8b0000,#4a0000)">
+              <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" onerror="this.style.display='none'">
             </div>
             <div>
               <div class="pd-name">Vinland Saga T.13</div>
@@ -1053,84 +998,23 @@ img{loading:lazy;decoding:async}
 <script>
 const SUPABASE_URL = 'https://gmztkezhpqklcrukufzp.supabase.co'
 const SUPABASE_ANON_KEY = 'sb_publishable_rCbxth1rZDyqiEQNzzFrSQ_8KlgvJxF'
-const BASE_COUNT = 2800
-let count = BASE_COUNT
-
-async function fetchRealCount(){
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-        'Prefer': 'count=exact',
-        'Range': '0-0'
-      }
-    })
-    const rangeHeader = res.headers.get('content-range')
-    if(rangeHeader){
-      const total = parseInt(rangeHeader.split('/')[1]) || 0
-      count = BASE_COUNT + total
-    } else {
-      const data = await res.json()
-      count = BASE_COUNT + (Array.isArray(data) ? data.length : 0)
-    }
-    document.getElementById('proof-count').textContent = count.toLocaleString('fr-FR')
-    const sn = document.getElementById('success-num')
-    if(sn) sn.textContent = count.toLocaleString('fr-FR')
-  } catch(e) {
-    count = BASE_COUNT
-  }
-}
-
-/* INIT */
-fetchRealCount()
+let count = 2847
 
 /* NAV */
 window.addEventListener('scroll', () => {
   document.getElementById('topnav').style.boxShadow = window.scrollY > 10 ? '0 4px 28px rgba(0,0,0,.5)' : 'none'
-}, { passive: true })
+})
 
 /* REVEAL */
 const io = new IntersectionObserver(es => es.forEach(e => {
   if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target) }
-}), { threshold: 0.05, rootMargin: '0px 0px -40px 0px' })
+}), { threshold: .07 })
 document.querySelectorAll('.rv').forEach(el => io.observe(el))
 
 /* LANG */
-function toggleLang(){
-  const m = document.getElementById('lang-menu')
-  m.style.display = m.style.display === 'block' ? 'none' : 'block'
-}
-function setLang(code, flag, label, el){
-  document.getElementById('lang-flag').textContent = flag
-  document.getElementById('lang-code').textContent = label
-  document.getElementById('lang-menu').style.display = 'none'
-  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'))
-  el.classList.add('active')
-  if(code !== 'fr'){
-    showLangToast(label)
-  }
-}
 
-function showLangToast(lang){
-  let toast = document.getElementById('lang-toast')
-  if(!toast){
-    toast = document.createElement('div')
-    toast.id = 'lang-toast'
-    toast.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1c1c30;border:1px solid rgba(76,201,240,.3);color:#4cc9f0;padding:10px 20px;border-radius:10px;font-size:12px;font-family:var(--fb);z-index:9999;transition:opacity .3s;white-space:nowrap;box-shadow:0 8px 28px rgba(0,0,0,.5)'
-    document.body.appendChild(toast)
-  }
-  toast.textContent = '🌍 Traduction ' + lang + ' disponible dans l'application Inkku'
-  toast.style.opacity = '1'
-  clearTimeout(window._toastTimer)
-  window._toastTimer = setTimeout(() => { toast.style.opacity = '0' }, 3000)
-}
-document.addEventListener('click', e => {
-  if(!document.getElementById('lang-wrap')?.contains(e.target)){
-    const m = document.getElementById('lang-menu')
-    if(m) m.style.display = 'none'
-  }
-})
+
+
 
 /* NOTIF TOGGLES */
 const notif = { email: true, push: false, sms: false }
@@ -1213,7 +1097,6 @@ async function submitForm(){
   const res = await insertToSupabase({ prenom, nom, pseudo: pseudo.toLowerCase(), email, phone: phone ? `${prefix}${phone.replace(/^0/,'')}` : null, notif_email: notif.email, notif_push: notif.push, notif_sms: notif.sms, is_founder: true })
   if(res.conflict){ btn.disabled=false; btn.textContent='Pseudo ou email déjà utilisé'; return }
   if(res.ok){
-    await fetchRealCount()
     count++
     document.getElementById('success-num').textContent = count.toLocaleString('fr-FR')
     document.getElementById('proof-count').textContent = count.toLocaleString('fr-FR')
