@@ -998,12 +998,36 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 <script>
 const SUPABASE_URL = 'https://gmztkezhpqklcrukufzp.supabase.co'
 const SUPABASE_ANON_KEY = 'sb_publishable_rCbxth1rZDyqiEQNzzFrSQ_8KlgvJxF'
-let count = 2847
+const BASE_COUNT = 2832
+let count = BASE_COUNT
+
+async function fetchRealCount(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Prefer': 'count=exact',
+        'Range': '0-0'
+      }
+    })
+    const range = res.headers.get('content-range')
+    const total = range ? parseInt(range.split('/')[1]) || 0 : 0
+    count = BASE_COUNT + total
+    const el = document.getElementById('proof-count')
+    if(el) el.textContent = count.toLocaleString('fr-FR')
+    const sn = document.getElementById('success-num')
+    if(sn) sn.textContent = count.toLocaleString('fr-FR')
+  } catch(e){ count = BASE_COUNT }
+}
+
+/* INIT */
+fetchRealCount()
 
 /* NAV */
 window.addEventListener('scroll', () => {
   document.getElementById('topnav').style.boxShadow = window.scrollY > 10 ? '0 4px 28px rgba(0,0,0,.5)' : 'none'
-})
+}, { passive: true })
 
 /* REVEAL */
 const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1097,6 +1121,7 @@ async function submitForm(){
   const res = await insertToSupabase({ prenom, nom, pseudo: pseudo.toLowerCase(), email, phone: phone ? `${prefix}${phone.replace(/^0/,'')}` : null, notif_email: notif.email, notif_push: notif.push, notif_sms: notif.sms, is_founder: true })
   if(res.conflict){ btn.disabled=false; btn.textContent='Pseudo ou email déjà utilisé'; return }
   if(res.ok){
+    await fetchRealCount()
     count++
     document.getElementById('success-num').textContent = count.toLocaleString('fr-FR')
     document.getElementById('proof-count').textContent = count.toLocaleString('fr-FR')
