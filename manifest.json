@@ -1,0 +1,133 @@
+{
+  "name": "Inkku — Ta Mangathèque Réinventée",
+  "short_name": "Inkku",
+  "description": "Gère ta collection manga et webtoon, découvre quoi lire ensuite grâce à l'IA et trouve le meilleur prix sur 18 plateformes. 100% gratuit.",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "background_color": "#07070f",
+  "theme_color": "#e63946",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["books", "entertainment", "lifestyle", "utilities"],
+  "screenshots": [
+    {
+      "src": "/screenshots/home-dark.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Accueil — Ta mangathèque Inkku"
+    },
+    {
+      "src": "/screenshots/library-dark.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Bibliothèque — Gestion de collection"
+    },
+    {
+      "src": "/screenshots/ai-dark.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Agent Inki — Recommandations IA"
+    },
+    {
+      "src": "/screenshots/prices-dark.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Comparateur de prix manga"
+    },
+    {
+      "src": "/screenshots/home-desktop.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Application web Inkku"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/inkku-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/inkku-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/inkku-icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Ma bibliothèque",
+      "short_name": "Bibliothèque",
+      "description": "Accéder à ma collection manga",
+      "url": "/bibliotheque",
+      "icons": [{ "src": "/icons/shortcut-library.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Comparateur de prix",
+      "short_name": "Prix",
+      "description": "Comparer les prix manga",
+      "url": "/prix",
+      "icons": [{ "src": "/icons/shortcut-price.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Calendrier des sorties",
+      "short_name": "Sorties",
+      "description": "Voir les prochaines sorties manga",
+      "url": "/calendrier",
+      "icons": [{ "src": "/icons/shortcut-calendar.png", "sizes": "96x96" }]
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+inkku",
+      "url": "/?action=%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=io.inkku.app",
+      "id": "io.inkku.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/fr/app/inkku/id0000000000"
+    }
+  ]
+}

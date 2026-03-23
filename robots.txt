@@ -1,0 +1,50 @@
+# robots.txt — inkku.io
+# Généré automatiquement — Inkku © 2026
+
+User-agent: *
+Allow: /
+Allow: /bibliotheque
+Allow: /recommandations
+Allow: /prix
+Allow: /calendrier
+Allow: /exclusives
+Allow: /mentions-legales
+Allow: /confidentialite
+Allow: /cgu
+
+# Bloquer les pages d'admin et API
+Disallow: /admin
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard
+Disallow: /profil
+Disallow: /parametres
+
+# Bloquer les résultats de recherche pour éviter le contenu dupliqué
+Disallow: /search?
+
+# Permettre les robots de réseaux sociaux
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Sitemap
+Sitemap: https://inkku.io/sitemap.xml
+Sitemap: https://inkku.io/sitemap-manga.xml
+
+# Crawl delay pour éviter la surcharge
+Crawl-delay: 1
