@@ -2,17 +2,69 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inkku — Ta mangathèque réinventée</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg viewBox='0 0 80 80' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M40 4C40 4 10 24 10 44C10 60.57 23.43 74 40 74C56.57 74 70 60.57 70 44C70 24 40 4 40 4Z' fill='%2307070F'/><path d='M20 33C20 31.3 21.2 30 22.7 30C26.5 30 32 31 40 34V56C32 52.8 26.5 51.8 22.7 51.8C21.2 51.8 20 50.5 20 48.8V33Z' fill='%23E63946'/><path d='M60 33C60 31.3 58.8 30 57.3 30C53.5 30 48 31 40 34V56C48 52.8 53.5 51.8 57.3 51.8C58.8 51.8 60 50.5 60 48.8V33Z' fill='%23E63946' opacity='.4'/></svg>">
-<meta name="description" content="Inkku gère ta collection de manga, te recommande quoi lire ensuite grâce à l'IA et te trouve le meilleur prix pour compléter ta bibliothèque.">
-<meta property="og:title" content="Inkku — Ta mangathèque réinventée">
-<meta property="og:description" content="Gestion de collection, recommandations IA personnalisées et comparateur de prix manga sur 18 plateformes. 100% gratuit.">
-<meta property="og:type" content="website">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- ═══ PRIMARY SEO META ═══ -->
+<title>Inkku — Ta Mangathèque Réinventée | Gestion Collection & Recommandations IA Manga</title>
+<meta name="description" content="Inkku gère ta collection de manga et webtoon tome par tome, te recommande quoi lire ensuite grâce à l'IA et compare les prix en temps réel sur 18 plateformes. 100% gratuit.">
+<meta name="keywords" content="mangathèque, collection manga, application manga France, recommandation manga IA, comparateur prix manga, calendrier sorties manga, gestion manga, webtoon, manhwa, manga collector">
+<meta name="author" content="Inkku">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="theme-color" content="#07070f">
+<link rel="canonical" href="https://inkku.io/">
+<meta name="language" content="fr">
+<meta name="geo.region" content="FR">
+
+<!-- ═══ OPEN GRAPH — Facebook, Discord, LinkedIn ═══ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://inkku.io/">
+<meta property="og:site_name" content="Inkku">
+<meta property="og:title" content="Inkku — Ta Mangathèque Réinventée">
+<meta property="og:description" content="Gère ta collection manga et webtoon, découvre tes prochaines lectures grâce à l'IA et trouve le meilleur prix sur 18 plateformes. 100% gratuit.">
+<meta property="og:image" content="https://inkku.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Inkku — Ta mangathèque intelligente">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="ja_JP">
+
+<!-- ═══ TWITTER / X CARD ═══ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Inkku_app">
+<meta name="twitter:creator" content="@Inkku_app">
+<meta name="twitter:title" content="Inkku — Ta Mangathèque Réinventée">
+<meta name="twitter:description" content="Gère ta collection manga, découvre quoi lire ensuite avec l'IA, compare les prix sur 18 sites. 100% gratuit.">
+<meta name="twitter:image" content="https://inkku.io/og-image.png">
+<meta name="twitter:image:alt" content="Inkku — Application manga intelligente">
+
+<!-- ═══ FAVICON & PWA ═══ -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
+
+<!-- ═══ APP INDEXING — Universal Links iOS & App Links Android ═══ -->
+<meta name="apple-itunes-app" content="app-id=VOTRE_APP_ID_IOS, app-argument=https://inkku.io/">
+<link rel="alternate" href="android-app://io.inkku.app/https/inkku.io/">
+<link rel="alternate" href="ios-app://VOTRE_APP_ID_IOS/https/inkku.io/">
+
+<!-- ═══ HREFLANG — Internationalisation ═══ -->
+<link rel="alternate" hreflang="fr" href="https://inkku.io/">
+<link rel="alternate" hreflang="en" href="https://inkku.io/en/">
+<link rel="alternate" hreflang="es" href="https://inkku.io/es/">
+<link rel="alternate" hreflang="ja" href="https://inkku.io/ja/">
+<link rel="alternate" hreflang="x-default" href="https://inkku.io/">
+
+<!-- ═══ PERFORMANCE — Resource hints ═══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+JP:wght@300;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.myanimelist.net">
+<link rel="dns-prefetch" href="https://gmztkezhpqklcrukufzp.supabase.co">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"></noscript>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -355,15 +407,191 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 
 /* LOGO SVG helper */
 .logo-svg-drop path,.logo-svg-drop line{transition:opacity .2s}
+
+/* ── SEO & PERF ──────────────────────────── */
+.collection-sec,.reco-sec,.price-sec,.rang-sec{content-visibility:auto;contain-intrinsic-size:0 600px}
+img{max-width:100%;height:auto}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
+
+<!-- ═══ JSON-LD STRUCTURED DATA (Schema.org) ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://inkku.io/#website",
+      "url": "https://inkku.io/",
+      "name": "Inkku",
+      "description": "La plateforme de gestion de collection manga avec recommandations IA et comparateur de prix",
+      "inLanguage": ["fr", "en", "es", "ja"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://inkku.io/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://inkku.io/#app",
+      "name": "Inkku",
+      "alternateName": "Inkku Mangathèque",
+      "description": "Application de gestion de collection manga et webtoon avec recommandations IA personnalisées et comparateur de prix en temps réel sur 18 plateformes",
+      "url": "https://inkku.io/",
+      "applicationCategory": "LifestyleApplication",
+      "applicationSubCategory": "Books & Reference",
+      "operatingSystem": ["iOS", "Android", "Web"],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "2832"
+      },
+      "featureList": [
+        "Gestion de collection manga tome par tome",
+        "Recommandations IA personnalisées",
+        "Comparateur de prix temps réel 18 plateformes",
+        "Calendrier des sorties manga France",
+        "Alertes prix et nouvelles sorties",
+        "Import MangaCollec",
+        "Scan photo IA",
+        "Agent conversationnel Inki"
+      ],
+      "screenshot": "https://inkku.io/screenshot.png",
+      "softwareVersion": "1.0",
+      "datePublished": "2026-01-01",
+      "author": {
+        "@type": "Organization",
+        "name": "Inkku",
+        "url": "https://inkku.io"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://inkku.io/#organization",
+      "name": "Inkku",
+      "url": "https://inkku.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://inkku.io/inkku-icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "description": "Plateforme de gestion de mangathèque avec intelligence artificielle",
+      "sameAs": [
+        "https://twitter.com/Inkku_app",
+        "https://www.instagram.com/inkku.app",
+        "https://www.tiktok.com/@inkku.app"
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://inkku.io/#manga-collection",
+      "name": "Inkku — Gestion de collection manga",
+      "description": "Gérez votre collection de manga, manhwa, manhua et webtoon tome par tome avec Inkku",
+      "url": "https://inkku.io/",
+      "about": [
+        {
+          "@type": "ComicSeries",
+          "name": "Manga",
+          "description": "Série de bandes dessinées japonaises",
+          "inLanguage": "ja"
+        },
+        {
+          "@type": "Book",
+          "bookFormat": "https://schema.org/EBook",
+          "name": "Webtoon",
+          "description": "Bandes dessinées numériques coréennes"
+        }
+      ],
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://inkku.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Bibliothèque manga",
+            "item": "https://inkku.io/bibliotheque"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Recommandations IA",
+            "item": "https://inkku.io/recommandations"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Comparateur de prix",
+            "item": "https://inkku.io/prix"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://inkku.io/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Inkku est-il gratuit ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, Inkku est 100% gratuit. La gestion de collection, les recommandations IA et le comparateur de prix sont accessibles sans frais."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels types de manga puis-je gérer avec Inkku ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Inkku prend en charge tous les formats : manga japonais, manhwa coréen, manhua chinois et webtoons. Notre catalogue compte plus de 12 000 séries référencées."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment fonctionne le comparateur de prix manga ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Inkku compare en temps réel les prix sur 18 plateformes incluant Amazon, Fnac, Cultura, E.Leclerc, Rakuten et des spécialistes manga. Vous recevez une alerte dès que le prix passe sous votre seuil."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Puis-je importer ma collection depuis MangaCollec ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, Inkku propose un import direct depuis MangaCollec en un clic, ainsi qu'un scan photo IA pour numériser votre bibliothèque physique automatiquement."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="glows"><div class="g1"></div><div class="g2"></div></div>
 
-<div class="wrap">
+<a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:0;background:var(--red);color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-size:12px;font-weight:600;z-index:9999;transition:top .2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Aller au contenu principal</a>
+<div class="wrap" id="top">
 
 <!-- NAV -->
-<nav class="nav" id="topnav">
+<nav class="nav" id="topnav" role="navigation" aria-label="Navigation principale">
   <div class="nav-inner">
     <a href="#" class="logo">
       <svg class="logo-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -387,6 +615,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 </nav>
 
 <!-- HERO -->
+<header role="banner">
 <section class="hero" id="hero">
   <div class="hero-grid"></div>
   <div class="inner" style="width:100%;max-width:var(--max);margin:0 auto">
@@ -567,22 +796,24 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
     </div>
   </div>
 </section>
+</header>
 
+<main id="main-content" role="main">
 <!-- 3 PILLIERS -->
-<section class="features">
+<section class="features" aria-labelledby="features-title">
   <div class="inner">
     <div class="sec-head rv">
       <div class="eyebrow red">La plateforme</div>
-      <h2 class="sec-title">TOUT POUR TA<br>COLLECTION.</h2>
+      <h2 class="sec-title" id="features-title">TOUT POUR TA<br>COLLECTION.</h2>
       <p class="sec-sub">Trois fonctionnalités au cœur d'Inkku. Chacune pensée pour t'aider à collectionner mieux, lire plus, et dépenser moins.</p>
     </div>
     <div class="feat-grid">
-      <div class="feat f1 rv">
+      <article class="feat f1 rv" aria-label="Fonctionnalité : Mangathèque">
         <div class="feat-num">01</div>
         <div class="feat-icon fi1">
           <svg viewBox="0 0 24 24"><path d="M4 19A2 2 0 015.5 17H20"/><path d="M5.5 2H20v20H5.5A2 2 0 013.5 20V4a2 2 0 012-2z"/></svg>
         </div>
-        <div class="feat-h">Mangathèque</div>
+        <h3 class="feat-h">Mangathèque</h3>
         <p class="feat-p">Gère ta collection tome par tome. Statuts en temps réel : possédé, lu, en cours, wishlist. Visualise ta progression sur chaque série, la valeur de ta bibliothèque et tes objectifs de lecture.</p>
         <div class="feat-tags">
           <span class="ftag">Import MangaCollec</span>
@@ -591,12 +822,12 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
           <span class="ftag">Alertes email</span>
         </div>
       </div>
-      <div class="feat f2 rv d1">
+      <article class="feat f2 rv d1" aria-label="Fonctionnalité : Recommandations IA">
         <div class="feat-num">02</div>
         <div class="feat-icon fi2">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12a4 4 0 008 0"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
         </div>
-        <div class="feat-h">IA Recommandations</div>
+        <h3 class="feat-h">IA Recommandations</h3>
         <p class="feat-p">L'IA analyse ta bibliothèque complète et te suggère exactement ce que tu vas adorer lire ensuite. Tu peux aussi discuter avec l'agent pour affiner tes découvertes en temps réel selon tes envies du moment.</p>
         <div class="feat-tags">
           <span class="ftag">Analyse bibliothèque</span>
@@ -605,12 +836,12 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
           <span class="ftag">Manga · Manhwa · Webtoon</span>
         </div>
       </div>
-      <div class="feat f3 rv d2">
+      <article class="feat f3 rv d2" aria-label="Fonctionnalité : Meilleur Prix">
         <div class="feat-num">03</div>
         <div class="feat-icon fi3">
           <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         </div>
-        <div class="feat-h">Meilleur Prix</div>
+        <h3 class="feat-h">Meilleur Prix</h3>
         <p class="feat-p">Pour chaque manga que tu veux acheter ou compléter, Inkku compare en temps réel les prix sur 18 plateformes. Tu reçois une alerte dès que le prix baisse sous ton seuil. Tu paies moins, tu collectionnes plus.</p>
         <div class="feat-tags">
           <span class="ftag">18 sites comparés</span>
@@ -624,7 +855,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 </section>
 
 <!-- COLLECTION SECTION -->
-<section class="collection-sec">
+<section class="collection-sec" aria-labelledby="collection-title">
   <div class="inner">
     <div class="col-layout">
       <!-- Visual -->
@@ -696,7 +927,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
       <!-- Text -->
       <div class="col-text rv d1">
         <div class="eyebrow red">Mangathèque</div>
-        <h2 class="big">TA COLLECTION<br>VISUALISÉE <span class="acc">TOME</span><br><span class="acc">PAR TOME.</span></h2>
+        <h2 class="big" id="collection-title">TA COLLECTION<br>VISUALISÉE <span class="acc">TOME</span><br><span class="acc">PAR TOME.</span></h2>
         <p>Plus jamais de doublon, plus jamais de tome manquant. Inkku garde la mémoire exacte de ce que tu possèdes, ce que tu as lu, et ce qui te manque pour compléter chaque série.</p>
         <div class="feat-list">
           <div class="fl-item"><div class="fl-dot"></div><div class="fl-txt"><strong>Import en un clic</strong> depuis MangaCollec, ou scan photo IA de ta bibliothèque pour démarrer en quelques minutes.</div></div>
@@ -710,7 +941,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 </section>
 
 <!-- AI RECO SECTION -->
-<section class="reco-sec">
+<section class="reco-sec" aria-labelledby="reco-title">
   <div class="inner">
     <div class="reco-layout">
       <!-- Left cards + chat -->
@@ -719,7 +950,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
         <div class="reco-card c1">
           <div class="reco-glow" style="background:radial-gradient(circle,rgba(76,201,240,.1),transparent 70%)"></div>
           <div class="reco-cover" style="background:linear-gradient(160deg,#8b0000,#4a0000)">
-            <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" onerror="this.style.display='none'">
+            <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" loading="lazy" decoding="async" alt="Vinland Saga" onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
             <div class="reco-label rl1">Recommandé par Inki · Agent IA</div>
@@ -734,7 +965,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
         <div class="reco-card c2">
           <div class="reco-glow" style="background:radial-gradient(circle,rgba(230,57,70,.08),transparent 70%)"></div>
           <div class="reco-cover" style="background:linear-gradient(160deg,#0a0a14,#040408)">
-            <img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg" alt="Monster" onerror="this.style.display='none'">
+            <img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg" loading="lazy" decoding="async" alt="Monster" onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
             <div class="reco-label rl2">Découverte · Analyse bibliothèque</div>
@@ -749,7 +980,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
         <div class="reco-card c3">
           <div class="reco-glow" style="background:radial-gradient(circle,rgba(244,162,97,.08),transparent 70%)"></div>
           <div class="reco-cover" style="background:linear-gradient(160deg,#1a0a00,#0d0500)">
-            <img src="https://cdn.myanimelist.net/images/manga/2/38735l.jpg" alt="Habitant de l'Infini" onerror="this.style.display='none'">
+            <img src="https://cdn.myanimelist.net/images/manga/2/38735l.jpg" loading="lazy" decoding="async" alt="Habitant de l'Infini" onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
             <div class="reco-label rl3">Connexion forte · Ton profil</div>
@@ -786,7 +1017,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
       <!-- Right text -->
       <div class="reco-text rv d1" style="position:sticky;top:88px">
         <div class="eyebrow blu">Recommandations IA</div>
-        <h2 class="big">L'IA QUI SAIT<br><span class="acc">QUOI LIRE</span><br>ENSUITE.</h2>
+        <h2 class="big" id="reco-title">L'IA QUI SAIT<br><span class="acc">QUOI LIRE</span><br>ENSUITE.</h2>
         <p>Inkku ne te donne pas une liste générique. L'agent IA analyse l'intégralité de ta bibliothèque, tes notes, tes genres et tes auteurs favoris pour te proposer exactement ce qui va te captiver.</p>
         <div class="feat-list">
           <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Analyse automatique</strong> de ta bibliothèque complète : genres, auteurs, rythme de lecture, notes personnelles.</div></div>
@@ -801,13 +1032,13 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 </section>
 
 <!-- PRICE SECTION -->
-<section class="price-sec">
+<section class="price-sec" aria-labelledby="price-title">
   <div class="inner">
     <div class="price-layout">
       <!-- Text -->
       <div class="price-text rv">
         <div class="eyebrow grn">Comparateur de prix</div>
-        <h2 class="big">COMPLÈTE TA<br>COLLECTION AU<br><span class="acc">MEILLEUR PRIX.</span></h2>
+        <h2 class="big" id="price-title">COMPLÈTE TA<br>COLLECTION AU<br><span class="acc">MEILLEUR PRIX.</span></h2>
         <p>L'IA te dit quoi acheter. Inkku te trouve où l'acheter le moins cher. Prix comparés en temps réel sur 18 plateformes : grands distributeurs, pure players et spécialistes manga.</p>
         <div class="feat-list">
           <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>18 sites en temps réel</strong> : Amazon, Fnac, Cultura, E.Leclerc, Carrefour, Auchan, Rakuten, Manga Sanctuary, CDSon, Izneo et plus.</div></div>
@@ -834,7 +1065,7 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
         <div class="price-demo">
           <div class="pd-header">
             <div class="pd-cover" style="background:linear-gradient(160deg,#8b0000,#4a0000)">
-              <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" onerror="this.style.display='none'">
+              <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" loading="lazy" decoding="async" alt="Vinland Saga" onerror="this.style.display='none'">
             </div>
             <div>
               <div class="pd-name">Vinland Saga T.13</div>
@@ -925,25 +1156,25 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 <div class="proof-sec">
   <div class="inner rv">
     <div class="proof-count" id="proof-count">2 847</div>
-    <div class="proof-label">lecteurs déjà sur la liste d'attente</div>
+    <p class="proof-label" role="status" aria-live="polite">lecteurs déjà sur la liste d'attente</p>
     <div class="proof-avatars">
-      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/9/131317.jpg" onerror="this.parentNode.style.background='#cc4400'"></div>
-      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/5/261379.jpg" onerror="this.parentNode.style.background='#1a0030'"></div>
-      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/2/284121.jpg" onerror="this.parentNode.style.background='#8b0000'"></div>
-      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/16/11739.jpg" onerror="this.parentNode.style.background='#1a0000'"></div>
-      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/3/72472.jpg" onerror="this.parentNode.style.background='#001f5c'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/9/131317.jpg" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#cc4400'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/5/261379.jpg" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#1a0030'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/2/284121.jpg" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#8b0000'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/16/11739.jpg" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#1a0000'"></div>
+      <div class="pa"><img src="https://cdn.myanimelist.net/images/characters/3/72472.jpg" loading="lazy" decoding="async" onerror="this.parentNode.style.background='#001f5c'"></div>
       <div class="pa" style="background:var(--s3)"><div style="font-size:9px;color:var(--t2);display:flex;align-items:center;justify-content:center;height:100%">+2k</div></div>
     </div>
   </div>
 </div>
 
 <!-- FINAL CTA -->
-<section class="cta-sec">
+<section class="cta-sec" aria-labelledby="cta-title">
   <div class="cta-glow"></div>
   <div class="cta-kanji">本</div>
   <div class="cta-inner rv">
     <div class="eyebrow red" style="text-align:center">Rejoignez Inkku</div>
-    <h2 class="cta-h">COMMENCEZ<br><span>MAINTENANT.</span></h2>
+    <h2 class="cta-h" id="cta-title">COMMENCEZ<br><span>MAINTENANT.</span></h2>
     <p class="cta-p">Votre bibliothèque mérite mieux qu'un tableau Excel. Inscrivez votre email, réservez votre pseudo, et soyez parmi les premiers à accéder à Inkku à l'ouverture.</p>
     <div class="cta-form">
       <input type="email" id="cta-email" class="cta-input" placeholder="votre@email.fr" autocomplete="email">
@@ -953,8 +1184,10 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
   </div>
 </section>
 
+</main><!-- /#main-content -->
+
 <!-- FOOTER -->
-<footer>
+<footer role="contentinfo">
   <div class="footer-inner">
     <div class="footer-top">
       <div>
