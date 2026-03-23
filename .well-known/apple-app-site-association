@@ -1,0 +1,28 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAM_ID.io.inkku.app",
+        "paths": [
+          "/manga/*",
+          "/bibliotheque/*",
+          "/serie/*",
+          "/calendrier",
+          "/calendrier/*",
+          "/prix/*",
+          "/recommandations",
+          "/exclusives/*",
+          "/profil/*",
+          "/share/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["TEAM_ID.io.inkku.app"]
+  },
+  "activitycontinuation": {
+    "apps": ["TEAM_ID.io.inkku.app"]
+  }
+}
