@@ -4,17 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Inkku — Ta Mangathèque Réinventée | Gestion Collection & Recommandations IA Manga</title>
-<meta name="description" content="Inkku gère ta mangathèque tome par tome, te recommande quoi lire ensuite grâce à l'IA et compare les prix sur plus de 18 sites. Retrouve tes collectors épuisés. 100% gratuit.">
+<meta name="description" content="Inkku gère ta mangathèque tome par tome, te recommande quoi lire ensuite grâce à l'IA et compare les prix sur plus de 18 sites. 100% gratuit.">
 <meta name="keywords" content="mangathèque, collection manga, application manga France, recommandation manga IA, comparateur prix manga, calendrier sorties manga, webtoon, manga collector">
-<meta name="author" content="Inkku">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#07070f">
 <link rel="canonical" href="https://inkku.io/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://inkku.io/">
-<meta property="og:site_name" content="Inkku">
 <meta property="og:title" content="Inkku — Ta Mangathèque Réinventée">
-<meta property="og:description" content="Gère ta mangathèque tome par tome, découvre quoi lire ensuite grâce à l'IA et trouve le meilleur prix sur 18 plateformes. 100% gratuit.">
+<meta property="og:description" content="Gère ta mangathèque, découvre quoi lire grâce à l'IA et trouve le meilleur prix sur 18 plateformes. 100% gratuit.">
 <meta property="og:image" content="https://inkku.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -22,12 +20,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Inkku_app">
 <meta name="twitter:title" content="Inkku — Ta Mangathèque Réinventée">
-<meta name="twitter:description" content="Gère ta mangathèque, découvre quoi lire avec l'IA, compare les prix sur 18 sites. 100% gratuit.">
+<meta name="twitter:description" content="Gère ta mangathèque, recommandations IA, comparateur prix. 100% gratuit.">
 <meta name="twitter:image" content="https://inkku.io/og-image.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.json">
-<meta name="apple-itunes-app" content="app-id=VOTRE_APP_ID_IOS, app-argument=https://inkku.io/">
+<meta name="apple-itunes-app" content="app-id=VOTRE_APP_ID, app-argument=https://inkku.io/">
 <link rel="alternate" href="android-app://io.inkku.app/https/inkku.io/">
 <link rel="alternate" hreflang="fr" href="https://inkku.io/">
 <link rel="alternate" hreflang="en" href="https://inkku.io/en/">
@@ -81,15 +79,15 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* Lang dropdown */
-.lang-wrap{position:relative;flex-shrink:0}
-.lang-btn{display:flex;align-items:center;gap:7px;padding:5px 11px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t1);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--fb)}
-.lang-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:var(--s1);border:1px solid var(--b2);border-radius:10px;overflow:hidden;z-index:999;min-width:150px;box-shadow:0 16px 40px rgba(0,0,0,.5)}
-.lang-opt{padding:8px 14px;font-size:11px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s}
-.lang-opt:hover{background:var(--s3);color:var(--t1)}
-.lang-opt.active{background:rgba(230,57,70,.08);color:var(--t1)}
+
+
+
+
+
+
 .nav-cta{margin-left:auto;padding:8px 20px;border-radius:10px;background:var(--red);color:#fff;font-size:12px;font-weight:600;text-decoration:none;transition:all .2s;white-space:nowrap}
 .nav-cta:hover{background:var(--red2);transform:translateY(-1px)}
-@media(max-width:640px){.nav-badge,.lang-wrap{display:none}}
+@media(max-width:640px){.nav-badge,}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding:90px 32px 60px;position:relative;overflow:hidden}
@@ -389,63 +387,15 @@ footer{background:var(--s1);border-top:1px solid var(--b1);padding:48px 32px 28p
 .logo-svg-drop path,.logo-svg-drop line{transition:opacity .2s}
 
 /* ── LIGHT MODE ── */
-body.light{--bg:#f5f5f8;--bg2:#eeeeF2;--s1:#ffffff;--s2:#f0f0f5;--s3:#e4e4ec;--b1:rgba(0,0,0,.07);--b2:rgba(0,0,0,.12);--b3:rgba(0,0,0,.16);--t1:#0f0f1e;--t2:#5a5a78;--t3:#a0a0bc}
-body.light .nav{background:rgba(245,245,248,.95);border-color:rgba(0,0,0,.08)}
-body.light .wl-card,body.light .feat,body.light .ss,body.light .reco-card,body.light .price-demo{background:#fff;border-color:rgba(0,0,0,.08)}
-body.light .shelf-row{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.08)}
-body.light .fl-item{background:#f5f5f8;border-color:rgba(0,0,0,.06)}
-body.light .pd-row{background:#f5f5f8}
-body.light .rang-card{background:#fff;border-color:rgba(0,0,0,.08)}
-body.light .rang-monarque{border-color:rgba(0,0,0,.12)}
-body.light footer{background:#0f0f1e}
-body.light .wl-input,.body.light .wl-select{background:#f5f5f8;color:#0f0f1e;border-color:rgba(0,0,0,.12)}
-body.light .pill{background:#fff;border-color:rgba(0,0,0,.1)}
-body.light .pill.p-red{background:rgba(230,57,70,.06);border-color:rgba(230,57,70,.2)}
-body.light .pill.p-blu{background:rgba(76,201,240,.05);border-color:rgba(76,201,240,.15)}
-body.light .pill.p-grn{background:rgba(45,198,83,.05);border-color:rgba(45,198,83,.15)}
-
-/* ── 3D MANGA BOOK ── */
-.book-scene{width:160px;height:210px;perspective:700px;position:absolute;right:-40px;top:50%;transform:translateY(-50%);pointer-events:none;z-index:2}
-@media(max-width:980px){.book-scene{display:none}}
-.book-3d{width:100px;height:148px;position:relative;transform-style:preserve-3d;animation:bookSpin 9s ease-in-out infinite;margin:0 auto}
-@keyframes bookSpin{0%{transform:rotateY(-30deg) rotateX(6deg)}40%{transform:rotateY(22deg) rotateX(-4deg)}70%{transform:rotateY(-18deg) rotateX(5deg)}100%{transform:rotateY(-30deg) rotateX(6deg)}}
-.book-front{position:absolute;width:100px;height:148px;transform:translateZ(16px);border-radius:1px 4px 4px 1px;overflow:hidden;box-shadow:4px 8px 40px rgba(0,0,0,.7),0 0 30px rgba(230,57,70,.15)}
-.book-back{position:absolute;width:100px;height:148px;background:#6b2000;transform:translateZ(-16px) rotateY(180deg);border-radius:4px 1px 1px 3px}
-.book-spine{position:absolute;width:32px;height:148px;background:linear-gradient(180deg,#993300,#5a1000);transform:rotateY(-90deg) translateZ(82px);display:flex;align-items:center;justify-content:center}
-.book-spine-txt{font-family:var(--fd);font-size:8px;color:rgba(255,255,255,.7);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.14em;white-space:nowrap}
-.book-top{position:absolute;width:100px;height:32px;background:linear-gradient(90deg,#6b2000,#cc4400);transform:rotateX(90deg) translateZ(0) translateY(-16px)}
-.book-bot{position:absolute;width:100px;height:32px;background:linear-gradient(90deg,#6b2000,#993300);transform:rotateX(-90deg) translateZ(0) translateY(16px)}
-.book-glow{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:radial-gradient(ellipse,rgba(230,57,70,.2),transparent 70%);border-radius:50%}
-
-/* ── PERFORMANCE ── */
-.reco-sec,.price-sec,.rang-sec{content-visibility:auto;contain-intrinsic-size:0 600px}
-img{max-width:100%;height:auto}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-
-/* ── LIGHT MODE ── */
-body.light{--bg:#f5f5f8;--bg2:#eeeeF2;--s1:#ffffff;--s2:#f0f0f5;--s3:#e4e4ec;--b1:rgba(0,0,0,.07);--b2:rgba(0,0,0,.12);--t1:#0f0f1e;--t2:#5a5a78;--t3:#a0a0bc}
+body.light{--bg:#f5f5f8;--bg2:#eeeef2;--s1:#ffffff;--s2:#f0f0f5;--s3:#e4e4ec;--b1:rgba(0,0,0,.07);--b2:rgba(0,0,0,.12);--t1:#0f0f1e;--t2:#5a5a78;--t3:#a0a0bc}
 body.light .nav{background:rgba(245,245,248,.95)}
 body.light .wl-card,body.light .feat,body.light .ss,body.light .reco-card,body.light .price-demo{background:#fff;border-color:rgba(0,0,0,.08)}
 body.light .shelf-row{background:rgba(0,0,0,.03)}
-body.light .fl-item{background:#f5f5f8}
 body.light .rang-card{background:#fff}
 body.light footer{background:#0f0f1e}
 body.light .pill.p-red{background:rgba(230,57,70,.06)}
 body.light .pill.p-blu{background:rgba(76,201,240,.05)}
 body.light .pill.p-grn{background:rgba(45,198,83,.05)}
-/* ── 3D BOOK ── */
-.book-scene{width:160px;height:210px;perspective:700px;position:absolute;right:-40px;top:50%;transform:translateY(-50%);pointer-events:none;z-index:2}
-@media(max-width:980px){.book-scene{display:none}}
-.book-3d{width:100px;height:148px;position:relative;transform-style:preserve-3d;animation:bookSpin 9s ease-in-out infinite;margin:0 auto}
-@keyframes bookSpin{0%{transform:rotateY(-30deg) rotateX(6deg)}40%{transform:rotateY(22deg) rotateX(-4deg)}70%{transform:rotateY(-18deg) rotateX(5deg)}100%{transform:rotateY(-30deg) rotateX(6deg)}}
-.book-front{position:absolute;width:100px;height:148px;transform:translateZ(16px);border-radius:1px 4px 4px 1px;overflow:hidden;box-shadow:4px 8px 40px rgba(0,0,0,.7)}
-.book-back{position:absolute;width:100px;height:148px;background:#6b2000;transform:translateZ(-16px) rotateY(180deg)}
-.book-spine{position:absolute;width:32px;height:148px;background:linear-gradient(180deg,#993300,#5a1000);transform:rotateY(-90deg) translateZ(82px);display:flex;align-items:center;justify-content:center}
-.book-spine-txt{font-family:var(--fd);font-size:8px;color:rgba(255,255,255,.7);writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.14em;white-space:nowrap}
-.book-top{position:absolute;width:100px;height:32px;background:linear-gradient(90deg,#6b2000,#cc4400);transform:rotateX(90deg) translateZ(0) translateY(-16px)}
-.book-bot{position:absolute;width:100px;height:32px;background:linear-gradient(90deg,#6b2000,#993300);transform:rotateX(-90deg) translateZ(0) translateY(16px)}
-.book-glow{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);width:100px;height:20px;background:radial-gradient(ellipse,rgba(230,57,70,.2),transparent 70%)}
 /* ── PERF ── */
 .reco-sec,.price-sec,.rang-sec{content-visibility:auto;contain-intrinsic-size:0 600px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -454,13 +404,12 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-  {"@type":"WebSite","@id":"https://inkku.io/#website","url":"https://inkku.io/","name":"Inkku","description":"La plateforme de gestion de collection manga avec recommandations IA et comparateur de prix","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://inkku.io/search?q={search_term_string}"},"query-input":"required name=search_term_string"}},
-  {"@type":"SoftwareApplication","name":"Inkku","description":"Application de gestion de mangathèque avec recommandations IA et comparateur de prix","url":"https://inkku.io/","applicationCategory":"LifestyleApplication","operatingSystem":["iOS","Android","Web"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},
-  {"@type":"Organization","name":"Inkku","url":"https://inkku.io","logo":{"@type":"ImageObject","url":"https://inkku.io/inkku-icon-512.png","width":512,"height":512}},
+  {"@type":"WebSite","@id":"https://inkku.io/#website","url":"https://inkku.io/","name":"Inkku","description":"Gestion de mangathèque avec recommandations IA et comparateur de prix","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://inkku.io/search?q={search_term_string}"},"query-input":"required name=search_term_string"}},
+  {"@type":"SoftwareApplication","name":"Inkku","description":"Application de gestion de mangathèque avec recommandations IA","url":"https://inkku.io/","applicationCategory":"LifestyleApplication","operatingSystem":["iOS","Android","Web"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}},
   {"@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Inkku est-il gratuit ?","acceptedAnswer":{"@type":"Answer","text":"Oui, Inkku est 100% gratuit. Gestion de collection, recommandations IA et comparateur de prix sont accessibles sans frais."}},
-    {"@type":"Question","name":"Puis-je importer ma collection depuis MangaCollec ?","acceptedAnswer":{"@type":"Answer","text":"Oui, Inkku propose un import direct depuis MangaCollec en un clic, ainsi qu'un scan photo IA."}},
-    {"@type":"Question","name":"Comment fonctionne le comparateur de prix manga ?","acceptedAnswer":{"@type":"Answer","text":"Inkku compare en temps réel les prix sur 18 plateformes. Vous recevez une alerte dès que le prix passe sous votre seuil, y compris pour le marché occasion."}}
+    {"@type":"Question","name":"Inkku est-il gratuit ?","acceptedAnswer":{"@type":"Answer","text":"Oui, Inkku est 100% gratuit."}},
+    {"@type":"Question","name":"Puis-je importer depuis MangaCollec ?","acceptedAnswer":{"@type":"Answer","text":"Oui, import direct depuis MangaCollec en un clic, plus scan photo IA."}},
+    {"@type":"Question","name":"Comment fonctionne le comparateur ?","acceptedAnswer":{"@type":"Answer","text":"Inkku compare les prix sur 18 plateformes dont les sites spécialisés manga et les places de marché occasion."}}
   ]}
 ]}
 </script>
@@ -488,24 +437,8 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
       </div>
     </a>
     <div class="nav-badge">En préparation</div>
-    <div class="lang-wrap" id="lang-wrap">
-      <button class="lang-btn" onclick="toggleLang()">
-        <span id="lang-flag">🇫🇷</span> <span id="lang-code">FR</span>
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5l3 3 3-3"/></svg>
-      </button>
-      <div class="lang-menu" id="lang-menu">
-        <div class="lang-opt active" onclick="setLang('fr','🇫🇷','FR',this)">🇫🇷 Français</div>
-        <div class="lang-opt" onclick="setLang('en','🇬🇧','EN',this)">🇬🇧 English</div>
-        <div class="lang-opt" onclick="setLang('es','🇪🇸','ES',this)">🇪🇸 Español</div>
-        <div class="lang-opt" onclick="setLang('pt','🇧🇷','PT',this)">🇧🇷 Português</div>
-        <div class="lang-opt" onclick="setLang('de','🇩🇪','DE',this)">🇩🇪 Deutsch</div>
-        <div class="lang-opt" onclick="setLang('it','🇮🇹','IT',this)">🇮🇹 Italiano</div>
-        <div class="lang-opt" onclick="setLang('ja','🇯🇵','JA',this)">🇯🇵 日本語</div>
-        <div class="lang-opt" onclick="setLang('ko','🇰🇷','KO',this)">🇰🇷 한국어</div>
-        <div class="lang-opt" onclick="setLang('zh','🇨🇳','ZH',this)">🇨🇳 中文</div>
-      </div>
-    </div>
-    <button id="theme-btn" onclick="toggleTheme()" aria-label="Thème" style="background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:7px 10px;cursor:pointer;font-size:14px;color:var(--t1);line-height:1">🌙</button>
+    
+    <button id="theme-btn" onclick="toggleTheme()" style="background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:7px 10px;cursor:pointer;font-size:14px;color:var(--t1);line-height:1;margin-right:4px">🌙</button>
     <a href="#waitlist" class="nav-cta">Rejoindre Inkku</a>
   </div>
 </nav>
@@ -514,24 +447,7 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
 <section class="hero" id="hero">
   <div class="hero-grid"></div>
   <div class="inner" style="width:100%;max-width:var(--max);margin:0 auto">
-    <div class="hero-inner" style="position:relative">
-      <!-- 3D Naruto Book -->
-      <div class="book-scene" aria-hidden="true">
-        <div class="book-3d">
-          <div class="book-front">
-            <img src="https://cdn.myanimelist.net/images/manga/3/117681l.jpg"
-                 alt="Naruto Tome 1"
-                 width="100" height="148"
-                 fetchpriority="low"
-                 onerror="this.parentNode.style.background='linear-gradient(135deg,#cc4400,#661100)'">
-          </div>
-          <div class="book-back"></div>
-          <div class="book-spine"><div class="book-spine-txt">NARUTO · T.01</div></div>
-          <div class="book-top"></div>
-          <div class="book-bot"></div>
-        </div>
-        <div class="book-glow"></div>
-      </div>
+    <div class="hero-inner">
       <!-- LEFT -->
       <div>
         <!-- Logo lockup -->
@@ -707,6 +623,58 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
   </div>
 </section>
 
+    <!-- Community — partage & social -->
+    <div class="inner" style="margin-top:60px">
+      <div style="text-align:center;margin-bottom:32px">
+        <div style="font-family:var(--fm);font-size:10px;color:var(--red);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px">Communauté Inkku</div>
+        <h3 style="font-family:var(--fd);font-size:clamp(26px,3.5vw,38px);letter-spacing:.04em">PARTAGE. NOTE. DISCUTE.<br><span style="color:var(--red)">ENTRE FANS.</span></h3>
+        <p style="font-size:13px;color:var(--t2);max-width:520px;margin:14px auto 0;line-height:1.75">Mets en avant ton top manga, partage tes avis avec d'autres collectionneurs, note tes œuvres favorites et monte en rang en contribuant à la base communautaire.</p>
+      </div>
+
+      <!-- Feature cards -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px">
+        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:22px;border-top:2px solid var(--red)">
+          <div style="font-size:22px;margin-bottom:10px">🏆</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Ton Top manga</div>
+          <div style="font-size:11px;color:var(--t2);line-height:1.65">Affiche ton classement personnel, partage ta liste de favoris et découvre les tops des autres fans. Chaque vote nourrit les recommandations IA.</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:22px;border-top:2px solid var(--blu)">
+          <div style="font-size:22px;margin-bottom:10px">⭐</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Notes &amp; Avis</div>
+          <div style="font-size:11px;color:var(--t2);line-height:1.65">Note chaque série sur 5 étoiles, rédige un avis en quelques lignes, lis les retours d'autres lecteurs avant d'acheter un nouveau tome.</div>
+        </div>
+        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:22px;border-top:2px solid var(--gold)">
+          <div style="font-size:22px;margin-bottom:10px">🎨</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px">Jaquettes exclusives</div>
+          <div style="font-size:11px;color:var(--t2);line-height:1.65">Référence tes jaquettes Momie, Comptoir du Rêve, Japan Expo… Chaque contribution validée te rapporte <strong style="color:var(--grn)">+25 XP</strong> et enrichit la base pour toute la communauté.</div>
+        </div>
+      </div>
+
+      <!-- Activity feed — social focus -->
+      <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:20px;max-width:600px;margin:0 auto">
+        <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px">⚡ Activité récente</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="display:flex;align-items:flex-start;gap:10px;font-size:11px">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--red),#8b0000);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;flex-shrink:0;margin-top:1px">Y</div>
+            <div style="flex:1"><strong>yuki_manga</strong> a noté <span style="color:var(--gold)">★★★★★</span> <em>Vinland Saga</em> et ajouté son avis — <span style="color:var(--t2)">"Meilleur manga de samouraï que j'ai lu depuis Vagabond."</span></div>
+            <div style="font-family:var(--fm);font-size:9px;color:var(--t3);flex-shrink:0;margin-top:2px">3 min</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;font-size:11px">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blu),#0a2a4a);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;flex-shrink:0;margin-top:1px">S</div>
+            <div style="flex:1"><strong>seinen_77</strong> a partagé son <span style="color:var(--red)">Top 5 seinen</span> — Berserk, Vagabond, Monster, Vinland Saga, 20th CB</div>
+            <div style="font-family:var(--fm);font-size:9px;color:var(--t3);flex-shrink:0;margin-top:2px">14 min</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;font-size:11px">
+            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--grn),#0a3a0a);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;flex-shrink:0;margin-top:1px">M</div>
+            <div style="flex:1"><strong>manga_collector</strong> a référencé une <span style="color:var(--gold)">jaquette exclusive Momie</span> pour JJK T.27 et gagné <span style="color:var(--grn)">+25 XP</span></div>
+            <div style="font-family:var(--fm);font-size:9px;color:var(--t3);flex-shrink:0;margin-top:2px">31 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
 <!-- 3 PILLIERS -->
 <section class="features">
   <div class="inner">
@@ -754,7 +722,7 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
         <div class="feat-tags">
           <span class="ftag">18 sites comparés</span>
           <span class="ftag">Alertes prix</span>
-          <span class="ftag" style="color:var(--gold)">🎯 Collectors &amp; introuvables inclus</span>
+          <span class="ftag">Collectors &amp; introuvables inclus</span>
           <span class="ftag">Rakuten · Manga Sanctuary</span>
         </div>
       </div>
@@ -769,60 +737,59 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
       <!-- Visual -->
       <div class="rv">
         <div style="background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:16px 14px">
-          <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">MA BIBLIOTHÈQUE</div>
-          <!-- Shelf 1 — Berserk -->
+          <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">MA BIBLIOTHÈQUE</div>
+          <!-- Berserk ~19cm -->
           <div style="margin-bottom:8px">
-            <div style="display:flex;gap:2px;align-items:flex-end;padding:6px 8px 0;background:linear-gradient(180deg,rgba(139,0,0,.08),transparent);border-radius:6px 6px 0 0;border-bottom:3px solid rgba(139,0,0,.45)">
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#6b0000,#2a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#6b0000,#2a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#6b0000,#2a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#6b0000,#2a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#6b0000,#2a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:linear-gradient(180deg,#6b0000,#2a0000);border-radius:2px 2px 0 0"></div>
-              <div style="width:13px;height:96px;background:rgba(255,255,255,.04);border-radius:2px 2px 0 0;border:1px dashed rgba(255,255,255,.1)" title="Manquant"></div>
+            <div style="display:flex;gap:2px;align-items:flex-end;padding:6px 8px 0;background:linear-gradient(180deg,rgba(139,0,0,.08),transparent);border-radius:6px 6px 0 0;border-bottom:3px solid rgba(139,0,0,.5)">
+              <div style="width:14px;height:92px;background:linear-gradient(180deg,#5a0000,#1a0000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:96px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:90px;background:linear-gradient(180deg,#6b0000,#280000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:95px;background:linear-gradient(180deg,#7a0000,#320000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:91px;background:linear-gradient(180deg,#5a0000,#1a0000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:94px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:92px;background:linear-gradient(180deg,#6b0000,#280000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:96px;background:linear-gradient(180deg,#7a0000,#320000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:90px;background:linear-gradient(180deg,#5a0000,#1a0000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:93px;background:linear-gradient(180deg,#8b0000,#3a0000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:91px;background:linear-gradient(180deg,#6b0000,#280000);border-radius:2px 2px 0 0"></div>
+              <div style="width:14px;height:88px;background:rgba(255,255,255,.04);border-radius:2px 2px 0 0;border:1px dashed rgba(255,255,255,.12)"></div>
               <div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding-bottom:3px"><span style="font-family:var(--fm);font-size:8px;color:var(--t3)">Berserk · 11/42</span></div>
             </div>
           </div>
-          <!-- Shelf 2 — Naruto -->
+          <!-- Naruto ~18cm format poche -->
           <div style="margin-bottom:8px">
-            <div style="display:flex;gap:2px;align-items:flex-end;padding:6px 8px 0;background:linear-gradient(180deg,rgba(204,68,0,.08),transparent);border-radius:6px 6px 0 0;border-bottom:3px solid rgba(204,68,0,.45)">
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
-              <div style="width:12px;height:90px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
+            <div style="display:flex;gap:2px;align-items:flex-end;padding:6px 8px 0;background:linear-gradient(180deg,rgba(204,68,0,.08),transparent);border-radius:6px 6px 0 0;border-bottom:3px solid rgba(204,68,0,.5)">
+              <div style="width:12px;height:82px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:86px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:81px;background:linear-gradient(180deg,#bb3300,#552200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:84px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:83px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:87px;background:linear-gradient(180deg,#bb3300,#552200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:82px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:85px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:80px;background:linear-gradient(180deg,#bb3300,#552200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:83px;background:linear-gradient(180deg,#cc4400,#662200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:85px;background:linear-gradient(180deg,#dd5500,#772200);border-radius:2px 2px 0 0"></div>
+              <div style="width:12px;height:82px;background:linear-gradient(180deg,#bb3300,#552200);border-radius:2px 2px 0 0"></div>
               <div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding-bottom:3px"><span style="font-family:var(--fm);font-size:8px;color:var(--t3)">Naruto · 12/72</span></div>
             </div>
           </div>
-          <!-- Shelf 3 — Collectors -->
+          <!-- Collectors: deluxe (large) + standard + AoT collector -->
           <div>
-            <div style="display:flex;gap:3px;align-items:flex-end;padding:6px 8px 0;background:linear-gradient(180deg,rgba(244,162,97,.07),transparent);border-radius:6px 6px 0 0;border-bottom:3px solid rgba(244,162,97,.45)">
-              <div style="width:19px;height:108px;background:linear-gradient(180deg,#1a1a3a,#0a0a20);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.25)"></div>
-              <div style="width:19px;height:108px;background:linear-gradient(180deg,#1c1c40,#0c0c22);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.2)"></div>
-              <div style="width:19px;height:108px;background:linear-gradient(180deg,#1a1a3a,#0a0a20);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.25)"></div>
-              <div style="width:3px;height:80px;background:var(--b1);align-self:flex-end;margin:0 1px"></div>
-              <div style="width:15px;height:100px;background:linear-gradient(180deg,#0a1428,#020508);border-radius:2px 2px 0 0"></div>
+            <div style="display:flex;gap:3px;align-items:flex-end;padding:6px 8px 0;background:linear-gradient(180deg,rgba(244,162,97,.07),transparent);border-radius:6px 6px 0 0;border-bottom:3px solid rgba(244,162,97,.5)">
+              <div style="width:20px;height:114px;background:linear-gradient(180deg,#1a1a3a,#0a0a20);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.3)"></div>
+              <div style="width:20px;height:116px;background:linear-gradient(180deg,#1c1c40,#0c0c22);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.25)"></div>
+              <div style="width:20px;height:112px;background:linear-gradient(180deg,#1a1a3a,#0a0a20);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.3)"></div>
+              <div style="width:2px;height:70px;background:var(--b1);align-self:flex-end;margin:0 2px"></div>
+              <div style="width:15px;height:97px;background:linear-gradient(180deg,#0a1428,#020508);border-radius:2px 2px 0 0"></div>
               <div style="width:15px;height:100px;background:linear-gradient(180deg,#0c1630,#020610);border-radius:2px 2px 0 0"></div>
-              <div style="width:15px;height:100px;background:linear-gradient(180deg,#0a1428,#020508);border-radius:2px 2px 0 0"></div>
-              <div style="width:3px;height:80px;background:var(--b1);align-self:flex-end;margin:0 1px"></div>
-              <div style="width:19px;height:104px;background:linear-gradient(180deg,#2a0a00,#100300);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.35)"></div>
+              <div style="width:15px;height:96px;background:linear-gradient(180deg,#0a1428,#020508);border-radius:2px 2px 0 0"></div>
+              <div style="width:2px;height:70px;background:var(--b1);align-self:flex-end;margin:0 2px"></div>
+              <div style="width:20px;height:110px;background:linear-gradient(180deg,#2a0a00,#100300);border-radius:2px 2px 0 0;border:1px solid rgba(244,162,97,.4)"></div>
               <div style="flex:1;display:flex;align-items:flex-end;justify-content:flex-end;padding-bottom:3px"><span style="font-family:var(--fm);font-size:8px;color:var(--gold)">🏆 Collectors</span></div>
             </div>
           </div>
         </div>
-        <!-- Stats -->
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px">
           <div class="ss"><div class="ss-v" style="color:var(--red)">127</div><div class="ss-l">Tomes</div></div>
           <div class="ss"><div class="ss-v" style="color:var(--grn)">971€</div><div class="ss-l">Valeur</div></div>
@@ -888,17 +855,16 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
           <div class="reco-cover" style="background:linear-gradient(160deg,#2a0a00,#0d0300)">
             <img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg"
                  loading="lazy" decoding="async"
-                 alt="L'Attaque des Titans - Hajime Isayama"
-                 width="52" height="78"
-                 style="width:100%;height:100%;object-fit:cover;display:block"
+                 alt="L'Attaque des Titans"
                  onerror="this.style.display='none'">
           </div>
           <div class="reco-info">
-            <div class="reco-score" style="color:var(--red)">94<span style="font-size:14px">%</span></div>
+            <div class="reco-label rl3">Découverte · Analyse bibliothèque</div>
             <div class="reco-title">L'Attaque des Titans</div>
-            <div class="reco-by">Hajime Isayama · Pika · Shonen</div>
-            <div class="reco-why">Action épique, enjeux monumentaux — même intensité narrative que Berserk.</div>
+            <div class="reco-meta">Hajime Isayama · Pika · Shonen</div>
+            <div class="reco-reason">Action épique, enjeux monumentaux — même intensité narrative que <strong>Berserk</strong></div>
           </div>
+          <div class="reco-score"><div class="rs-val" style="color:var(--red)">94%</div><div class="rs-lbl">Affinité</div></div>
         </div>
 
         <!-- IA badge -->
@@ -932,6 +898,7 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
         <div class="feat-list">
           <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Analyse automatique</strong> de ta bibliothèque complète : genres, auteurs, rythme de lecture, notes personnelles.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Agent conversationnel Inki</strong> : discute en direct pour affiner tes envies du moment. Il pose les bonnes questions et mémorise tes préférences.</div></div>
+          <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong style="color:var(--t1)">Collector épuisé ou tome introuvable ?</strong> Inkku compare les offres occasion sur les sites partenaires et t'alerte dès qu'un exemplaire passe sous ton prix cible.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Tous les formats</strong> : manga, manhwa, manhua, webtoon. Les recommandations traversent les formats et les origines.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>Score d'affinité précis</strong> basé sur tes vrais goûts, avec une explication claire de chaque suggestion.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--blu)"></div><div class="fl-txt"><strong>S'améliore en continu</strong> : chaque tome ajouté, chaque échange avec Inki rend les prochaines suggestions encore plus précises.</div></div>
@@ -951,24 +918,13 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
         <h2 class="big">COMPLÈTE TA<br>COLLECTION AU<br><span class="acc">MEILLEUR PRIX.</span></h2>
         <p>L'IA te dit quoi acheter. Inkku te trouve où l'acheter le moins cher. Prix comparés en temps réel sur 18 plateformes : grands distributeurs, pure players et spécialistes manga.</p>
         <div class="feat-list">
-          <div class="fl-item"><div class="fl-dot" style="background:var(--gold)"></div><div class="fl-txt"><strong style="color:var(--gold)">Collector épuisé ou tome introuvable ?</strong> Inkku surveille eBay, Vinted, Rakuten Occasion et Le Bon Coin pour toi. Alerte dès qu'un exemplaire se libère.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>18 sites en temps réel</strong> : Amazon, Fnac, Cultura, E.Leclerc, Carrefour, Auchan, Rakuten, Manga Sanctuary, CDSon, Izneo et plus.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>Alertes prix personnalisées</strong> : définis ton prix cible pour chaque tome et reçois une notification dès qu'il est atteint.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>Historique des prix</strong> pour savoir si tu achètes au bon moment ou si tu dois attendre.</div></div>
           <div class="fl-item"><div class="fl-dot" style="background:var(--grn)"></div><div class="fl-txt"><strong>14€ économisés par mois</strong> en moyenne par collectionneur actif. La collection se finance elle-même.</div></div>
         </div>
         <!-- Sites strip -->
-        <div class="sites-strip">
-          Amazon</span>
-          Fnac</span>
-          Cultura</span>
-          E.Leclerc</span>
-          Carrefour</span>
-          Auchan</span>
-          Rakuten</span>
-          Manga Sanctuary</span>
-          + 10 autres</span>
-        </div>
+        
       </div>
 
       <!-- Price demo -->
@@ -979,49 +935,46 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
                 <img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg"
                      loading="lazy" decoding="async"
                      alt="L'Attaque des Titans T27 Edition Limitee"
-                     width="40" height="58"
-                     style="width:100%;height:100%;object-fit:cover;display:block"
                      onerror="this.style.display='none'">
               </div>
               <div>
-                <div class="pd-name">AoT T27 <span style="color:var(--gold);font-size:10px;font-family:var(--fb)">Éd. Limitée ✦</span></div>
-                <div class="pd-meta">Isayama · Pika · Jaquette réversible + 6 badges Titans</div>
+                <div class="pd-name">AoT T27 — Édition Limitée</div>
+                <div class="pd-meta">Hajime Isayama · Pika · Jaquette réversible + 6 badges Titans</div>
               </div>
               <div>
-                <div class="pd-best" style="color:var(--grn)">8,90€</div>
-                <div class="pd-best-lbl">meilleur prix</div>
+                <div class="pd-best">33,00€</div>
+                <div class="pd-best-sub">meilleur prix</div>
               </div>
             </div>
-            <div class="pd-rows">
-              <div class="pd-row best">
-                <div><div class="pr-shop">Rakuten Occasion</div><div class="pr-sub">+ 3,29€ · Très bon état</div></div>
-                <span class="pr-badge good">Meilleur</span>
-                <div class="pr-price" style="color:var(--grn)">8,90€</div>
+            <div class="price-rows">
+              <div class="pr best">
+                <div><div class="pr-shop">Rakuten</div><div class="pr-sub">Occasion · Très bon état · + 3,00€ livraison</div></div>
+                <span class="pr-bdg pb-best">Meilleur</span>
+                <div class="pr-price g">33,00€</div>
+                <a href="https://fr.shopping.rakuten.com" target="_blank" rel="noopener" class="pr-btn">Voir</a>
               </div>
-              <div class="pd-row">
-                <div><div class="pr-shop">Momox</div><div class="pr-sub">+ 4,49€ · Bon état</div></div>
-                <span class="pr-badge" style="background:rgba(76,201,240,.1);color:var(--blu)">Occasion</span>
-                <div class="pr-price">9,49€</div>
+              <div class="pr">
+                <div><div class="pr-shop">eBay.fr</div><div class="pr-sub">Occasion · Très bon état · + 4,50€ livraison</div></div>
+                <span class="pr-bdg pb-std">Occasion</span>
+                <div class="pr-price">37,40€</div>
+                <a href="https://www.ebay.fr" target="_blank" rel="noopener" class="pr-btn ghost">Voir</a>
               </div>
-              <div class="pd-row">
-                <div><div class="pr-shop">eBay.fr</div><div class="pr-sub">+ 3,50€ · Particulier</div></div>
-                <span class="pr-badge" style="background:var(--s2);color:var(--t2)">Enchère</span>
-                <div class="pr-price">10,00€</div>
+              <div class="pr">
+                <div><div class="pr-shop">BDfugue</div><div class="pr-sub">Occasion · Très bon état · + 4,99€ livraison</div></div>
+                <span class="pr-bdg pb-std">Occasion</span>
+                <div class="pr-price">79,99€</div>
+                <a href="https://www.bdfugue.com" target="_blank" rel="noopener" class="pr-btn ghost">Voir</a>
               </div>
-              <div class="pd-row">
-                <div><div class="pr-shop">Fnac Marketplace</div><div class="pr-sub">+ 3,99€ · Très bon état</div></div>
-                <span class="pr-badge" style="background:var(--s2);color:var(--t2)">Marketplace</span>
-                <div class="pr-price">11,50€</div>
-              </div>
-              <div class="pd-row">
-                <div><div class="pr-shop">Amazon</div><div class="pr-sub">+ 2,99€ · Neuf</div></div>
-                <span class="pr-badge" style="background:var(--s2);color:var(--t2)">Neuf</span>
-                <div class="pr-price">14,99€</div>
+              <div class="pr">
+                <div><div class="pr-shop">BDfugue</div><div class="pr-sub">Neuf · + 4,99€ livraison</div></div>
+                <span class="pr-bdg pb-std">Neuf</span>
+                <div class="pr-price">84,99€</div>
+                <a href="https://www.bdfugue.com" target="_blank" rel="noopener" class="pr-btn ghost">Voir</a>
               </div>
             </div>
-            <div style="padding:9px 14px;border-top:1px solid var(--b1);font-size:10px;color:var(--t2);display:flex;align-items:center;gap:7px">
-              <span style="color:var(--gold)">🏆</span>
-              Collector épuisé ? <strong style="color:var(--t1)">Inkku surveille et t'alerte dès qu'un exemplaire apparaît.</strong>
+            <div class="pd-alert">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5a4 4 0 00-4 4c0 3.5-1.5 4.5-1.5 4.5h11S12 9 12 5.5a4 4 0 00-4-4z"/><path d="M6.5 12.5a1.5 1.5 0 003 0"/></svg>
+              Collector épuisé ? Crée une alerte — <strong>Inkku te notifie dès qu'un exemplaire est trouvé.</strong>
             </div>
           </div>
         <div style="margin-top:10px;background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
@@ -1061,54 +1014,6 @@ body.light .pill.p-grn{background:rgba(45,198,83,.05)}
       </div>
     </div>
   </div>
-
-    <!-- Community block -->
-    <div class="inner" style="margin-top:60px">
-      <div style="text-align:center;margin-bottom:28px">
-        <div style="font-family:var(--fm);font-size:10px;color:var(--red);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px">La communauté Inkku</div>
-        <h3 style="font-family:var(--fd);font-size:clamp(26px,3.5vw,38px);letter-spacing:.04em">PLUS ON EST DE FOUS,<br><span style="color:var(--gold)">PLUS ON LIT.</span></h3>
-        <p style="font-size:13px;color:var(--t2);max-width:460px;margin:12px auto 0;line-height:1.7">Contribue à la base de données communautaire, référence tes jaquettes exclusives et suis les collections des autres fans.</p>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px">
-        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:22px;text-align:center;border-top:2px solid var(--red)">
-          <div style="font-family:var(--fd);font-size:32px;letter-spacing:.04em;color:var(--red)">1 247</div>
-          <div style="font-size:12px;font-weight:600;margin-top:4px">Jaquettes exclusives</div>
-          <div style="font-size:10px;color:var(--t2);margin-top:4px">Momie, Comptoir du Rêve, Japan Expo…</div>
-        </div>
-        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:22px;text-align:center;border-top:2px solid var(--blu)">
-          <div style="font-family:var(--fd);font-size:32px;letter-spacing:.04em;color:var(--blu)">18</div>
-          <div style="font-size:12px;font-weight:600;margin-top:4px">Sites comparés</div>
-          <div style="font-size:10px;color:var(--t2);margin-top:4px">Prix en temps réel, occasion inclus.</div>
-        </div>
-        <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:22px;text-align:center;border-top:2px solid var(--gold)">
-          <div style="font-family:var(--fd);font-size:32px;letter-spacing:.04em;color:var(--gold)">500</div>
-          <div style="font-size:12px;font-weight:600;margin-top:4px">Rangs Monarque</div>
-          <div style="font-size:10px;color:var(--t2);margin-top:4px">Limités à jamais. Fondateurs uniquement.</div>
-        </div>
-      </div>
-      <!-- Activity feed -->
-      <div style="background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:18px;max-width:580px;margin:0 auto">
-        <div style="font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px">⚡ Activité récente</div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--red),#8b0000);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;flex-shrink:0">Y</div>
-            <div style="flex:1"><strong>yuki_manga</strong> a atteint le <span style="color:var(--gold)">Rang B</span> et référencé une jaquette Momie pour JJK T.26</div>
-            <div style="font-family:var(--fm);font-size:9px;color:var(--t3);flex-shrink:0">4 min</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--blu),#0a2a4a);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;flex-shrink:0">S</div>
-            <div style="flex:1"><strong>seinen_77</strong> a complété <span style="color:var(--grn)">Berserk (42/42)</span> <span style="color:var(--red)">+50 XP</span></div>
-            <div style="font-family:var(--fm);font-size:9px;color:var(--t3);flex-shrink:0">12 min</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px">
-            <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--grn),#0a3a0a);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;flex-shrink:0">M</div>
-            <div style="flex:1"><strong>manga_collector</strong> a trouvé <span style="color:var(--gold)">AoT T27 Éd. Limitée</span> à 8,90€ grâce à l'alerte Inkku</div>
-            <div style="font-family:var(--fm);font-size:9px;color:var(--t3);flex-shrink:0">28 min</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
 </section>
 
 <!-- SOCIAL PROOF -->
@@ -1198,15 +1103,30 @@ function toggleTheme(){
   try{
     if(localStorage.getItem('inkku-theme')==='light'){
       document.body.classList.add('light')
-      const btn = document.getElementById('theme-btn')
-      if(btn) btn.textContent = '☀️'
+      const btn=document.getElementById('theme-btn')
+      if(btn) btn.textContent='☀️'
     }
   }catch(e){}
 })()
 
 const SUPABASE_URL = 'https://gmztkezhpqklcrukufzp.supabase.co'
 const SUPABASE_ANON_KEY = 'sb_publishable_rCbxth1rZDyqiEQNzzFrSQ_8KlgvJxF'
-let count = 2847
+const BASE_COUNT = 2832
+let count = BASE_COUNT
+
+async function fetchRealCount(){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`,{
+      headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Prefer':'count=exact','Range':'0-0'}
+    })
+    const range = res.headers.get('content-range')
+    const total = range ? parseInt(range.split('/')[1])||0 : 0
+    count = BASE_COUNT + total
+    const el = document.getElementById('proof-count')
+    if(el) el.textContent = count.toLocaleString('fr-FR')
+  }catch(e){ count = BASE_COUNT }
+}
+fetchRealCount()
 
 /* NAV */
 window.addEventListener('scroll', () => {
@@ -1220,23 +1140,8 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 document.querySelectorAll('.rv').forEach(el => io.observe(el))
 
 /* LANG */
-function toggleLang(){
-  const m = document.getElementById('lang-menu')
-  m.style.display = m.style.display === 'block' ? 'none' : 'block'
-}
-function setLang(code, flag, label, el){
-  document.getElementById('lang-flag').textContent = flag
-  document.getElementById('lang-code').textContent = label
-  document.getElementById('lang-menu').style.display = 'none'
-  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'))
-  el.classList.add('active')
-}
-document.addEventListener('click', e => {
-  if(!document.getElementById('lang-wrap')?.contains(e.target)){
-    const m = document.getElementById('lang-menu')
-    if(m) m.style.display = 'none'
-  }
-})
+
+)
 
 /* NOTIF TOGGLES */
 const notif = { email: true, push: false, sms: false }
