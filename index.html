@@ -91,6 +91,14 @@ body.cursor-hover #cursor svg{transform:scale(1.8)}
   transform:translate(-50%,-50%);
 }
 
+
+/* ── RANK ICONS ── */
+.rank-icon-svg{
+  width:36px;height:36px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.rank-icon-svg svg{width:100%;height:100%}
+
 /* ── SCROLL PROGRESS ── */
 #progress{
   position:fixed;top:0;left:0;right:0;
@@ -1295,11 +1303,6 @@ footer{
       <p class="hero-typing">
         <span id="typing-text"></span><span class="cursor-t"></span>
       </p>
-      <div class="hero-count">
-        <span class="fire">🔥</span>
-        <strong id="proof-count">2&nbsp;832</strong>
-        <span>collectionneurs déjà inscrits</span>
-      </div>
       <div class="hero-btns">
         <a href="#waitlist" class="btn-primary">
           RÉSERVER MA PLACE FONDATEUR →
@@ -1313,7 +1316,7 @@ footer{
     <div class="hero-right">
       <div class="manga-float-grid">
         <div class="mcard mc1">
-          <img src="https://cdn.myanimelist.net/images/manga/1/258016l.jpg" alt="Berserk T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#6b0000,#1a0000)'">
+          <img src="https://cdn.myanimelist.net/images/manga/1/157897l.jpg" alt="Berserk T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#6b0000,#1a0000)'">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc2">
@@ -1321,19 +1324,18 @@ footer{
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc3">
-          <img src="https://cdn.myanimelist.net/images/manga/3/188896l.jpg" alt="Jujutsu Kaisen T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0030,#0a0015)'">
+          <img src="https://cdn.myanimelist.net/images/manga/3/114600l.jpg" alt="Jujutsu Kaisen T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0030,#0a0015)'">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc4">
-          <img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#001a4a,#000820)'">
+          <img src="https://cdn.myanimelist.net/images/manga/2/37841l.jpg" alt="Vinland Saga T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#001a4a,#000820)'">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc5">
-          <img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg" alt="Attack on Titan T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'">
+          <img src="https://cdn.myanimelist.net/images/manga/3/74907l.jpg" alt="L'Attaque des Titans T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'">
           <div class="mc-glow"></div>
         </div>
-        <div class="float-badge fb-ai">🤖 IA · 98% affinité</div>
-        <div class="float-badge fb-price">💰 Meilleur prix trouvé</div>
+
       </div>
     </div>
   </div>
@@ -1376,6 +1378,7 @@ footer{
       <span class="sec-eyebrow">Fonctionnalités</span>
       <h2 class="sec-title" id="features-title">TOUT CE DONT UN<br>COLLECTIONNEUR A BESOIN.</h2>
       <p class="sec-jp">コレクター · 推薦 · 価格比較</p>
+    <div style="margin-top:-44px;margin-bottom:60px;display:flex;gap:8px;flex-wrap:wrap"><span style="padding:5px 14px;border-radius:20px;background:rgba(76,201,240,.08);border:1px solid rgba(76,201,240,.2);font-size:11px;color:var(--blu);font-family:var(--fm);letter-spacing:.08em">🌍 Disponible dans tous les pays</span><span style="padding:5px 14px;border-radius:20px;background:rgba(45,198,83,.06);border:1px solid rgba(45,198,83,.18);font-size:11px;color:var(--grn);font-family:var(--fm);letter-spacing:.08em">🔤 Toutes les langues à venir</span></div>
     </div>
     <div class="feat-grid">
 
@@ -1422,7 +1425,7 @@ footer{
             </div>
           </div>
           <div class="mc-recs">
-            <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/1/209370l.jpg" alt="Vagabond" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0800,#050200)'"></div>
+            <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/246089l.jpg" alt="Vagabond" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0800,#050200)'"></div>
             <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#0a1428,#020508)'"></div>
             <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg" alt="Monster" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#0a0a20,#04040c)'"></div>
           </div>
@@ -1437,7 +1440,7 @@ footer{
         <p class="feat-desc">Inkku compare +18 sites en temps réel. Collectors épuisés ou anciens tomes introuvables inclus. L'alerte tombe quand le prix est bon.</p>
         <div class="mini-price">
           <div class="mp-header">
-            <div class="mp-cover"><img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg" alt="AoT T27" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'"></div>
+            <div class="mp-cover"><img src="https://cdn.myanimelist.net/images/manga/3/74907l.jpg" alt="AoT T27 Éd. Limitée" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'"></div>
             <div>
               <div class="mp-name">AoT T27 Éd. Limitée</div>
               <div class="mp-sub">Isayama · Pika · Collector</div>
@@ -1491,15 +1494,20 @@ footer{
       <div class="rv">
         <h3 style="font-family:var(--fd);font-size:18px;letter-spacing:.06em;color:var(--t2);margin-bottom:16px">SYSTÈME DE RANGS</h3>
         <div class="rank-list">
-          <div class="rank-item" style="--rc:#9CA3AF"><div class="rank-letter" style="color:#9CA3AF">E</div><div class="rank-info"><div class="rank-name">Rang E</div><div class="rank-xp">0 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:5%;--rc:#9CA3AF"></div></div></div>
-          <div class="rank-item" style="--rc:#60A5FA"><div class="rank-letter" style="color:#60A5FA">D</div><div class="rank-info"><div class="rank-name">Rang D</div><div class="rank-xp">200 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:15%"></div></div></div>
-          <div class="rank-item" style="--rc:#34D399"><div class="rank-letter" style="color:#34D399">C</div><div class="rank-info"><div class="rank-name">Rang C</div><div class="rank-xp">600 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:25%;background:#34D399"></div></div></div>
-          <div class="rank-item" style="--rc:var(--red)"><div class="rank-letter" style="color:var(--red)">B</div><div class="rank-info"><div class="rank-name">Rang B</div><div class="rank-xp">1 500 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:40%;background:var(--red)"></div></div></div>
-          <div class="rank-item" style="--rc:#F97316"><div class="rank-letter" style="color:#F97316">A</div><div class="rank-info"><div class="rank-name">Rang A</div><div class="rank-xp">4 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:55%;background:#F97316"></div></div></div>
-          <div class="rank-item" style="--rc:#A855F7"><div class="rank-letter" style="color:#A855F7">S</div><div class="rank-info"><div class="rank-name">Rang S</div><div class="rank-xp">10 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:70%;background:#A855F7"></div></div></div>
-          <div class="rank-item" style="--rc:#EC4899"><div class="rank-letter" style="color:#EC4899">SS</div><div class="rank-info"><div class="rank-name">Rang SS</div><div class="rank-xp">25 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:82%;background:#EC4899"></div></div></div>
-          <div class="rank-item" style="--rc:#F43F5E"><div class="rank-letter" style="color:#F43F5E">SSS</div><div class="rank-info"><div class="rank-name">Rang SSS</div><div class="rank-xp">50 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:92%;background:#F43F5E"></div></div></div>
-          <div class="rank-item monarque"><div class="rank-letter" style="color:var(--gold)">👑</div><div class="rank-info"><div class="rank-name">Monarque</div><div class="rank-xp">150 000 XP · Limité à 500 personnes</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:100%;background:var(--gold)"></div></div></div>
+          <div class="rank-item" style="--rc:#9CA3AF"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="16" stroke="#9CA3AF" stroke-width="2" fill="#9CA3AF18"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="14" fill="#9CA3AF">E</text></svg></div><div class="rank-info"><div class="rank-name">Rang E</div><div class="rank-xp">0 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:5%;--rc:#9CA3AF"></div></div></div>
+          <div class="rank-item" style="--rc:#60A5FA"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 33,10 33,26 18,34 3,26 3,10" stroke="#60A5FA" stroke-width="2" fill="#60A5FA18"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="13" fill="#60A5FA">D</text></svg></div><div class="rank-info"><div class="rank-name">Rang D</div><div class="rank-xp">200 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:15%"></div></div></div>
+          <div class="rank-item" style="--rc:#34D399"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 33,10 33,26 18,34 3,26 3,10" stroke="#34D399" stroke-width="2" fill="#34D39918"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="13" fill="#34D399">C</text></svg></div><div class="rank-info"><div class="rank-name">Rang C</div><div class="rank-xp">600 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:25%;background:#34D399"></div></div></div>
+          <div class="rank-item" style="--rc:var(--red)"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 33,10 33,26 18,34 3,26 3,10" stroke="#E63946" stroke-width="2" fill="#E6394618"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="13" fill="#E63946">B</text></svg></div><div class="rank-info"><div class="rank-name">Rang B</div><div class="rank-xp">1 500 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:40%;background:var(--red)"></div></div></div>
+          <div class="rank-item" style="--rc:#F97316"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 34,18 18,34 2,18" stroke="#F97316" stroke-width="2" fill="#F9731618"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="#F97316">A</text></svg></div><div class="rank-info"><div class="rank-name">Rang A</div><div class="rank-xp">4 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:55%;background:#F97316"></div></div></div>
+          <div class="rank-item" style="--rc:#A855F7"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 34,18 18,34 2,18" stroke="#A855F7" stroke-width="2" fill="#A855F718"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="#A855F7">S</text></svg></div><div class="rank-info"><div class="rank-name">Rang S</div><div class="rank-xp">10 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:70%;background:#A855F7"></div></div></div>
+          <div class="rank-item" style="--rc:#EC4899"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 34,18 18,34 2,18" stroke="#EC4899" stroke-width="2" fill="#EC489918"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="11" fill="#EC4899">SS</text></svg></div><div class="rank-info"><div class="rank-name">Rang SS</div><div class="rank-xp">25 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:82%;background:#EC4899"></div></div></div>
+          <div class="rank-item" style="--rc:#F43F5E"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><polygon points="18,2 22,13 34,13 24,21 27,33 18,25 9,33 12,21 2,13 14,13" stroke="#F43F5E" stroke-width="1.5" fill="#F43F5E20"/><text x="18" y="23" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="9" fill="#F43F5E">SSS</text></svg></div><div class="rank-info"><div class="rank-name">Rang SSS</div><div class="rank-xp">50 000 XP</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:92%;background:#F43F5E"></div></div></div>
+          <div class="rank-item monarque"><div class="rank-icon-svg"><svg viewBox="0 0 36 36" fill="none"><path d="M4 26L8 14L14 20L18 8L22 20L28 14L32 26Z" stroke="#FFD700" stroke-width="2" fill="#FFD70020" stroke-linejoin="round"/><rect x="4" y="26" width="28" height="4" rx="2" fill="#FFD700" opacity=".5"/><circle cx="18" cy="8" r="2.5" fill="#FFD700"/><circle cx="8" cy="14" r="2" fill="#FFD700"/><circle cx="28" cy="14" r="2" fill="#FFD700"/></svg></div><div class="rank-info"><div class="rank-name">Monarque</div><div class="rank-xp">150 000 XP · 500 places · Fermé définitivement ensuite</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:100%;background:var(--gold)"></div></div></div>
+        </div>
+        <!-- Rank benefit callout -->
+        <div style="margin-top:16px;padding:14px 18px;background:linear-gradient(135deg,rgba(230,57,70,.07),rgba(255,215,0,.04));border:1px solid rgba(230,57,70,.2);border-radius:12px;font-size:12px;color:var(--t2);line-height:1.6">
+          <strong style="color:var(--t1);display:block;margin-bottom:4px">🚀 Monter en rang, c'est bien plus qu'un titre.</strong>
+          Chaque palier débloque un accès exclusif en avant-première à toutes les nouveautés d'Inkku. Et on a déjà beaucoup d'idées dans les tuyaux !
         </div>
       </div>
 
@@ -1547,16 +1555,77 @@ footer{
     <div class="phone-wrap rv">
       <div class="phone-frame">
         <div class="phone-screen">
-          <div class="ps-header">
-            <div class="ps-title">INK<span>KU</span></div>
-          </div>
-          <div class="ps-grid">
-            <div class="ps-thumb"><img src="https://cdn.myanimelist.net/images/manga/1/258016l.jpg" alt="Berserk" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#6b0000,#1a0000)'"></div>
-            <div class="ps-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/253146l.jpg" alt="One Piece" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#003399,#001133)'"></div>
-            <div class="ps-thumb"><img src="https://cdn.myanimelist.net/images/manga/3/188896l.jpg" alt="Jujutsu Kaisen" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0030,#0a0015)'"></div>
-            <div class="ps-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#001a4a,#000820)'"></div>
-            <div class="ps-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg" alt="AoT" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'"></div>
-            <div class="ps-thumb"><img src="https://cdn.myanimelist.net/images/manga/1/209370l.jpg" alt="Vagabond" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0800,#050200)'"></div>
+          <!-- Inkku Mobile App UI -->
+          <div style="width:100%;height:100%;background:#07070F;display:flex;flex-direction:column;overflow:hidden">
+            <!-- Status bar -->
+            <div style="padding:50px 16px 0;background:#07070F;flex-shrink:0">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.08em;color:#F1F1F1">INK<span style="color:#E63946">KU</span></div>
+                <div style="display:flex;gap:8px">
+                  <div style="width:28px;height:28px;border-radius:50%;background:#1a1a26;display:flex;align-items:center;justify-content:center">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A8A9A" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                  </div>
+                </div>
+              </div>
+              <!-- XP bar -->
+              <div style="background:#12121A;border-radius:8px;padding:8px 10px;margin-bottom:12px;border:1px solid rgba(255,255,255,.06)">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+                  <span style="font-size:9px;color:#8A8A9A;font-family:monospace;letter-spacing:.1em">RANG B · 1 247 XP</span>
+                  <span style="font-size:9px;color:#E63946;font-family:monospace">+25 XP</span>
+                </div>
+                <div style="height:3px;background:#1a1a26;border-radius:2px">
+                  <div style="width:68%;height:100%;background:linear-gradient(90deg,#E63946,#FF6B6B);border-radius:2px"></div>
+                </div>
+              </div>
+              <!-- Section title -->
+              <div style="font-size:10px;color:#8A8A9A;letter-spacing:.1em;text-transform:uppercase;font-family:monospace;margin-bottom:8px">Ma collection</div>
+            </div>
+            <!-- Manga grid -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:0 8px;overflow:hidden;flex:1">
+              <div style="aspect-ratio:.67;border-radius:4px;overflow:hidden;position:relative">
+                <img src="https://cdn.myanimelist.net/images/manga/1/157897l.jpg" alt="Berserk" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentNode.style.background='linear-gradient(135deg,#6b0000,#2a0000)'">
+                <div style="position:absolute;bottom:2px;right:2px;background:#E63946;border-radius:3px;padding:1px 4px;font-size:7px;font-weight:700;color:#fff">11/42</div>
+              </div>
+              <div style="aspect-ratio:.67;border-radius:4px;overflow:hidden;position:relative">
+                <img src="https://cdn.myanimelist.net/images/manga/2/253146l.jpg" alt="One Piece" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentNode.style.background='linear-gradient(135deg,#003399,#001133)'">
+                <div style="position:absolute;bottom:2px;right:2px;background:#E63946;border-radius:3px;padding:1px 4px;font-size:7px;font-weight:700;color:#fff">8/109</div>
+              </div>
+              <div style="aspect-ratio:.67;border-radius:4px;overflow:hidden;position:relative">
+                <img src="https://cdn.myanimelist.net/images/manga/3/114600l.jpg" alt="JJK" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0030,#0a0015)'">
+                <div style="position:absolute;bottom:2px;right:2px;background:#2DC653;border-radius:3px;padding:1px 4px;font-size:7px;font-weight:700;color:#fff">✓</div>
+              </div>
+              <div style="aspect-ratio:.67;border-radius:4px;overflow:hidden;position:relative">
+                <img src="https://cdn.myanimelist.net/images/manga/2/37841l.jpg" alt="Vinland Saga" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentNode.style.background='linear-gradient(135deg,#001a4a,#000820)'">
+                <div style="position:absolute;bottom:2px;right:2px;background:#E63946;border-radius:3px;padding:1px 4px;font-size:7px;font-weight:700;color:#fff">5/27</div>
+              </div>
+              <div style="aspect-ratio:.67;border-radius:4px;overflow:hidden;position:relative">
+                <img src="https://cdn.myanimelist.net/images/manga/3/74907l.jpg" alt="AoT" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'">
+                <div style="position:absolute;bottom:2px;right:2px;background:#2DC653;border-radius:3px;padding:1px 4px;font-size:7px;font-weight:700;color:#fff">✓</div>
+              </div>
+              <div style="aspect-ratio:.67;border-radius:4px;overflow:hidden;position:relative">
+                <img src="https://cdn.myanimelist.net/images/manga/2/246089l.jpg" alt="Vagabond" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0800,#050200)'">
+                <div style="position:absolute;bottom:2px;right:2px;background:#E63946;border-radius:3px;padding:1px 4px;font-size:7px;font-weight:700;color:#fff">7/37</div>
+              </div>
+            </div>
+            <!-- Bottom nav bar -->
+            <div style="display:flex;justify-content:space-around;padding:10px 0 14px;background:#0D0D14;border-top:1px solid rgba(255,255,255,.06);flex-shrink:0">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#E63946" stroke="none"><path d="M4 19A2 2 0 015.5 17H20"/><path d="M5.5 2H20v20H5.5A2 2 0 013.5 20V4a2 2 0 012-2z"/></svg>
+                <span style="font-size:8px;color:#E63946;font-family:monospace">Collection</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a3a54" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span style="font-size:8px;color:#3a3a54;font-family:monospace">Découvrir</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a3a54" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                <span style="font-size:8px;color:#3a3a54;font-family:monospace">Prix</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a3a54" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                <span style="font-size:8px;color:#3a3a54;font-family:monospace">Communauté</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1570,13 +1639,19 @@ footer{
     </div>
 
     <div class="store-badges rv">
-      <div class="store-badge">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.2 1.3-2.18 3.87.03 3.02 2.65 4.03 2.68 4.04l-.05.16zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        App Store
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+        <div class="store-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;flex-shrink:0"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.2 1.3-2.18 3.87.03 3.02 2.65 4.03 2.68 4.04l-.05.16zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </div>
+        <span style="font-size:10px;color:var(--t3);font-family:var(--fm);letter-spacing:.08em">Bientôt disponible</span>
       </div>
-      <div class="store-badge">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.21.8.22 1.19.03l12.13-6.99-2.54-2.54L3.18 23.76zm-1.84-19.4c-.21.3-.34.67-.34 1.09v15.1c0 .42.13.8.34 1.09L2.4 21.7 13.6 12 2.4 2.3l-1.06 2.06zM20.1 9.54l-2.11-1.22L15.44 12l2.55 2.55 2.13-1.23c.61-.35.99-.97.99-1.64 0-.67-.38-1.29-.99-1.64l-.02-.1zM4.37.21c-.39-.19-.82-.18-1.19.03l10.96 10.97L16.7 8.67 4.37.21z"/></svg>
-        Google Play
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+        <div class="store-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;flex-shrink:0"><path d="M3.18 23.76c.37.21.8.22 1.19.03l12.13-6.99-2.54-2.54L3.18 23.76zm-1.84-19.4c-.21.3-.34.67-.34 1.09v15.1c0 .42.13.8.34 1.09L2.4 21.7 13.6 12 2.4 2.3l-1.06 2.06zM20.1 9.54l-2.11-1.22L15.44 12l2.55 2.55 2.13-1.23c.61-.35.99-.97.99-1.64 0-.67-.38-1.29-.99-1.64l-.02-.1zM4.37.21c-.39-.19-.82-.18-1.19.03l10.96 10.97L16.7 8.67 4.37.21z"/></svg>
+          Google Play
+        </div>
+        <span style="font-size:10px;color:var(--t3);font-family:var(--fm);letter-spacing:.08em">Bientôt disponible</span>
       </div>
     </div>
   </div>
@@ -1589,7 +1664,7 @@ footer{
     <div class="rv">
       <div class="wl-badge">Inkku · Liste d'attente · Fondateurs</div>
       <h2 class="wl-title" id="waitlist-title">RÉSERVEZ<br>VOTRE PLACE.</h2>
-      <p class="wl-sub">Accès prioritaire · Badge Fondateur exclusif · 500 XP offerts à l'ouverture · Votre pseudo réservé dès maintenant.</p>
+      <p class="wl-sub">Accès prioritaire · Badge Fondateur exclusif · 500 XP offerts à l'ouverture · Votre pseudo réservé dès maintenant.<br><span style="font-size:12px;color:var(--t3)">🌍 Inkku sera disponible dans tous les pays, en toutes les langues.</span></p>
       <div class="wl-urgency">
         <span class="urg-icon">⚡</span>
         Il reste <span class="urg-num" id="urg-num">487</span>&nbsp;places Fondateur disponibles
@@ -1673,73 +1748,6 @@ footer{
       <p class="success-sub">Tu fais partie des <strong id="success-num">2 833</strong> premiers membres d'Inkku.<br>Ton pseudo est réservé. On te tient au courant !</p>
       <div class="success-badge">🏅 Badge Fondateur</div>
     </div>
-
-    <!-- Proof -->
-    <div class="proof-sec rv">
-      <div class="proof-count" id="proof-count2">2 832</div>
-      <p class="proof-lbl" role="status" aria-live="polite">lecteurs déjà sur la liste d'attente</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FAQ ═══ -->
-<section id="faq" aria-labelledby="faq-title">
-  <div class="inner">
-    <div class="rv" style="text-align:center">
-      <span class="sec-eyebrow">Questions fréquentes</span>
-      <h2 class="sec-title" id="faq-title">FAQ</h2>
-    </div>
-    <div class="faq-list rv">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          C'est vraiment gratuit ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">Oui, Inkku est 100% gratuit. La gestion de collection, les recommandations et le comparateur de prix sont accessibles sans frais, sans carte bancaire. On se rémunère via des partenariats d'affiliation — si tu achètes un manga depuis Inkku, on touche une petite commission sans que ça te coûte plus cher.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Quand est-ce qu'Inkku sera disponible ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">Nous sommes actuellement en développement. Les membres de la liste d'attente seront les premiers informés et auront un accès prioritaire à la beta. Le lancement est prévu dans les prochains mois — inscris-toi pour ne rien rater !</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Comment fonctionnent les recommandations ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">L'agent Inki analyse ta bibliothèque complète — les genres que tu possèdes, les auteurs que tu affectionnes, tes notes et avis — pour calculer un score d'affinité avec des milliers d'autres séries. Plus tu utilises Inkku, plus les recommandations sont précises et personnalisées.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Quels sites sont comparés pour les prix ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">Inkku compare en temps réel plus de 18 plateformes : Amazon, Fnac, Cultura, E.Leclerc, Rakuten, BDfugue, Manga Sanctuary, Momox, eBay et bien d'autres. Pour les collectors épuisés, on surveille aussi les places de marché occasion pour t'alerter dès qu'un exemplaire apparaît.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Mon pseudo est-il vraiment réservé ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">Oui ! Dès que tu t'inscris avec un pseudo, il est immédiatement réservé dans notre base de données. Personne d'autre ne pourra l'utiliser lors du lancement. C'est l'un des avantages exclusifs de la liste d'attente.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          L'application sera disponible sur Android et iOS ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">Oui, Inkku sera disponible sur iOS (App Store) et Android (Google Play), ainsi qu'en version web accessible depuis n'importe quel navigateur. Tu pourras synchroniser ta collection sur tous tes appareils.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          Comment fonctionne le système de XP et de rangs ?
-          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="faq-a">Tu gagnes des XP en utilisant Inkku : ajouter des tomes (+5 XP), compléter une série (+50 XP), noter un manga (+3 XP), contribuer une jaquette exclusive (+25 XP), parrainer un ami (+200 XP)... Il y a 9 rangs de E à Monarque. Le rang Monarque est limité à 500 personnes dans le monde entier — une fois les 500 places prises, il ferme définitivement.</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1805,10 +1813,8 @@ async function fetchRealCount(){
     const range=r.headers.get('content-range')
     const total=range?parseInt(range.split('/')[1])||0:0
     count=BASE_COUNT+total
-    ;['proof-count','proof-count2'].forEach(id=>{
-      const el=document.getElementById(id)
-      if(el)el.textContent=count.toLocaleString('fr-FR')
-    })
+    ;const pcEl=document.getElementById('proof-count')
+      if(pcEl)pcEl.textContent=count.toLocaleString('fr-FR')
   }catch(e){count=BASE_COUNT}
 }
 fetchRealCount()
@@ -1920,15 +1926,29 @@ function typeLoop(){
 }
 typeLoop()
 
-// ── URGENCY COUNTER ────────────────────────────────────
-let urgNum=487
-setInterval(()=>{
-  if(urgNum>420&&Math.random()>.7){
-    urgNum--
+// ── URGENCY COUNTER (real-time Supabase) ───────────────
+const FOUNDER_TOTAL = 500
+async function updateUrgency(){
+  try{
+    const r=await fetch(`${SUPABASE_URL}/rest/v1/waitlist?is_founder=eq.true&select=id`,{
+      headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Prefer':'count=exact','Range':'0-0'}
+    })
+    const range=r.headers.get('content-range')
+    const taken=range?parseInt(range.split('/')[1])||0:0
+    const remaining=Math.max(0,FOUNDER_TOTAL-taken)
     const el=document.getElementById('urg-num')
-    if(el)el.textContent=urgNum
+    if(el)el.textContent=remaining
+  }catch(e){
+    // fallback: simulate slow decrease
+    const el=document.getElementById('urg-num')
+    if(el){
+      let n=parseInt(el.textContent)||487
+      if(n>420&&Math.random()>.8){el.textContent=n-1}
+    }
   }
-},8000)
+}
+updateUrgency()
+setInterval(updateUrgency,30000)
 
 // ── ACTIVITY FEED ──────────────────────────────────────
 const activities=[
@@ -2059,7 +2079,7 @@ async function submitForm(){
   if(res.conflict){btn.disabled=false;btn.textContent='Pseudo ou email déjà utilisé';return}
   if(res.ok){
     count++
-    ;['proof-count','proof-count2','success-num'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=count.toLocaleString('fr-FR')})
+    ;['success-num'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=count.toLocaleString('fr-FR')})
     const sp=document.getElementById('success-pseudo')
     if(sp)sp.textContent=pseudo.toLowerCase()
     document.getElementById('wl-form').style.display='none'
