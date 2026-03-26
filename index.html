@@ -2205,132 +2205,118 @@ function toggleTheme(){
 })()
 
 // ══════════════════════════════════════════════════════════════
-// INKKU COVER LOADER v5
-// Source 1: Google Books API — FR editions, CORS-friendly, no key needed
-// Source 2: Jikan API (MAL) — sequential to avoid rate limit
-// Source 3: Kitsu API — fallback
+// INKKU COVER LOADER v6 — Sequential loading, Jikan search + Open Library FR
 // ══════════════════════════════════════════════════════════════
 
-const MANGA_DATA = {
-  'berserk':      { gbQuery: 'Berserk Kentaro Miura Glenat manga', jikanId: 2 },
-  'one-piece':    { gbQuery: 'One Piece Eiichiro Oda Glenat manga', jikanId: 13 },
-  'jjk':          { gbQuery: 'Jujutsu Kaisen Gege Akutami Ki-oon manga', jikanId: 113138 },
-  'vinland-saga': { gbQuery: 'Vinland Saga Yukimura Kurokawa manga', jikanId: 55702 },
-  'aot':          { gbQuery: 'Attaque des Titans Isayama Pika manga', jikanId: 23390 },
-  'vagabond':     { gbQuery: 'Vagabond Inoue Glenat manga', jikanId: 11 },
-  'chainsaw-man': { gbQuery: 'Chainsaw Man Fujimoto Crunchyroll manga', jikanId: 116778 },
-  'monster':      { gbQuery: 'Monster Naoki Urasawa Kana manga', jikanId: 1 },
+// French ISBN-13 for volume 1 → Open Library covers (CORS-free, FR editions)
+const FR_ISBNS = {
+  'berserk':      '9782723450140',   // Glénat
+  'one-piece':    '9782723449090',   // Glénat
+  'jjk':          '9782355929342',   // Ki-oon
+  'vinland-saga': '9782368521595',   // Kurokawa
+  'aot':          '9782811606077',   // Pika
+  'vagabond':     '9782723450133',   // Glénat
+  'monster':      '9782871294825',   // Kana
+  'chainsaw-man': '9782823404527',   // Crunchyroll
+}
+
+// Jikan search titles
+const JIKAN_TITLES = {
+  'berserk':      'Berserk',
+  'one-piece':    'One Piece',
+  'jjk':          'Jujutsu Kaisen',
+  'vinland-saga': 'Vinland Saga',
+  'aot':          'Shingeki no Kyojin',
+  'vagabond':     'Vagabond',
+  'monster':      'Monster',
+  'chainsaw-man': 'Chainsaw Man',
 }
 
 const COVER_CACHE = {}
 
-// ── Google Books API (French editions, CORS-free) ────────────────────────────
-async function fromGoogleBooks(key) {
-  const { gbQuery } = MANGA_DATA[key] || {}
-  if (!gbQuery) return null
-  try {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(gbQuery)}&langRestrict=fr&maxResults=5&printType=books`
-    const r = await fetch(url, { signal: AbortSignal.timeout(7000) })
-    if (!r.ok) return null
-    const data = await r.json()
-    const items = (data.items || []).filter(i => i.volumeInfo?.imageLinks)
-    if (!items.length) return null
-    // Prefer item that looks like volume 1
-    const vol1 = items.find(i => {
-      const t = (i.volumeInfo.title + ' ' + (i.volumeInfo.subtitle || '')).toLowerCase()
-      return /t\.?\s*0*1|tome\s*0*1|volume\s*0*1/.test(t)
-    }) || items[0]
-    const thumb = vol1.volumeInfo.imageLinks.thumbnail || vol1.volumeInfo.imageLinks.smallThumbnail
-    if (!thumb) return null
-    // Upgrade quality: zoom=1→zoom=3, remove edge curl, force https
-    return thumb
-      .replace(/^http:/, 'https:')
-      .replace('zoom=1', 'zoom=3')
-      .replace('&edge=curl', '')
-  } catch(e) { return null }
+// ── Open Library (French ISBNs, CORS-free) ───────────────────
+function getOpenLibraryUrl(key) {
+  const isbn = FR_ISBNS[key]
+  if (!isbn) return null
+  return `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`
 }
 
-// ── Jikan API (MAL) with delay to respect rate limit ────────────────────────
-let jikanLastCall = 0
-async function fromJikan(key) {
-  const { jikanId } = MANGA_DATA[key] || {}
-  if (!jikanId) return null
-  // Respect 3 req/sec rate limit
-  const now = Date.now()
-  const wait = Math.max(0, 400 - (now - jikanLastCall))
-  if (wait > 0) await new Promise(r => setTimeout(r, wait))
-  jikanLastCall = Date.now()
-  try {
-    const r = await fetch(`https://api.jikan.moe/v4/manga/${jikanId}`, {
-      signal: AbortSignal.timeout(8000)
-    })
-    if (!r.ok) return null
-    const data = await r.json()
-    return data?.data?.images?.jpg?.large_image_url
-        || data?.data?.images?.jpg?.image_url
-        || null
-  } catch(e) { return null }
+// Check if Open Library actually has the cover (they return a tiny 1px image if not found)
+async function openLibraryHasCover(url) {
+  return new Promise(resolve => {
+    const img = new Image()
+    img.onload = () => resolve(img.naturalWidth > 10) // real cover > 10px wide
+    img.onerror = () => resolve(false)
+    img.src = url
+  })
 }
 
-// ── Kitsu API (fallback) ──────────────────────────────────────────────────────
-async function fromKitsu(key) {
-  const { gbQuery } = MANGA_DATA[key] || {}
-  if (!gbQuery) return null
-  const title = gbQuery.split(' ').slice(0, 2).join(' ')
+// ── Jikan search (sequential, 500ms apart) ──────────────────
+let jikanBusy = false
+const jikanQueue = []
+
+async function jikanSearch(key) {
+  const title = JIKAN_TITLES[key]
+  if (!title) return null
   try {
     const r = await fetch(
-      `https://kitsu.io/api/edge/manga?filter[text]=${encodeURIComponent(title)}&page[limit]=3`,
-      { headers: { 'Accept': 'application/vnd.api+json' }, signal: AbortSignal.timeout(6000) }
+      `https://api.jikan.moe/v4/manga?q=${encodeURIComponent(title)}&limit=1`,
+      { signal: AbortSignal.timeout(8000) }
     )
     if (!r.ok) return null
     const data = await r.json()
     const item = (data.data || [])[0]
-    return item?.attributes?.posterImage?.original
-        || item?.attributes?.posterImage?.large
-        || null
+    return item?.images?.jpg?.large_image_url || item?.images?.jpg?.image_url || null
   } catch(e) { return null }
 }
 
-// ── Main loader with waterfall fallback ──────────────────────────────────────
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)) }
+
+// ── Main load function ────────────────────────────────────────
 async function loadCover(key) {
   if (COVER_CACHE[key]) return COVER_CACHE[key]
 
-  // Try Google Books first (French editions)
-  let url = await fromGoogleBooks(key)
+  // 1. Try Open Library French cover
+  const olUrl = getOpenLibraryUrl(key)
+  if (olUrl) {
+    const hasIt = await openLibraryHasCover(olUrl)
+    if (hasIt) {
+      COVER_CACHE[key] = olUrl
+      return olUrl
+    }
+  }
 
-  // Fallback: Jikan
-  if (!url) url = await fromJikan(key)
+  // 2. Fallback: Jikan search (rate-limited)
+  const jikanUrl = await jikanSearch(key)
+  if (jikanUrl) {
+    COVER_CACHE[key] = jikanUrl
+    return jikanUrl
+  }
 
-  // Fallback: Kitsu
-  if (!url) url = await fromKitsu(key)
-
-  if (url) COVER_CACHE[key] = url
-  return url || null
+  return null
 }
 
-// ── Apply covers to the page ──────────────────────────────────────────────────
-function applyCovers() {
+// ── Apply cover to img elements ───────────────────────────────
+function setCoverOnImgs(key, url) {
+  document.querySelectorAll(`img[data-manga-id="${key}"]`).forEach(img => {
+    img.onload = () => { img.style.opacity = '1' }
+    img.onerror = () => { /* keep gradient */ }
+    img.style.transition = 'opacity .5s ease'
+    img.src = url
+  })
+}
+
+// ── Sequential cover loader ───────────────────────────────────
+async function applyCovers() {
   const imgs = document.querySelectorAll('img[data-manga-id]')
-  // Unique keys — load each once
   const keys = [...new Set([...imgs].map(i => i.getAttribute('data-manga-id')))]
 
-  keys.forEach(async key => {
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    if (i > 0) await sleep(500) // 500ms between requests = safe for Jikan
     const url = await loadCover(key)
-    if (!url) return
-    document.querySelectorAll(`img[data-manga-id="${key}"]`).forEach(img => {
-      const tmp = new Image()
-      tmp.crossOrigin = 'anonymous'
-      tmp.onload = () => {
-        img.src = url
-        img.style.transition = 'opacity .5s ease'
-        img.style.opacity = '1'
-      }
-      tmp.onerror = () => {
-        // Silent fail — gradient bg remains visible
-      }
-      tmp.src = url
-    })
-  })
+    if (url) setCoverOnImgs(key, url)
+  }
 }
 
 if (document.readyState === 'loading') {
