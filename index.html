@@ -1345,23 +1345,23 @@ footer{
     <div class="hero-right">
       <div class="manga-float-grid">
         <div class="mcard mc1">
-          <img src="https://cdn.myanimelist.net/images/manga/1/259070l.jpg" alt="Berserk T.1" loading="eager" onerror="this.style.display='none'">
+          <img data-manga-id="berserk" alt="Berserk T.1 — Glénat" loading="eager" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#6b0000,#1a0000)">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc2">
-          <img src="https://cdn.myanimelist.net/images/manga/2/96542l.jpg" alt="One Piece T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#003399,#001133)'">
+          <img data-manga-id="one-piece" alt="One Piece T.1 — Glénat" loading="eager" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#003a99,#001133)">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc3">
-          <img src="https://cdn.myanimelist.net/images/manga/3/200830l.jpg" alt="Jujutsu Kaisen T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0030,#0a0015)'">
+          <img data-manga-id="jjk" alt="Jujutsu Kaisen T.1 — Ki-oon" loading="eager" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#1a0030,#0a0015)">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc4">
-          <img src="https://cdn.myanimelist.net/images/manga/3/241738l.jpg" alt="Vinland Saga T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#001a4a,#000820)'">
+          <img data-manga-id="vinland-saga" alt="Vinland Saga T.1 — Kurokawa" loading="eager" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#001a4a,#000820)">
           <div class="mc-glow"></div>
         </div>
         <div class="mcard mc5">
-          <img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg" alt="L'Attaque des Titans T.1" loading="eager" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'">
+          <img data-manga-id="aot" alt="L'Attaque des Titans T.1 — Pika" loading="eager" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#2a0a00,#0d0300)">
           <div class="mc-glow"></div>
         </div>
 
@@ -1454,9 +1454,9 @@ footer{
             </div>
           </div>
           <div class="mc-recs">
-            <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/246089l.jpg" alt="Vagabond" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#1a0800,#050200)'"></div>
-            <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/2/188925l.jpg" alt="Vinland Saga" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#0a1428,#020508)'"></div>
-            <div class="mc-rec-thumb"><img src="https://cdn.myanimelist.net/images/manga/3/258224l.jpg" alt="Monster" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#0a0a20,#04040c)'"></div>
+            <div class="mc-rec-thumb"><img data-manga-id="vagabond" alt="Vagabond — Kazé" loading="lazy" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#1a0800,#050200)"></div>
+            <div class="mc-rec-thumb"><img data-manga-id="vinland-saga" alt="Vinland Saga — Kurokawa" loading="lazy" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#001a4a,#040812)"></div>
+            <div class="mc-rec-thumb"><img data-manga-id="monster" alt="Monster — Kana" loading="lazy" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#0a0a20,#04040c)"></div>
           </div>
         </div>
       </article>
@@ -1469,7 +1469,7 @@ footer{
         <p class="feat-desc">Inkku compare +18 sites en temps réel. Collectors épuisés ou anciens tomes introuvables inclus. L'alerte tombe quand le prix est bon.</p>
         <div class="mini-price">
           <div class="mp-header">
-            <div class="mp-cover"><img src="https://cdn.myanimelist.net/images/manga/2/37846l.jpg" alt="AoT T27 Éd. Limitée" loading="lazy" onerror="this.parentNode.style.background='linear-gradient(135deg,#2a0a00,#100300)'"></div>
+            <div class="mp-cover"><img data-manga-id="aot" alt="AoT T27 Éd. Limitée — Pika" loading="lazy" src="" style="width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#2a0a00,#0d0300)"></div>
             <div>
               <div class="mp-name">AoT T27 Éd. Limitée</div>
               <div class="mp-sub">Isayama · Pika · Collector</div>
@@ -2195,6 +2195,84 @@ function toggleTheme(){
     }
   }catch(e){}
 })()
+
+// ══════════════════════════════════════════════════════════════
+// MANGADEX FRENCH COVER LOADER
+// Fetches official French (fr) covers from MangaDex API
+// Falls back silently to CSS gradient backgrounds
+// ══════════════════════════════════════════════════════════════
+const MANGADEX_IDS = {
+  'berserk':        '801513ba-a712-498c-8f57-cae55b38cc92',
+  'one-piece':      'a1c7c817-4e59-43b7-9365-09675a149a6f',
+  'jjk':            'c52b2ce3-7f95-469c-96b0-479524fb7a1a',
+  'vinland-saga':   '37f5cce0-8070-4ada-96e5-fa24b1bd4ff9',
+  'aot':            'a18b61d7-b7f0-4082-8d95-ebb71c5e6d26',
+  'vagabond':       'd6947d9e-ca0d-4b8a-8abe-57d5b2880d46',
+  'chainsaw-man':   'a77742b1-befd-49a4-bff5-1ad4e6b0ef7b',
+  'monster':        'ee4c63b7-a74e-4ebf-b7f0-f69d5f7a17c9',
+}
+
+const COVER_CACHE = {}
+
+async function fetchMangaDexCover(mangaKey, locale='fr'){
+  if(COVER_CACHE[mangaKey]) return COVER_CACHE[mangaKey]
+  const id = MANGADEX_IDS[mangaKey]
+  if(!id) return null
+  try{
+    // Try French first, then English as fallback
+    const locales = locale === 'fr' ? ['fr','en'] : [locale]
+    for(const loc of locales){
+      const url = `https://api.mangadex.org/cover?manga[]=${id}&locale=${loc}&order[volume]=asc&limit=5`
+      const r = await fetch(url, {
+        headers: { 'Accept': 'application/json' },
+        signal: AbortSignal.timeout(6000)
+      })
+      if(!r.ok) continue
+      const data = await r.json()
+      const covers = data.data || []
+      if(covers.length > 0){
+        // Prefer volume 1 cover
+        const vol1 = covers.find(cv => cv.attributes?.volume === '1') || covers[0]
+        const filename = vol1?.attributes?.fileName
+        if(filename){
+          const imgUrl = `https://uploads.mangadex.org/covers/${id}/${filename}.512.jpg`
+          COVER_CACHE[mangaKey] = imgUrl
+          return imgUrl
+        }
+      }
+    }
+    return null
+  }catch(e){
+    return null
+  }
+}
+
+function applyCovers(){
+  // Find all imgs with data-manga-id attribute and load their covers
+  document.querySelectorAll('img[data-manga-id]').forEach(async img => {
+    const key = img.getAttribute('data-manga-id')
+    const coverUrl = await fetchMangaDexCover(key)
+    if(coverUrl){
+      const newImg = new Image()
+      newImg.onload = () => {
+        img.src = coverUrl
+        img.style.opacity = '0'
+        img.style.transition = 'opacity .4s ease'
+        requestAnimationFrame(() => {
+          img.style.opacity = '1'
+        })
+      }
+      newImg.src = coverUrl
+    }
+  })
+}
+
+// Run after DOM is ready
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', applyCovers)
+}else{
+  applyCovers()
+}
 
 </script>
 </body>
