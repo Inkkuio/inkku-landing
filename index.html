@@ -93,14 +93,9 @@ body.light .store-badge{background:#fff;border-color:rgba(0,0,0,.08)}
 
 /* ── MANGA COVER IMAGES ── */
 img[data-manga-id]{
-  font-size:0;           /* hide alt text */
-  color:transparent;     /* hide alt text color */
-  text-indent:-9999px;   /* additional alt text hide */
-  opacity:0;             /* hidden until loaded */
-  transition:opacity .5s ease;
-}
-img[data-manga-id].loaded{
-  opacity:1;
+  font-size:0 !important;
+  color:transparent !important;
+  opacity:0;
 }
 
 /* ── THEME TOGGLE BUTTON ── */
@@ -2210,159 +2205,67 @@ function toggleTheme(){
 })()
 
 // ══════════════════════════════════════════════════════════════
-// INKKU COVER LOADER v3 — MangaDex Search + AniList fallback
-// Searches by title for real IDs. Never shows broken images.
+// INKKU COVER LOADER v4 — Jikan API (MAL CDN, CORS-friendly)
+// MAL manga IDs are verified. Covers load from MAL CDN.
 // ══════════════════════════════════════════════════════════════
 
-// Search terms for each key → finds the right series on MangaDex
-const MANGA_SEARCH = {
-  'berserk':      'Berserk',
-  'one-piece':    'One Piece',
-  'jjk':          'Jujutsu Kaisen',
-  'vinland-saga': 'Vinland Saga',
-  'aot':          'Shingeki no Kyojin',
-  'vagabond':     'Vagabond',
-  'chainsaw-man': 'Chainsaw Man',
-  'monster':      'Monster',
-}
-
-// AniList IDs as reliable fallback (verified)
-const ANILIST_IDS = {
+// Verified MAL manga IDs (https://myanimelist.net/manga/{id})
+const MAL_IDS = {
   'berserk':      2,
-  'one-piece':    3,
-  'jjk':          114745,
-  'vinland-saga': 98442,
-  'aot':          53390,
-  'vagabond':     13,
+  'one-piece':    13,
+  'jjk':          96792,
+  'vinland-saga': 55702,
+  'aot':          23390,
+  'vagabond':     11,
   'chainsaw-man': 116778,
-  'monster':      9253,
+  'monster':      1,
 }
 
-const COVER_CACHE = {}
+const MDX_CACHE = {}
 
-// ── Step 1: Get manga ID from MangaDex search ──────────────────
-async function getMangaDexId(key) {
-  const title = MANGA_SEARCH[key]
-  if (!title) return null
+// Fetch cover URL from Jikan API (wraps MAL, fully CORS-friendly)
+async function getJikanCover(key) {
+  if (MDX_CACHE[key]) return MDX_CACHE[key]
+  const id = MAL_IDS[key]
+  if (!id) return null
   try {
     const r = await fetch(
-      `https://api.mangadex.org/manga?title=${encodeURIComponent(title)}&limit=5&availableTranslatedLanguage[]=fr`,
-      { signal: AbortSignal.timeout(5000) }
+      `https://api.jikan.moe/v4/manga/${id}`,
+      { signal: AbortSignal.timeout(8000) }
     )
     if (!r.ok) return null
     const data = await r.json()
-    const results = data.data || []
-    if (results.length === 0) return null
-    // Pick best match
-    const exact = results.find(m => {
-      const titles = Object.values(m.attributes?.title || {})
-      return titles.some(t => t.toLowerCase().includes(title.toLowerCase().split(' ')[0]))
-    })
-    return (exact || results[0]).id
+    const url = data?.data?.images?.jpg?.large_image_url
+              || data?.data?.images?.jpg?.image_url
+              || null
+    if (url) { MDX_CACHE[key] = url }
+    return url
   } catch(e) { return null }
 }
 
-// ── Step 2: Get FR cover from MangaDex ────────────────────────
-async function getMangaDexCover(mangaId) {
-  if (!mangaId) return null
-  try {
-    // Try FR first, then without locale filter
-    for (const locale of ['fr', '']) {
-      const localeParam = locale ? `&locale=${locale}` : ''
-      const r = await fetch(
-        `https://api.mangadex.org/cover?manga[]=${mangaId}${localeParam}&order[volume]=asc&limit=10`,
-        { signal: AbortSignal.timeout(5000) }
-      )
-      if (!r.ok) continue
-      const data = await r.json()
-      const covers = data.data || []
-      if (covers.length === 0) continue
-      // Prefer volume 1
-      const vol1 = covers.find(cv => cv.attributes?.volume === '1' || cv.attributes?.volume === '01') || covers[0]
-      const filename = vol1?.attributes?.fileName
-      if (filename) return `https://uploads.mangadex.org/covers/${mangaId}/${filename}.512.jpg`
-    }
-    return null
-  } catch(e) { return null }
+// Apply cover to a single img element
+function setCover(img, url) {
+  const tmp = new Image()
+  tmp.onload = () => {
+    img.src = url
+    img.style.transition = 'opacity .5s ease'
+    img.style.opacity = '1'
+  }
+  tmp.onerror = () => { /* keep gradient bg */ }
+  tmp.src = url
 }
 
-// ── Step 3: AniList fallback ───────────────────────────────────
-async function getAniListCover(key) {
-  const id = ANILIST_IDS[key]
-  if (!id) return null
-  try {
-    const r = await fetch('https://graphql.anilist.co', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        query: `query($id:Int){Media(id:$id,type:MANGA){coverImage{large extraLarge}}}`,
-        variables: { id }
-      }),
-      signal: AbortSignal.timeout(5000)
-    })
-    if (!r.ok) return null
-    const data = await r.json()
-    return data?.data?.Media?.coverImage?.extraLarge || data?.data?.Media?.coverImage?.large || null
-  } catch(e) { return null }
-}
-
-// ── Main cover loader ──────────────────────────────────────────
-async function loadCover(key) {
-  if (COVER_CACHE[key]) return COVER_CACHE[key]
-
-  // Try MangaDex (search → cover)
-  try {
-    const mangaId = await getMangaDexId(key)
-    const coverUrl = await getMangaDexCover(mangaId)
-    if (coverUrl) {
-      COVER_CACHE[key] = coverUrl
-      return coverUrl
-    }
-  } catch(e) {}
-
-  // Fallback: AniList
-  try {
-    const aniUrl = await getAniListCover(key)
-    if (aniUrl) {
-      COVER_CACHE[key] = aniUrl
-      return aniUrl
-    }
-  } catch(e) {}
-
-  return null
-}
-
-// ── Apply all covers on page ───────────────────────────────────
-function applyCovers() {
-  // Collect unique manga keys
+// Load all covers on the page
+async function applyCovers() {
   const imgs = document.querySelectorAll('img[data-manga-id]')
-  const keys = [...new Set([...imgs].map(img => img.getAttribute('data-manga-id')))]
-
-  // Load each unique key once, then apply to all matching imgs
-  keys.forEach(async key => {
-    const url = await loadCover(key)
+  // Deduplicate: load each key only once
+  const keys = [...new Set([...imgs].map(i => i.getAttribute('data-manga-id')))]
+  await Promise.all(keys.map(async key => {
+    const url = await getJikanCover(key)
     if (!url) return
-    document.querySelectorAll(`img[data-manga-id="${key}"]`).forEach(img => {
-      img.onload = () => {
-        img.style.opacity = '1'
-        img.classList.add('loaded')
-      }
-      img.onerror = () => {
-        img.style.opacity = '0'
-      }
-      img.style.opacity = '0'
-      img.style.transition = 'opacity .5s ease'
-      img.src = url
-    })
-  })
+    document.querySelectorAll(`img[data-manga-id="${key}"]`).forEach(img => setCover(img, url))
+  }))
 }
-
-// ── Hide alt text on empty-src imgs immediately ───────────────
-document.querySelectorAll('img[data-manga-id]').forEach(img => {
-  img.setAttribute('alt', '')   // suppress alt text display
-  img.style.fontSize = '0'      // hide broken img alt text
-  img.style.color = 'transparent'
-})
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', applyCovers)
