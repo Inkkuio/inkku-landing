@@ -90,6 +90,19 @@ body.light #matrix-canvas{filter:hue-rotate(0deg) brightness(.4)}
 body.light .ink-bg path{fill:#E63946;opacity:.06}
 body.light .store-badge{background:#fff;border-color:rgba(0,0,0,.08)}
 
+
+/* ── MANGA COVER IMAGES ── */
+img[data-manga-id]{
+  font-size:0;           /* hide alt text */
+  color:transparent;     /* hide alt text color */
+  text-indent:-9999px;   /* additional alt text hide */
+  opacity:0;             /* hidden until loaded */
+  transition:opacity .5s ease;
+}
+img[data-manga-id].loaded{
+  opacity:1;
+}
+
 /* ── THEME TOGGLE BUTTON ── */
 #theme-toggle{
   width:38px;height:38px;border-radius:50%;
@@ -2197,82 +2210,166 @@ function toggleTheme(){
 })()
 
 // ══════════════════════════════════════════════════════════════
-// MANGADEX FRENCH COVER LOADER
-// Fetches official French (fr) covers from MangaDex API
-// Falls back silently to CSS gradient backgrounds
+// INKKU COVER LOADER v3 — MangaDex Search + AniList fallback
+// Searches by title for real IDs. Never shows broken images.
 // ══════════════════════════════════════════════════════════════
-const MANGADEX_IDS = {
-  'berserk':        '801513ba-a712-498c-8f57-cae55b38cc92',
-  'one-piece':      'a1c7c817-4e59-43b7-9365-09675a149a6f',
-  'jjk':            'c52b2ce3-7f95-469c-96b0-479524fb7a1a',
-  'vinland-saga':   '37f5cce0-8070-4ada-96e5-fa24b1bd4ff9',
-  'aot':            'a18b61d7-b7f0-4082-8d95-ebb71c5e6d26',
-  'vagabond':       'd6947d9e-ca0d-4b8a-8abe-57d5b2880d46',
-  'chainsaw-man':   'a77742b1-befd-49a4-bff5-1ad4e6b0ef7b',
-  'monster':        'ee4c63b7-a74e-4ebf-b7f0-f69d5f7a17c9',
+
+// Search terms for each key → finds the right series on MangaDex
+const MANGA_SEARCH = {
+  'berserk':      'Berserk',
+  'one-piece':    'One Piece',
+  'jjk':          'Jujutsu Kaisen',
+  'vinland-saga': 'Vinland Saga',
+  'aot':          'Shingeki no Kyojin',
+  'vagabond':     'Vagabond',
+  'chainsaw-man': 'Chainsaw Man',
+  'monster':      'Monster',
+}
+
+// AniList IDs as reliable fallback (verified)
+const ANILIST_IDS = {
+  'berserk':      2,
+  'one-piece':    3,
+  'jjk':          114745,
+  'vinland-saga': 98442,
+  'aot':          53390,
+  'vagabond':     13,
+  'chainsaw-man': 116778,
+  'monster':      9253,
 }
 
 const COVER_CACHE = {}
 
-async function fetchMangaDexCover(mangaKey, locale='fr'){
-  if(COVER_CACHE[mangaKey]) return COVER_CACHE[mangaKey]
-  const id = MANGADEX_IDS[mangaKey]
-  if(!id) return null
-  try{
-    // Try French first, then English as fallback
-    const locales = locale === 'fr' ? ['fr','en'] : [locale]
-    for(const loc of locales){
-      const url = `https://api.mangadex.org/cover?manga[]=${id}&locale=${loc}&order[volume]=asc&limit=5`
-      const r = await fetch(url, {
-        headers: { 'Accept': 'application/json' },
-        signal: AbortSignal.timeout(6000)
-      })
-      if(!r.ok) continue
-      const data = await r.json()
-      const covers = data.data || []
-      if(covers.length > 0){
-        // Prefer volume 1 cover
-        const vol1 = covers.find(cv => cv.attributes?.volume === '1') || covers[0]
-        const filename = vol1?.attributes?.fileName
-        if(filename){
-          const imgUrl = `https://uploads.mangadex.org/covers/${id}/${filename}.512.jpg`
-          COVER_CACHE[mangaKey] = imgUrl
-          return imgUrl
-        }
-      }
-    }
-    return null
-  }catch(e){
-    return null
-  }
+// ── Step 1: Get manga ID from MangaDex search ──────────────────
+async function getMangaDexId(key) {
+  const title = MANGA_SEARCH[key]
+  if (!title) return null
+  try {
+    const r = await fetch(
+      `https://api.mangadex.org/manga?title=${encodeURIComponent(title)}&limit=5&availableTranslatedLanguage[]=fr`,
+      { signal: AbortSignal.timeout(5000) }
+    )
+    if (!r.ok) return null
+    const data = await r.json()
+    const results = data.data || []
+    if (results.length === 0) return null
+    // Pick best match
+    const exact = results.find(m => {
+      const titles = Object.values(m.attributes?.title || {})
+      return titles.some(t => t.toLowerCase().includes(title.toLowerCase().split(' ')[0]))
+    })
+    return (exact || results[0]).id
+  } catch(e) { return null }
 }
 
-function applyCovers(){
-  // Find all imgs with data-manga-id attribute and load their covers
-  document.querySelectorAll('img[data-manga-id]').forEach(async img => {
-    const key = img.getAttribute('data-manga-id')
-    const coverUrl = await fetchMangaDexCover(key)
-    if(coverUrl){
-      const newImg = new Image()
-      newImg.onload = () => {
-        img.src = coverUrl
-        img.style.opacity = '0'
-        img.style.transition = 'opacity .4s ease'
-        requestAnimationFrame(() => {
-          img.style.opacity = '1'
-        })
-      }
-      newImg.src = coverUrl
+// ── Step 2: Get FR cover from MangaDex ────────────────────────
+async function getMangaDexCover(mangaId) {
+  if (!mangaId) return null
+  try {
+    // Try FR first, then without locale filter
+    for (const locale of ['fr', '']) {
+      const localeParam = locale ? `&locale=${locale}` : ''
+      const r = await fetch(
+        `https://api.mangadex.org/cover?manga[]=${mangaId}${localeParam}&order[volume]=asc&limit=10`,
+        { signal: AbortSignal.timeout(5000) }
+      )
+      if (!r.ok) continue
+      const data = await r.json()
+      const covers = data.data || []
+      if (covers.length === 0) continue
+      // Prefer volume 1
+      const vol1 = covers.find(cv => cv.attributes?.volume === '1' || cv.attributes?.volume === '01') || covers[0]
+      const filename = vol1?.attributes?.fileName
+      if (filename) return `https://uploads.mangadex.org/covers/${mangaId}/${filename}.512.jpg`
     }
+    return null
+  } catch(e) { return null }
+}
+
+// ── Step 3: AniList fallback ───────────────────────────────────
+async function getAniListCover(key) {
+  const id = ANILIST_IDS[key]
+  if (!id) return null
+  try {
+    const r = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        query: `query($id:Int){Media(id:$id,type:MANGA){coverImage{large extraLarge}}}`,
+        variables: { id }
+      }),
+      signal: AbortSignal.timeout(5000)
+    })
+    if (!r.ok) return null
+    const data = await r.json()
+    return data?.data?.Media?.coverImage?.extraLarge || data?.data?.Media?.coverImage?.large || null
+  } catch(e) { return null }
+}
+
+// ── Main cover loader ──────────────────────────────────────────
+async function loadCover(key) {
+  if (COVER_CACHE[key]) return COVER_CACHE[key]
+
+  // Try MangaDex (search → cover)
+  try {
+    const mangaId = await getMangaDexId(key)
+    const coverUrl = await getMangaDexCover(mangaId)
+    if (coverUrl) {
+      COVER_CACHE[key] = coverUrl
+      return coverUrl
+    }
+  } catch(e) {}
+
+  // Fallback: AniList
+  try {
+    const aniUrl = await getAniListCover(key)
+    if (aniUrl) {
+      COVER_CACHE[key] = aniUrl
+      return aniUrl
+    }
+  } catch(e) {}
+
+  return null
+}
+
+// ── Apply all covers on page ───────────────────────────────────
+function applyCovers() {
+  // Collect unique manga keys
+  const imgs = document.querySelectorAll('img[data-manga-id]')
+  const keys = [...new Set([...imgs].map(img => img.getAttribute('data-manga-id')))]
+
+  // Load each unique key once, then apply to all matching imgs
+  keys.forEach(async key => {
+    const url = await loadCover(key)
+    if (!url) return
+    document.querySelectorAll(`img[data-manga-id="${key}"]`).forEach(img => {
+      img.onload = () => {
+        img.style.opacity = '1'
+        img.classList.add('loaded')
+      }
+      img.onerror = () => {
+        img.style.opacity = '0'
+      }
+      img.style.opacity = '0'
+      img.style.transition = 'opacity .5s ease'
+      img.src = url
+    })
   })
 }
 
-// Run after DOM is ready
-if(document.readyState === 'loading'){
+// ── Hide alt text on empty-src imgs immediately ───────────────
+document.querySelectorAll('img[data-manga-id]').forEach(img => {
+  img.setAttribute('alt', '')   // suppress alt text display
+  img.style.fontSize = '0'      // hide broken img alt text
+  img.style.color = 'transparent'
+})
+
+if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', applyCovers)
-}else{
+} else {
   applyCovers()
 }
+
 
 </script>
 </body>
